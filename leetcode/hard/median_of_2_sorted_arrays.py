@@ -1,5 +1,8 @@
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        # binary search on partition, O(log(min(M, N)))
+        pass
+
         # 2 pointer, O(M+N)
         m, n = len(nums1), len(nums2)
         mid = m+n
