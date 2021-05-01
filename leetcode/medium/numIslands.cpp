@@ -3,8 +3,7 @@ public:
 
     int n, m;
     vector<pair<int, int>> dirs = { {1,0}, {-1,0}, {0,1}, {0,-1} };
-    void bfs(int r, int c,
-             vector<vector<char>>& grid) {
+    void bfs(int r, int c, vector<vector<char>>& grid) {
         if (grid[r][c] == '0') return;
         queue<pair<int, int>> q;
         q.push( {r, c} );
@@ -14,12 +13,11 @@ public:
             r = p.first, c = p.second;
             for (pair<int, int> d : dirs) {
                 int x = r+d.first, y = c+d.second;
-                if (x >= 0 && x < n && y >= 0 && y < m) {
+                if (x >= 0 && x < n && y >= 0 && y < m)
                     if (grid[x][y] == '1') {
                         grid[x][y] = '0';
                         q.push( {x, y} );
                     }
-                }
             }
         }
     }
