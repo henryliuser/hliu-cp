@@ -27,12 +27,13 @@ int main() {
         int curr = total;
         int walked = 0;
         for (int a = z; a < z+N; a++) {
-            curr -= cows[z];
+            curr -= cows[a%N];
             walked += curr;
         }
         ans = min(ans, walked);
     }
 
+    cout << ans;
 
 
 
