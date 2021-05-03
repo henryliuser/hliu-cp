@@ -1,22 +1,9 @@
 N = int(input())
-ans = 0
+ans = 1e9
 weights = sorted(map(int, input().split()))
-taken = 0
-while taken < 2*N - 2:
-    # print(list(range(len(weights))))
-    # print(weights)
-    diffs = []
-    for x in range(1, len(weights)):
-        d = weights[x] - weights[x-1]
-        diffs.append( (d, x-1, x) )
-    diffs.sort()
-    # print(diffs)
-    d = diffs[0]
-    a, b = d[1], d[2]
-    # print(a, b, d[0])
-    taken += 2
-    weights.pop(a), weights.pop(b-1)
-    # print(taken)
-    # print('-'*10)
-    ans += d[0]
+for x in range(2*N):  # brute force on singles
+    for y in range(x+1, 2*N):
+        rest = [weights[z] for z in range(2*N) if (z != x and z != y)]
+        curr = sum(rest[z]-rest[z-1] for z in range(1, len(rest), 2))
+        ans = min(ans, curr)
 print(ans)

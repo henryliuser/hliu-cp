@@ -1,8 +1,9 @@
 class Solution {
 public:
 
-    vector<pair<int, int>> dirs = {{1,0}, {-1,0}, {0,-1}, {0,1}};
     int n, m;
+    vector<pair<int, int>> dirs = {{1,0}, {-1,0}, {0,-1}, {0,1}};
+
     void dfs(int r, int c, vector<vector<char>>& board) {
         // mark, then later delete every 'O' that's not marked
         board[r][c] = 'M';
