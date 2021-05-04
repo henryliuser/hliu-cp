@@ -25,7 +25,5 @@ public:
         if (ans.size() != numCourses) return vector<int>(0);
         return ans;
 
-
-
     }
 };
