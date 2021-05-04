@@ -1,29 +1,25 @@
 struct DSU {
-    vector<int> parent(n);
-    vector<int> size(n); // for Union by Size
+    int count;
+    vector<int> parent;
+    vector<int> size; // Union by Size
 
-    void make(int z)
-    {
-        parent[z] = v;
-        size[z] = 1;
+    DSU(int N) : count(N), parent(N), size(N, 1) {
+        for (int z = 0; z < N; z++) parent[z] = z;
     }
 
-    void union(int a, int b)
-    {
-        a = find(a);
-        b = find(b);
-        if (a != b)
-        {
+    void Union(int a, int b) {
+        a = Find(a);
+        b = Find(b);
+        if (a != b) {
             if (size[a] < size[b]) swap(a, b);
             parent[b] = a;
             size[a] += size[b];
+            count--;
         }
     }
 
-    int find(int v)
-    {
+    int Find(int v) {
         if (v == parent[v]) return v;
-        return parent[v] = find_set(parent[v]);
+        return parent[v] = Find(parent[v]);
     }   // path compression
-
 };
