@@ -7,14 +7,16 @@ struct DSU {
         for (int z = 0; z < N; z++) parent[z] = z;
     }
 
-    void Union(int a, int b) {
+    bool Union(int a, int b) { // return on success
         a = Find(a);
         b = Find(b);
-        if (a != b) {
+        if (a == b) return false; // cycle
+        else {
             if (size[a] < size[b]) swap(a, b);
             parent[b] = a;
             size[a] += size[b];
             count--;
+            return true;
         }
     }
 

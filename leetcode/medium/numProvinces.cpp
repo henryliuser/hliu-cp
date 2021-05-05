@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // Faster Union Find, better time
     struct DSU {
         int count;
         vector<int> parent;
@@ -39,7 +40,7 @@ public:
         return uf.count;
     }
 
-    // Easy DFS
+    // Easy DFS, better memory
     // int n;
     // void dfs(int z, vector<vector<int>>& isConnected, vector<bool>& seen) {
     //     seen[z] = true;
