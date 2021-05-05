@@ -10,14 +10,12 @@ struct DSU {
     bool Union(int a, int b) { // return on success
         a = Find(a);
         b = Find(b);
-        if (a == b) return false; // cycle
-        else {
-            if (size[a] < size[b]) swap(a, b);
-            parent[b] = a;
-            size[a] += size[b];
-            count--;
-            return true;
-        }
+        if (a == b) return false; // cycle (undirected)
+        if (size[a] < size[b]) swap(a, b);
+        parent[b] = a;
+        size[a] += size[b];
+        count--;
+        return true;
     }
 
     int Find(int v) {
