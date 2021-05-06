@@ -7,8 +7,8 @@ def solve():
         ajmj = nums[x]-x
         if ajmj in d:
             d[ajmj] += 1
-            ans += d
-        else: d[ajmj] = 1
+            ans += d[ajmj]
+        else: d[ajmj] = 0
     print(ans)
         
 for _ in range(int(input())):
