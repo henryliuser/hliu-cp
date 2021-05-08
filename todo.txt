@@ -1,0 +1,15 @@
+---------vv-MASTERED-vv----------
++++++++++++vv+SEEN+vv++++++++++++
+hashmap as you go, array, points depending on index
+union find
+union find on 2d matrix, connected by row/column
+dfs from edge
+dfs find islands
+bfs minimum moves
+bfs with priority queue
+eulerian path
+=============DANGER==============
+dijkstra's
+tarjan's
+cycle detection
+floyd warshall
