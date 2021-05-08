@@ -1,10 +1,14 @@
 struct DSU {
-    int count;
-    vector<int> parent, size; // Union by Size
-    DSU(int N) : count(N), parent(N), size(N, 1) {
-        while (--N >= 0) parent[N] = N;
+    int count = 0;
+    unordered_map<int, int> parent, size; // Union by Size
+    void Add(int a) {
+        if (parent.count(a)) return;
+        parent[a] = a;
+        size[a] = 1;
+        count++;
     }
     bool Union(int a, int b) { // return on success
+        Add(a), Add(b);
         a = Find(a), b = Find(b);
         if (a == b) return false; // cycle (undirected)
         if (size[a] < size[b]) swap(a, b);

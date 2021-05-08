@@ -2,7 +2,6 @@ class Solution {
 public:
 
     int dirs[4][2] = { {1,0}, {-1,0}, {0,1}, {0,-1} };
-
     int swimInWater(vector<vector<int>>& grid) {
         int ans = 0;
         int N = grid.size();
