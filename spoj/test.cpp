@@ -8,8 +8,7 @@ int main() {
         if (x == 42) break;
         cout << x << endl;
     }
-    vector<>
-    vector<>
-    
+
+
 
 }
