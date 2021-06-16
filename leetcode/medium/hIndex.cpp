@@ -19,6 +19,7 @@ public:
     }
 
     int hIndex(vector<int>& citations) {
+        sort(citations.begin(), citations.end());
         N = citations.size();
         int lo = 0, hi = N;
         while (lo < hi) {
