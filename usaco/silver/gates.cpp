@@ -26,12 +26,13 @@ int main() {
     for (int z = 0; z < N; z++) {  // awooga brute force line representation LOL
         char ch; cin >> ch;
         int lmao = 2;
-        if (ch == 'N') while (lmao--) grid[r--][c] = -1;
-        if (ch == 'E') while (lmao--) grid[r][c++] = -1;
-        if (ch == 'S') while (lmao--) grid[r++][c] = -1;
-        if (ch == 'W') while (lmao--) grid[r][c--] = -1;
+        while (lmao--) {
+            if (ch == 'N') grid[r--][c] = -1;
+            if (ch == 'E') grid[r][c++] = -1;
+            if (ch == 'S') grid[r++][c] = -1;
+            if (ch == 'W') grid[r][c--] = -1;
+        }
     }
-
 
     try {  // find the very first 0, (outer region) dfs it to mark
         for (int x = 0; x < lim; x++)
