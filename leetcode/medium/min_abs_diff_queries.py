@@ -15,7 +15,7 @@ class Solution:
             new_nums = [i for i in range(1, 101) if x[i] != y[i]]
             new_count = len(new_nums)
             min_diff = float('inf')
-            if new_count <= 1: min_diff = abs(nums[R-1], nums[L])
+            if new_count <= 1: min_diff = abs(nums[R-1] - nums[L])
             for n in range(1, new_count):
                 diff = new_nums[n] - new_nums[n-1]
                 min_diff = min(min_diff, diff)
