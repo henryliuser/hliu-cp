@@ -12,7 +12,7 @@ int main() {
     for (int r = 1; r <= H; ++r) {
         int t = r % 2;
         for (int c = 1; c <= W; ++c) {
-            char ch; scanf(" %c", &ch);
+            char ch; scanf(" %c", &ch);  // " %c" means skip leading whitespace
             if (ch == '.') dp[t][c] = (dp[!t][c] + dp[t][c-1]) % MOD;
             else dp[t][c] = 0;
         }
