@@ -19,5 +19,4 @@ int main() {
     }
     printf("%d\n", dp[H%2][W] % MOD);
 
-
 }
