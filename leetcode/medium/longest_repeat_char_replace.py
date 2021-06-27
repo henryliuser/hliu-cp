@@ -1,12 +1,15 @@
 class Solution:
-    def characterReplacement(self, s, k):
-        res = lo = 0
-        counts = collections.Counter()
-        for hi in range(len(s)):
-            counts[s[hi]] += 1
-            max_char_n = counts.most_common(1)[0][1]
-            while (hi - lo - max_char_n + 1 > k):
-                counts[s[lo]] -= 1
+    def characterReplacement(self, s: str, k: int) -> int:
+        N = len(s)
+        lo = ans = 0
+        window = defaultdict(int)
+        for hi in range(N):
+            window[s[hi]] += 1
+            while hi-lo+1 - max(window.values()) > k:
+                window[s[lo]] -= 1
+                if not window[s[lo]]:
+                    window.pop(s[lo])
                 lo += 1
-            res = max(res, hi - lo + 1)
-        return res
+            ans = max(ans, hi-lo+1)
+                
+        return ans
