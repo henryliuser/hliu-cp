@@ -15,18 +15,17 @@ class Solution:
 
         cnt, start = 0, [0, 0]
         for L in range(layers):
-            r, c = start
             dim = (M-cnt, N-cnt)
             perim = sum(2*d for d in dim) - 4
             ck = k % perim
+            r, c = start
+            nr, nc = start
             dir = (1, 0)
             ndir = (1, 0)
-            nr, nc = r, c
             for z in range(ck):
                 ndir = check_dir(nr, nc, dim, ndir, start)
                 nr += ndir[0]
                 nc += ndir[1]
-
             for z in range(perim):
                 ans[nr][nc] = grid[r][c]
                 dir = check_dir(r, c, dim, dir, start)
