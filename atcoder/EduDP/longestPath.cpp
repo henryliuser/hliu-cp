@@ -5,6 +5,11 @@ int ans = 0;
 vector<int> dp;
 vector<vector<int>> graph;
 
+// The intuition for max(1 + dp[j]) is that
+// you're already going to store adjacency list.
+// Hard to do dp[i] = longest path ENDING in i.
+// Easier to do dp[i] = longest path starting with i.
+
 int dfs(int x) {
     if (dp[x] != -1) return dp[x];
     if (graph[x].size() == 0) return 0;
@@ -19,8 +24,7 @@ int main() {
     graph.assign(N, vector<int>{});
     while (M--) {
         int x, y; scanf("%d%d", &x, &y);
-        x--, y--;
-        graph[x].push_back(y);
+        graph[--x].push_back(--y);
     }
     for (int z = 0; z < N; ++z)
         ans = max(ans, dfs(z));
