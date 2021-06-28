@@ -1,30 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() {
+int ans = 0;
+vector<int> dp;
+vector<vector<int>> graph;
 
+int dfs(int x) {
+    if (dp[x] != -1) return dp[x];
+    if (graph[x].size() == 0) return 0;
+    for (auto out : graph[x])
+        dp[x] = max(dp[x], 1 + dfs(out));
+    return dp[x];
+}
+
+int main() {
     int N, M; scanf("%d%d", &N, &M);
-    vector<pair<vector<int>,vector<int>>> graph(N);
-    // graph[x].first  -- incoming
-    // graph[x].second -- outgoing
+    dp.assign(N, -1);
+    graph.assign(N, vector<int>{});
     while (M--) {
         int x, y; scanf("%d%d", &x, &y);
         x--, y--;
-        graph[y].first.push_back(x);
-        graph[x].second.push_back(y);
+        graph[x].push_back(y);
     }
+    for (int z = 0; z < N; ++z)
+        ans = max(ans, dfs(z));
 
-    vector<int> dp(N, -1);
-    vector<int> start;
-    for (int z = 0; z < N; ++z) {
-        if (graph[z].first.size() == 0) {
-            start.push_back(z);
-        }
-    }
-    for (int node : start) {
-        dp[node] = 0;
-    }
-
-
+    printf("%d\n", ans);
 
 }
