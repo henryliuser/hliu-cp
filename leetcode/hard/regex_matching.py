@@ -9,6 +9,7 @@ class Solution:
             if c > 0:  # only true if x* matches 0
                 dp[0][c+1] = p[c] == '*' and dp[0][c-1]
 
+        # dp[r][c] = p[0:c] matches s[0:r]
         for r in range(S):
             t = (r+1) % 2
             nt = not t
@@ -39,6 +40,7 @@ class Solution:
             if c > 0:  # only true if x* matches 0
                 dp[0][c+1] = p[c] == '*' and dp[0][c-1]
 
+        # dp[r][c] = p[0:c] matches s[0:r]
         for r in range(S):
             for c in range(P):
                 if p[c] == '*':

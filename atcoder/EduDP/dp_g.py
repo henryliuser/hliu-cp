@@ -9,7 +9,8 @@ dp = [-1] * N
 def longestPath(i):
     if dp[i] != -1:
         return dp[i]
-    if len(graph[i]) == 0: dp[i] = 0
+    if len(graph[i]) == 0:
+        dp[i] = 0
     for j in graph[i]:
         dp[i] = max(dp[i], 1 + longestPath(j))
     return dp[i]
