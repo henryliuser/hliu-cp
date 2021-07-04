@@ -10,9 +10,9 @@ int main() {
     vector<vector<int>> dp(2, vector<int>(X+1));
 
     for (int r = 1; r <= N; ++r) {
+        int t = r % 2;
         int w = price[r-1];
         int p = pages[r-1];
-        int t = r % 2;
         for (int c = 1; c <= X; ++c) {
             dp[t][c] = dp[!t][c];
             if (c >= w)
