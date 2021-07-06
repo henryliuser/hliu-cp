@@ -1,5 +1,22 @@
 class Solution {
 public:
+    // O(N) greedy. Similar to minimum taps to water garden.
+    int jump(vector<int>& nums) {
+        int ans = 0;
+        int N = nums.size();
+        int prev = 0, right = 0;
+        for (int i = 0; i < N; ++i) {
+            if (i > right) return -1;
+            if (i > prev) {
+                ans++;
+                prev = right;
+            }
+            right = max(right, i+nums[i]);
+        }
+        return ans;
+    }
+
+    // Old BFS AC. Now is TLE.
     int jump(vector<int>& nums) {
         int N = nums.size();
         vector<bool> seen(N);
