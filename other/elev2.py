@@ -85,6 +85,7 @@ class Lift:
 
 if __name__ == '__main__':
   lift_1 = Lift(21)
+  lift_2 = Lift(21)
   lift_1.add_instruction(0, Direction.up)
   Thread(target=lift_1.add_instruction, args=(2,)).start()
   Thread(target=lift_1.add_instruction, args=(5,)).start()
