@@ -1,3 +1,4 @@
+# A. Clothes
 ans = float('inf')
 N, M = map(int, input().split())
 price = [0] + list(map(int, input().split()))
@@ -9,11 +10,9 @@ for _ in range(M):
 
 for i in range(1,N+1):
     for j in range(i+1, N+1):
+        if not i in match[j]: continue
         for k in range(j+1, N+1):
-            mi = i in match[j] and i in match[k]
-            mj = j in match[i] and j in match[k]
-            mk = k in match[i] and k in match[j]
-            if mi and mj and mk:
+            if i in match[j] and i in match[k] and k in match[j]:
                 p = price[i] + price[j] + price[k]
                 ans = min(ans, p)
 print(-1 if ans == float('inf') else ans)
