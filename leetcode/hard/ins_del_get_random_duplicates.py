@@ -29,7 +29,6 @@ class RandomizedCollection:
         return self.l[randrange(0, len(self.l))]
 
 
-
 # Your RandomizedCollection object will be instantiated and called as such:
 # obj = RandomizedCollection()
 # param_1 = obj.insert(val)
