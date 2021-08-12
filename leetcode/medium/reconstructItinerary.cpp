@@ -1,3 +1,4 @@
+// eulerian path
 class Solution {
 public:
     unordered_map<string, priority_queue<string, vector<string>, greater<string>>> graph;
@@ -21,34 +22,34 @@ public:
         return result;
     }
 };
-    // int N;
-    // bool first = true;
-    // void dfs(string s, string from, vector<string>& path,
-    //          unordered_map<string, map<string, int>>& graph)
-    // {
-    //     if (path.size() == N) throw path;
-    //     if (from != "") graph[from][s]--;
-    //     auto& m = graph[s];
-    //     for (auto it : m) {
-    //         string st = it.first;
-    //         if (graph[s][st] > 0) {
-    //             path.push_back(st);
-    //             dfs(st, s, path, graph);
-    //             path.pop_back();
-    //         }
-    //     }
-    //     if (from != "") graph[from][s]++;
-    // }
-    //
-    // vector<string> findItinerary(vector<vector<string>>& tickets) {
-    //     N = tickets.size() + 1;
-    //     unordered_map<string, map<string, int>> graph;
-    //     for (auto& t : tickets) {
-    //         graph[t[0]][t[1]]++;
-    //     }
-    //
-    //     try { dfs("JFK", "", {"JFK"}, graph); }
-    //     catch (vector<string>& v) { return v; }
-    //     return vector<string>();
-    // }
-// };
+
+// backtracking
+class Solution {
+public:
+    int N;
+    unordered_map<string, map<string, int>> graph;
+
+    void dfs(string a, vector<string>& path) {
+        path.push_back(a);
+        if (path.size() == N+1) throw -1;
+        for (auto& s : graph[a]) {
+            if (!s.second) continue;
+            s.second--;
+            dfs(s.first, path);
+            s.second++;  // backtrack
+        }
+        path.pop_back();  // backtrack
+    }
+
+    vector<string> findItinerary(vector<vector<string>>& tickets) {
+        N = tickets.size();
+        vector<string> ans;
+        for (auto& t : tickets)
+            graph[t[0]][t[1]]++;
+
+        try { dfs("JFK", ans); }
+        catch (int x) { }
+        return ans;
+
+    }
+};
