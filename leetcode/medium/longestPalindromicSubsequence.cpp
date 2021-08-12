@@ -13,7 +13,7 @@ public:
 
     int longestPalindromeSubseq(string s) {
         int N = s.size();
-        dp.assign(N+1, vector<int>(N+1, -1));
+        dp.assign(N, vector<int>(N, -1));
         return dfs(0, N-1, s);
     }
 };

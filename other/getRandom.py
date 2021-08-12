@@ -1,17 +1,18 @@
-L = [1,3,5,6,7,82,43,3]
-
-def get_random(C):
-    N = len(C)
+# O(calls)
+def get_random(L):
     while True:
-        s = set(set(range(N)))
-        while s:
-            idx = s.pop()
-            print(f"idx: {idx}")
-            yield C[idx]
+        size = len(L)
+        while size > 0:
+            size -= 1
+            i = randint(0, size)
+            L[i], L[size] = L[size], L[i]
+            yield L[size]
 
-gen = get_random(L)
-for _ in range(10000):
-    print(next(gen))
-
-
-# doesn't work lmfao
+# O(2 * calls + 10) lmao
+def get_random(L):
+    while True:
+        copy = list(L)
+        while L:
+            i = randint(0, len(L)-1)
+            L[i], L[-1] = L[-1], L[i]
+            yield L.pop()
