@@ -7,13 +7,13 @@
 # N = 2  |  q = (1 << 10) - 3
 # A = 26 |  b = 5
 
-def rabin_karp(src:list, m:int, b:int, q:int) -> list:
-    # return list of hashes length m with base 2^b, module q
-    h, d, t = pow(2, b*m-b, q), 1 << b, 0
+def rabin_karp(src:list, m:int, b:int, q:int) -> set:
+    # return set of hashes length m with base 2^b, module q
+    h, d, t = pow(2, b*m-b, q), 2**b, 0
     for i in range(m):
         t = (d * t + src[i]) % q
-    hashes = [t]
-    for i in range(len(src) - m):
-        t = (d*(t-src[i]*h) + src[i + m]) % q
-        hashes.append(t)
+    hashes = {t}
+    for i in range(m, len(src)):
+        t = (d*(t-src[i-m]*h) + src[i]) % q
+        hashes.add(t)
     return hashes
