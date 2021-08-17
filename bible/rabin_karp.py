@@ -9,7 +9,7 @@
 
 def rabin_karp(src:list, m:int, b:int, q:int) -> list:
     # return list of hashes length m with base 2^b, module q
-    h, d, t = (1<<(b*m-b))%q, 1 << b, 0
+    h, d, t = pow(2, b*m-b, q), 1 << b, 0
     for i in range(m):
         t = (d * t + src[i]) % q
     hashes = [t]
