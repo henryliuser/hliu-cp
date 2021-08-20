@@ -9,14 +9,14 @@ class Solution:
             else: return nums
 
 # O(N log N)
-# class Solution:
-#     def rearrangeArray(self, nums: List[int]) -> List[int]:
-#         ans = []
-#         N = len(nums)
-#         A = sorted(nums)
-#         for x in range(N//2):
-#             ans.append(A[x])
-#             ans.append(A[~x])
-#         if N % 2 == 1:
-#             ans.append(A[N//2])
-#         return ans
+class Solution:
+    def rearrangeArray(self, nums: List[int]) -> List[int]:
+        ans = []
+        N = len(nums)
+        A = sorted(nums)
+        for x in range(N//2):
+            ans.append(A[x])
+            ans.append(A[~x])
+        if N % 2 == 1:
+            ans.append(A[N//2])
+        return ans

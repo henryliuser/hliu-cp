@@ -1,7 +1,7 @@
 # q must be significantly greater than N^2 for comparing N strings
 # 2^b must be greater than A for alphabet size A
 
-# N = 100,000  |  q = (1 << 99) - 115
+# N = 100,000  |  q = (1 << 63) - 25
 # A = 100,000  |  b = 17
 
 # N = 2  |  q = (1 << 10) - 3

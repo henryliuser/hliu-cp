@@ -1,3 +1,39 @@
+// cleanest dfs O(MN)
+class Solution {
+public:
+    int M, N;
+    vector<vector<bool>> seen;
+    int dirs[4][2] = {{0,1}, {1,0}, {-1,0}, {0,-1}};
+
+    void dfs(int r, int c, vector<vector<char>>& grid) {
+        seen[r][c] = true;
+        for (auto& d : dirs) {
+            int x = r + d[0];
+            int y = c + d[1];
+            if (x < 0 || x >= M || y < 0 || y >= N)
+                continue;  // out of bounds
+            if (!seen[x][y] && grid[x][y] == '1')
+                dfs(x,y,grid);
+        }
+    }
+
+    int numIslands(vector<vector<char>>& grid) {
+        int ans = 0;
+        M = grid.size();
+        N = grid[0].size();
+        seen.assign(M, vector<bool>(N, 0));
+        for (int r = 0; r < M; ++r)
+            for (int c = 0; c < N; ++c)
+                if (!seen[r][c] && grid[r][c] == '1') {
+                    ++ans;
+                    dfs(r,c,grid);
+                }
+        return ans;
+    }
+};
+
+
+// old ugly bfs O(MN)
 class Solution {
 public:
 

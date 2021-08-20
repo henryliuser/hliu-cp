@@ -1,8 +1,7 @@
-# this barely TLE's on final case.
-# refer to cownomics.cpp for AC code
+# MOD = int(1e9+7) gives AC.
 
 BX  = 5
-MOD = (1 << 99) - 115
+MOD = int(1e9+7)
 mp = {'A': 1, 'C': 2, 'G': 3, 'T': 4}
 
 def rabin_karp(s, m, b, q, hashes):

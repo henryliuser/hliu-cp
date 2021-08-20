@@ -1,12 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
-using ull = __int128;
+using ull = unsigned long long;
 
 int M, N;
 vector<string> spots, plain;
 
-int BX = 5;
-ull MOD = ((ull)1 << 99) - 115;
+int BX = 3;
+int MOD = 1e9+7;
 unordered_map<char, int> mp({
     {'A', 1}, {'C', 2}, {'G', 3}, {'T', 4}
 });
@@ -25,13 +25,10 @@ void rabinKarp(string& s, int m, vector<unordered_set<ull>>& hashes)
     ull h = modPow(2, BX*m-BX, MOD);
     for (int i = 0; i < m; ++i) {
         t = (d * t + mp[s[i]]) % MOD;
-        t = (t + MOD) % MOD;
     }
-
     hashes[0].insert(t);
     for (int i = m; i < M; ++i) {
         t = (d * (t - mp[s[i-m]] * h) + mp[s[i]]) % MOD;
-        t = (t + MOD) % MOD;
         hashes[i-m+1].insert(t);
     }
 }

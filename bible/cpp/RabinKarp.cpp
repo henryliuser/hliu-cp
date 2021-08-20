@@ -14,12 +14,10 @@ unoredered_set<long long> rabinKarp(
     unordered_set<long long> hashes;
     for (int i = 0; i < m; ++i) {
         t = (d * t + src[i]) % q;
-        t = (t+q) % q;
     }
     hashes.insert(t);  // calculate first hash
     for (int i = m; i < src.size(); ++i) {
         t = (d * (t - src[i-m] * h) + src[i]) % q;
-        t = (t+q) % q;
         hashes.insert(t);  // rolling hash
     }
     return hashes;
