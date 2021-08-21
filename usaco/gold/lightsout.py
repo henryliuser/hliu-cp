@@ -1,5 +1,7 @@
+# misses cases 2 and 8. not sure why
+
 import sys
-Q = int(1e9+7)
+Q = (1 << 21) - 9
 B = 0
 def rabin_karp(src, m, st):
     h, d, t = pow(2, B*m-B, Q), pow(2, B, Q), 0
