@@ -3,7 +3,7 @@
 # to: longest subarray sum == s-x for s = sum(nums)
 class Solution:
     def minOperations(self, nums: List[int], x: int) -> int:
-        ans = float('inf')
+        ans = -1
         N, s = len(nums), sum(nums)
         if x > s: return -1
 
@@ -14,10 +14,10 @@ class Solution:
                 window -= nums[i]
                 i += 1
             if window == s-x:
-                win_size = j-i+1
-                ans = min(ans, N - win_size)
+                ans = max(ans, j-i+1)
 
-        return -1 if ans == float('inf') else ans
+        if ans == -1: return -1
+        return N - ans
 
 
 # doesn't work. not monotonic.
