@@ -1,6 +1,7 @@
 # instructive. order of LRLRL doesn't matter, so we just look for
 # any multiset of L's and R's that makes x = 0. This simplifies the problem
 # to: longest subarray sum == s-x for s = sum(nums)
+# so we can sliding window O(N).
 class Solution:
     def minOperations(self, nums: List[int], x: int) -> int:
         ans = -1
@@ -20,36 +21,22 @@ class Solution:
         return N - ans
 
 
-# doesn't work. not monotonic.
-# class Solution:
-#     def minOperations(self, nums: List[int], x: int) -> int:
-#         N = len(nums)
-#         pre = [0] * (N+1)
-#         suf = [0] * (N+1)
-#         for i in range(N):
-#             pre[i+1]  = pre[i]  + nums[i]
-#             suf[~i-1] = suf[~i] + nums[~i]
+# hashmap solution, slower
+class Solution:
+    def minOperations(self, nums: List[int], x: int) -> int:
+        sufH = {0:0}
+        pre = suf = 0
+        ans, N = float('inf'), len(nums)
 
-#         def possible(g):  # O(g) ~~ O(N)
-#             # 0: go higher,  1: go lower,  2: works and try lower
-#             greater = False
-#             print(f"g: {g} | {pre} {suf}")
-#             for i in range(g+1):
-#                 a, b = i, g-i
-#                 s = pre[a] + suf[~b]
-#                 print(a,b,s)
-#                 if s == x: return 2
-#                 if s > x: greater = True
-#             return int(greater)
+        for i in range(N):
+            suf += nums[~i]
+            sufH[suf] = i+1
+        if x in sufH: ans = sufH[x]
+        for i in range(N):
+            pre += nums[i]
+            if x-pre in sufH and N-sufH[x-pre] > i:
+                ans = min(ans, i+1 + sufH[x-pre])
 
-#         ans, lo, hi = -1, 0, N
-#         while lo < hi:  # O(log N)
-#             mid = (lo+hi) // 2
-#             p = possible(mid)
-#             # print(mid, p)
-#             if p == 0: lo = mid+1
-#             if p == 1: hi = mid
-#             if p == 2:
-#                 hi = mid
-#                 ans = mid
-#         return ans
+        if ans == float('inf'): return -1
+        return ans
+            
