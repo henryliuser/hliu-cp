@@ -10,13 +10,13 @@ dijkstra's
 ============================
 --stuff i don't really get--
 ============================
-how does h,d,t work polynomial rolling hash
 bfs with priority queue
 eulerian path
 
 =================
 --need to learn--
 =================
+segment tree
 mono-queue / mono-stack
 trie
 floyd-warshall
@@ -25,7 +25,6 @@ bellman-ford
 suffix array
 suffix tree
 ukkonen's
-segment tree
 fenwick tree
 rmq
 mst
@@ -54,3 +53,4 @@ dominator tree
 --cool stuff--
 ==============
 eer tree - https://arxiv.org/pdf/1506.04862.pdf
+li-chao tree
