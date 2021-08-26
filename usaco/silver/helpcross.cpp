@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
-// O(N log N) greedy match 2 pointers?
+// O(N log N) greedy match 2 pointers? -- doesn't work
 int main() {
-    // freopen("helpcross.in", "r", stdin);
-    // freopen("helpcross.out", "w", stdout);
+    freopen("helpcross.in", "r", stdin);
+    freopen("helpcross.out", "w", stdout);
     int C, N; cin >> C >> N;
     vector<int> T(C);
     vector<pair<int, int>> cows(N);
@@ -14,15 +14,18 @@ int main() {
 
     sort(T.begin(), T.end());
     sort(cows.begin(), cows.end(), [](auto& a, auto& b) {
-        if (a.first < b.first) return true;
         if (a.second < b.second) return true;
-        return false;
+        // if (a.first > b.first) return true;
+        return a.first < b.first;
     });
+
+    // for (auto d : cows) cout << d.first << " "; cout << endl;
+    // for (auto d : cows) cout << d.second << " "; cout << endl;
 
     int ans = 0;
     int i = 0, j = 0;  // i: chickens,  j: cows
     while (i < C && j < N) {
-        printf("%d %d: ", i, j);
+        // printf("%d %d: ", i, j);
         int t = T[i];
         auto& c = cows[j];
         int a = c.first, b = c.second;
@@ -31,7 +34,7 @@ int main() {
         }
         if (a > t) ++i;
         if (b < t) ++j;
-        printf("%d\n", ans);
+        // printf("%d\n", ans);
     }
 
     cout << ans << endl;

@@ -4,11 +4,18 @@
 
 # Find the sum of all the multiples of 3 or 5 below 1000.
 
-# no division/mod, probably faster
-s1 = sum(range(3,1000,3))
-s2 = sum(range(5,1000,5))
-s3 = sum(range(15,1000,15))
+# O(1) math
+N = 1000 - 1
+sumUp = lambda x: (x * (x+1)) // 2
+ans = 3*sumUp(N//3) + 5*sumUp(N//5) - 15*sumUp(N//15)
+print(ans)
+
+# no division/mod, still looping
+N = 1000
+s1 = sum(range(3,N,3))
+s2 = sum(range(5,N,5))
+s3 = sum(range(15,N,15))
 print(s1 + s2 - s3)
 
-# lots of modulo
+# trivial, lots of modulo
 print(sum(x for x in range(1,1000) if not ((x%3) and (x%5))))
