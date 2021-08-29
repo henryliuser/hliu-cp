@@ -8,6 +8,10 @@
 # whose values do not exceed four million,
 # find the sum of the even-valued terms.
 
+# math
+
+
+# trivial
 s = 0
 p1, p2 = 0, 1
 lim = 4000000

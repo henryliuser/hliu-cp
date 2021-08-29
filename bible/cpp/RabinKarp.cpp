@@ -5,7 +5,7 @@ long long modPow(long long x, long long y, int m)
     return p * p * (y % 2 ? x : 1) % m;
 }
 
-unoredered_set<long long> rabinKarp(
+unordered_set<long long> rabinKarp(
     vector<int>& src,
     int m, int b, long long q)
 {

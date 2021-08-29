@@ -47,7 +47,7 @@ public:
                     else if (ch > 64 && ch < 91) {   // Lock
                         int bp = bitPos[ch + 32];  // which key?
                         int qr = 1 << bp;    // bit query
-                        if (qr == (k & qr))  // if we have the key
+                        if ((k & qr) != 0)  // if we have the key
                             q.push({x, y, k});
                     }
                 }
