@@ -16,15 +16,13 @@ public:
                 else if (ch > 96 && ch < 123 && !bitPos.count(ch))
                     bitPos[ch] = bitPos.size();  // lower case and new
             }
-        int ans = -1;
+        int ans = 0;
         int done = (1 << bitPos.size()) - 1;
         while (!q.empty()) {
-            ++ans;
-            int len = q.size();
-            for (int z = 0; z < len; ++z) {
+            int layer = q.size();
+            for (int z = 0; z < layer; ++z) {
                 auto [r, c, k] = q.front();
                 q.pop();
-                if (k == done) return ans;
                 if (seen[r][c][k]) continue;
                 seen[r][c][k] = true;
                 for (auto& d : dirs) {
@@ -52,6 +50,7 @@ public:
                     }
                 }
             }
+            ++ans;
         }
         return -1;
     }
