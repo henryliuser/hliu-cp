@@ -1,3 +1,51 @@
+# O(N log N) rabin karp binary search
+# NOT monotonic over [0,N], but IS monotonic over evens and odds separately
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        N = len(s)
+        ans = s[0]
+
+        a = [ord(ch) for ch in s]
+        b = list(reversed(a))
+
+        Q, B = int(1e9+7), 8  # module and base for rolling hash
+        def rabin_karp(src, m):
+            h, d, t = pow(2, B*m-B, Q), 2**B, 0
+            for i in range(m):
+                t = (d*t + src[i]) % Q
+            hashes = [t]
+            for i in range(m, len(s)):
+                t = (d * (t-src[i-m]*h) + src[i]) % Q
+                hashes.append(t)
+            return hashes
+
+        def check(guess):  # index of palindrome len guess or -1 if none
+            if guess > N: return -1
+            rk1 = rabin_karp(a, guess)
+            rk2 = rabin_karp(b, guess)
+            for i, k in enumerate(rk1):
+                if rk2[~i] == k:
+                    return i
+            return -1
+
+        def binary_search(lo, hi, g):  # upper_bound over [g(lo), g(hi)]
+            nonlocal ans
+            while lo < hi:
+                mid = ceil((lo+hi) / 2.0)
+                guess = g(mid)
+                c = check(guess)
+                if c == -1:
+                    hi = mid -1
+                else:
+                    lo = mid
+                    if guess > len(ans):
+                        ans = s[c: c+guess]
+
+        binary_search(0, N//2, lambda x: 2*x)    # search on evens
+        binary_search(0, N//2, lambda x: 2*x+1)  # search on odds
+        return ans
+
+
 class Solution:
     def longestPalindrome(self, s: str) -> str:
         # dp, O(N^2) time, barely AC?
@@ -17,38 +65,16 @@ class Solution:
                             ans = (l, r+1)
         return s[ans[0]:ans[1]]
 
-        # O(N^3) brute force, TLE
-        def memo(f):
-            inp = {}
-            def helper(x):
-                if not x in inp:
-                    inp[x] = f(x)
-                return inp[x]
-            return helper
 
-        @memo
-        def isPal(st):
-            for i in range(len(st)//2):
-                if st[i] != st[-i-1]: return False
-            return True
 
-        ls = len(s)
-        ans = ""
-        for i in range(ls):
-            curr = ""
-            for char in s[i:]:
-                curr += char
-                if isPal(curr) and (len(curr) > len(ans)):
-                    ans = curr
-        if not ans: return s[0]
-        return ans
-
-        # Manacher's Algorithm O(N)
-        # NOT MY SOLUTION
-        #
-        # Transform S into T.
-        # For example, S = "abba", T = "^#a#b#b#a#$".
-        # ^ and $ signs are sentinels appended to each end to avoid bounds checking
+# Manacher's Algorithm O(N)
+# NOT MY SOLUTION
+#
+# Transform S into T.
+# For example, S = "abba", T = "^#a#b#b#a#$".
+# ^ and $ signs are sentinels appended to each end to avoid bounds checking
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
         T = '#'.join('^{}$'.format(s))
         n = len(T)
         P = [0] * n
