@@ -6,17 +6,17 @@ class Solution:
 
         # dijkstra's
         dist = [float('inf')] * n
-        known = [False] * n
+        seen = [False] * n
         pred = [-1] * n
-        heapq.heappush(pq:=[], (0,k-1))  # init pq with k
+        pq = [(0, k-1)]
         dist[k-1] = 0
         # pred[k-1] = k-1
 
         while len(pq):
             v = pq[0][1]
             heapq.heappop(pq)
-            if not known[v]:
-                known[v] = True
+            if not seen[v]:
+                seen[v] = True
                 for w, t in graph[v]:
                     nc = dist[v] + t
                     if dist[w] > nc:
@@ -26,6 +26,3 @@ class Solution:
 
         if any(d == float('inf') for d in dist): return -1
         return max(dist)
-
-
-        
