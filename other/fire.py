@@ -1,8 +1,8 @@
-age = 31  # grad at 22, 9 years later im 31
-savings   = 500000  # 500k here
-portfolio = 3000000 # 3m here
+age = 34  # grad at 22, 9 years later im 31
+savings   = 1600000  #
+portfolio = 1900000 #
 rate = 1.04
-annual_spending = 190000
+annual_spending = 200000
 while savings + portfolio > 0:
     if savings > 0:  # take from savings first
         savings -= annual_spending
