@@ -1,3 +1,12 @@
+// # if # of blocks NOT limited to 200:
+// # maintain running region
+// # if (x,y) in seen
+// #   region = list[idx[seen] : -1]
+// #   check if src/target contained,
+// # count number of regions containing src/target
+// # if they match then true
+// # 2 axis hits: axes become bounds
+// sad that this convoluted mess wasn't the real solution lol
 class Solution {
 public:
     unordered_map<int, unordered_set<int>> obs;
