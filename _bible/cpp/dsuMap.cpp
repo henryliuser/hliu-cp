@@ -5,7 +5,7 @@ struct DSU {
         if (parent.count(a)) return;
         parent[a] = a;
         size[a] = 1;
-        count++;
+        ++count;
     }
     bool Union(int a, int b) { // return on success
         Add(a), Add(b);
@@ -14,7 +14,7 @@ struct DSU {
         if (size[a] < size[b]) swap(a, b);
         parent[b] = a;
         size[a] += size[b]; // size[b] not used after
-        count--;
+        --count;
         return true;
     }
     int Find(int v) {
