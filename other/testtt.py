@@ -1,17 +1,21 @@
-# pair = count = 0
-# asd = (['r'] * 5) + (['b'] * 6)
-# for x in range(11):
-#     for y in range(x+1, 11):
-#         if asd[x] == asd[y]: pair += 1
-#         count += 1
-# print(pair, count)
-# print(pair/count)
-#
-#
-dp = [0] * 100
-dp[1] = 1
-dp[2] = 1
-for i in range(3, 100):
-    dp[i] = dp[i-2] + 2
+s = set()
 
-print(dp)
+for j0 in range(375):
+    for i0 in range(675):
+        j1 = j0 + 375
+        i1 = i0 + 625
+        i00, i01 = (j0, i0), (j0, i1)
+        i10, i11 = (j1, i0), (j1, i1)
+        # print(i00, i01, i10, i11)
+        s.add((j0, i0))
+        s.add((j0, i1))
+        s.add((j1, i0))
+        s.add((j1, i1))
+
+# print(len(s))
+
+s2 = {1, 3, 9, 100, 5, 2, 4, 6}
+for k in s2:
+    s2.remove(k)
+    print(k)
+    s2.add(k)
