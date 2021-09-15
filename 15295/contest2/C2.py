@@ -23,10 +23,8 @@ def dfs(u, src, remain):
     if src:
         src.adj.append(curr.idx)
         if u not in used:
-            used.add(u)
             curr.adj.append(u)
             dfs(u, None, limit[u])
-            used.remove(u)
     else: src = curr
     for v, w in roads[u]:
         if w <= remain:
