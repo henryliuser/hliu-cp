@@ -4,8 +4,8 @@ using ll = long long;
 using namespace std;
 
 // instructive problem :)
-// pre[r] - pre[l] = r - l
-// pre[r] - r = pre[l] - l    move same vars to same side
+// pre[r] - pre[l] = r - l + 1
+// pre[r] - r = pre[l] - l + 1   move same vars to same side
 // so: count unique (i,j) such that pre[i]-i == pre[j]-j
 // hash on pre[i]-i
 
