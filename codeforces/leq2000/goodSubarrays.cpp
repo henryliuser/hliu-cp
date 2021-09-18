@@ -13,10 +13,10 @@ ll solve() {
     ll ans = 0;
     int n; cin >> n;
     string v; cin >> v;
-    unordered_map<ll, ll> count;
+    unordered_map<int, ll> count;
     count[0] = 1;
     int sum = 0;
-    for (int i = 0; i < n; ++i) { 
+    for (int i = 0; i < n; ++i) {
         int x = v[i] - '0';
         sum += x;
         int val = sum - i - 1;
