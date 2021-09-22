@@ -2,7 +2,6 @@ class Solution:
     def maxTaxiEarnings(self, n: int, rides: List[List[int]]) -> int:
         R = len(rides)
         dp = [0] * R
-        dp2 = {}
         rides.sort(key = lambda x: x[1])
         ends = [r[1] for r in rides]
         for i,(s,e,t) in enumerate(rides):
@@ -13,8 +12,5 @@ class Solution:
             if ends[idx] > s: idx -= 1
             if idx == -1: continue
             dp[i] = max(dp[i], dp[idx] + e-s+t)
-            dp[i] = max(dp[i], dp[i-1])
-            dp2[e] = dp[i]
 
-        print(dp)
         return max(dp)

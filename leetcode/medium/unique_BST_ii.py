@@ -4,9 +4,16 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-
 class Solution:
     def generateTrees(self, n: int) -> List[Optional[TreeNode]]:
         def dfs(root, remaining):
-            pass
+            for x in remaining:
+                root.left = TreeNode(x)
+                remaining.remove(x)
+                for y in remaining:
+
+                dfs(root.left)
+                root.right = Tree
+
         for x in range(n):
+            pass
