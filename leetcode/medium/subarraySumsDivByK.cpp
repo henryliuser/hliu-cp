@@ -3,14 +3,13 @@ public:
     int subarraysDivByK(vector<int>& nums, int k) {
         int ans = 0;
         int N = nums.size();
-        vector<int> pre(N+1);
         vector<int> mods(k);
-        mods[0]++;  // don't forget this. always gets me.
-        int mx = 0;
+        mods[0] = 1;  // don't forget this.
+        long long curr = 0;
         for (int z = 0; z < N; ++z) {
-            pre[z+1] = (pre[z] + nums[z]%k) % k;
-            pre[z+1] = (pre[z+1] + k) % k;
-            ans += mods[pre[z+1]]++;
+            curr = (curr + (nums[z]%k)) % k;
+            curr = (curr+k)%k;
+            ans += mods[curr]++;
         }
         return ans;
 
