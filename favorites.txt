@@ -1,0 +1,5 @@
+https://leetcode.com/problems/odd-even-jump/
+
+https://codeforces.com/problemset/problem/1398/C
+
+http://www.usaco.org/index.php?page=viewproblem2&cpid=741
