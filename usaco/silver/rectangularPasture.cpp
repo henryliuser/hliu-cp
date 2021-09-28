@@ -18,6 +18,7 @@ int sum2D(int r1, int c1, int r2, int c2) {
 }
 
 int main() {
+    // input
     cin >> N;
     ll ans = N+1;
     cows.resize(N);
@@ -25,6 +26,7 @@ int main() {
     for (int i = 0; i < N; ++i)
         cin >> cows[i].R >> cows[i].C;
 
+    // coordinate compression
     auto cmp = [](pii& a, pii& b) { return a.C < b.C; };
     sort(begin(cows), end(cows), cmp);
     for (int i = 0; i < N; ++i) cows[i].C = i+1;
@@ -33,7 +35,7 @@ int main() {
         cows[i].R = i+1;
         grid[cows[i].R][cows[i].C] = 1;
     }
-
+    // 2d prefix sum
     for (int i = 1; i <= N+1; ++i) {
         for (int j = 1; j <= N+1; ++j) {
             int up = grid[i-1][j];
@@ -42,6 +44,7 @@ int main() {
             grid[i][j] += up + left - diag;
         }
     }
+    // iterate on top and bottom, count subsets
     for (int i = 0; i < N; ++i) {
         auto& top = cows[i];
         for (int j = i+1; j < N; ++j) {
