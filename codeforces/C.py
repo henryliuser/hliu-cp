@@ -1,7 +1,6 @@
 intput = lambda : map(int, input().split())
-xdirs = ((-1, -1), (-1,1), (1,-1), (1,1))
 
-def process(r, c, g):
+def process(r, c, K, g, s):
     seen = { (r,c) }
     i, j = r-1, c-1
     k, l = r-1, c+1
@@ -12,7 +11,8 @@ def process(r, c, g):
         seen.add( (k,l) )
         i, j = i-1, j-1
         k, l = k-1, l+1
-    return (size, seen)
+    if size >= K:
+        s |= seen
 
 def solve():
     marks = 0
@@ -28,16 +28,10 @@ def solve():
             marks += 1
             if grid[r-1][c-1] == '.': continue
             if grid[r-1][c+1] == '.': continue
-            p = process(r, c, grid)
-            ticks.append(p)
-    if marks == 0: return "YES"
-    for s,t in reversed(sorted(ticks)):
-        if s < k: break
-        for (x,y) in t:
-            seen.add( (x,y) )
-        if len(seen) == marks:
-            return "YES"
-    return "NO"
+            process(r, c, k, grid, seen)
+            
+    return "YES" if len(seen) == marks else "NO"
+
 
 t, = intput()
 for i in range(t):

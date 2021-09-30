@@ -38,7 +38,7 @@ int main() {
     // 2d prefix sum
     for (int i = 1; i <= N+1; ++i) {
         for (int j = 1; j <= N+1; ++j) {
-            int up = grid[i-1][j];
+            int up   = grid[i-1][j];
             int left = grid[i][j-1];
             int diag = grid[i-1][j-1];
             grid[i][j] += up + left - diag;
