@@ -1,3 +1,4 @@
+// Can do better, use PQ to keep track of just the 2 smallest.
 class Solution {
 public:
     int dp[20]{};
