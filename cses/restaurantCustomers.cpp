@@ -15,7 +15,6 @@ int main() {
     priority_queue<int> pq;
     for (int i = 0; i < n; ++i) {
         tie(a, b) = custs[i];
-        // printf("%d %d\n",a,b);
         while (!pq.empty() && a > -pq.top())
             pq.pop();
         pq.push(-b);
