@@ -30,18 +30,18 @@ int main() {
     int prev = 0;
     int total = 0;
     set<int> curr;
-    vector<int> one(n);
+    vector<int> alone(n);
     for (auto e : events) {
         int t = e.time;
         if (curr.size() > 0)
             total += t - prev;
         if (curr.size() == 1)
-            one[*curr.begin()] += t - prev;
+            alone[*curr.begin()] += t - prev;
         if (e.isStart) curr.insert(e.cow);
         else curr.erase(e.cow);
         prev = t;
     }
-    int m = *min_element(begin(one), end(one));
+    int m = *min_element(begin(alone), end(alone));
     cout << total - m << endl;
 
 }
