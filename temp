@@ -8,12 +8,16 @@
 #include <assert.h>
 #include <chrono>
 #include <cstdio>
+#include <cstring>
 #include <cstdlib>
 #include <cstring>
 #include <omp.h>
 #include <vector>
 #include <random>
 #include <climits>
+#include <stdio.h>
+#include <fstream>
+#include <iostream>
 
 static int _argc;
 static const char **_argv;
@@ -331,8 +335,42 @@ int main(int argc, const char *argv[]) {
   printf("Computation Time: %lf.\n", compute_time);
 
   /* Write wires and costs to files */
-  // std::string fileName = "output_" + input_filename + "_" +
+
+  // char *fileName[100]"output_" + std::string(input_filename) + "_" +
   //   std::to_string(num_of_threads) + ".txt";
+  // char* inFile = strtok(input_filename, "/");
+  // inFile = strtok(NULL, "/");
+  // const char* inFile = input_filename;
+  char buf[0x100];
+  snprintf(buf, sizeof(buf), "output.txt");
+  printf("%s\n", buf);
+  FILE *outFile = fopen(buf, "w");
+
+  // fprintf(outFile, "%d %d\n", dim_x, dim_y);
+  // for (int y = 0; y < dim_y; ++y) {
+  //   for (int x = 0; x < dim_x; ++x) {
+  //     fprintf(outFile, "%d ", costs[y * dim_x + x]);
+  //   }
+  //   fprintf(outFile, "\n");
+  // }
+
+  // fprintf(outFile, "%d %d\n", dim_x, dim_y);
+  // fprintf(outFile, "%d\n", num_of_wires);
+  // for (int w = 0; w < num_of_wires; ++w) {
+  //   path_t p = bestPaths[w];
+  //   int b2x, b2y;
+  //   if (p.bend1.x != p.end.x && p.bend1.y != p.end.y)
+  //     b2x =
+  //   if (p.bend1.x == -1)
+  //     fprintf(outFile, "%d %d %d %d\n", p.start.x, p.start.y, p.end.x, p.end.y);
+  //   else if (p.bend2.x == -1)
+  //     fprintf(outFile, "%d %d %d %d %d %d\n", p.start.x, p.start.y, p.bend1.x,
+  //       p.bend1.y, p.end.x, p.end.y);
+  //   else
+  //     fprintf(outFile, "%d %d %d %d %d %d\n", p.start.x, p.start.y, p.bend1.x,
+  //       p.bend1.y, p.bend2.x, p.bend2.y, p.end.x, p.end.y);
+  // }
+  // fclose(outFile);
 
   printf("%d %d\n", dim_x, dim_y);
   for (int y = 0; y < dim_y; ++y) {
@@ -346,8 +384,9 @@ int main(int argc, const char *argv[]) {
   printf("%d\n", num_of_wires);
   for (int w = 0; w < num_of_wires; ++w) {
     path_t p = bestPaths[w];
-    printf("%d %d / %d %d / %d %d\n", p.start.x, p.start.y, p.bend1.x,
-    p.bend1.y, p.end.x, p.end.y);
+    // printf("%d %d / %d %d / %d %d\n", p.start.x, p.start.y, p.bend1.x,
+    // p.bend1.y, p.end.x, p.end.y);
+    printf("%d\n", p.mx);
   }
 
   return 0;
