@@ -4,8 +4,8 @@ using ll = long long;
 
 struct MergeSortTree {
     unsigned long N;
-    vector<vector<int>> T;  // tree representation
     vector<int> &A;  // array reference
+    vector<vector<int>> T;  // tree representation
     void build(int v, int tl, int tr) {
         if (tl == tr) T[v] = {A[tl]};
         else {
