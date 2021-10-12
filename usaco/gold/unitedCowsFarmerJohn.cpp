@@ -2,7 +2,7 @@
 using namespace std;
 using ll = long long;
 
-struct MergeSortTree {
+struct MergeTree {
     unsigned long N;
     vector<int> &A;  // array reference
     vector<vector<int>> T;  // tree representation
@@ -27,7 +27,7 @@ struct MergeSortTree {
         int qr = query(max(al, mid+1), ar, R, v*2+1, mid+1, tr);
         return ql + qr;
     }
-    MergeSortTree(unsigned long n, vector<int>& a)
+    MergeTree(unsigned long n, vector<int>& a)
         : N{n}, A{a}, T{4*n, vector<int>()} { build(1,0,N-1); }
 };
 
@@ -46,7 +46,7 @@ int main() {
             neq[i] = next[x];
         next[x] = i;
     }
-    MergeSortTree seg{N, neq};
+    MergeTree seg{N, neq};
 
     for (int i = 0; i < N; ++i) {
         int x = cows[i];
