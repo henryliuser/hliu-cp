@@ -8,8 +8,7 @@ public:
             reds[e[0]].push_back(e[1]);
         for (auto e : blue_edges)
             blues[e[0]].push_back(e[1]);
-        queue<pair<int, int>> q;  // {x,c}  c / 0:any, 1:blue, 2:red
-
+        queue<pair<int, int>> q;  // {x,c}  c = 1:blue, 2:red
         q.push({0, 1});
         q.push({0, 2});
         vector<vector<int>> seen(2, vector<int>(n));
