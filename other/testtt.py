@@ -13,12 +13,12 @@ L  = [0] * 5  # [0,0,0,0,0]
 L2 = [[0] * 5 for i in range(5) if i != 3]
 print(L2)
 
-# ans = []
-# for i in range(len(L)):
-#     for j in range(len(L[i])):
-#         x = L[i][j]
-#         if x > 0:
-#             ans.append(x)
-# return ans
+ans = []
+for i in range(len(L)):
+    for j in range(len(L[i])):
+        x = L[i][j]
+        if x > 0:
+            ans.append(x)
+return ans
 
 # return [x for y in L for x in y if x > 0]
