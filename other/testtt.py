@@ -1,24 +1,21 @@
-def largestEdge(g):
-    ans = 0
-    best = None
-    for node1 in g:
-        for node2, weight in g[node1]:
-            if weight > ans:
-                ans = weight
-                best = [node1, node2]
-    return best
+# names = ['asd', 'bcd', 'qwe', 'asd']
+# numbers = [123, 554, 231, 444]
+#
+# d = {name:num for name, num in reversed(list(zip(names, numbers)))}
+#
+# A = [[1,2,3,] , [12,3,] [...]]
+# for i in range(len(A)):
+#     for j in range(len(A[i])):
+#         x = A[i][j]
+#
+# # d = {}
+# # for name, num in reversed(list(zip(names, numbers))):
+# #     d[name] = num
+# print(d)
 
+a = "asd qyweuhjk yatguhdjilka uayshifojqdkw"
+print(a.split(' '))
 
-L  = [0] * 5  # [0,0,0,0,0]
-L2 = [[0] * 5 for i in range(5) if i != 3]
-print(L2)
+line = "Hamilton: yughasjda"
 
-ans = []
-for i in range(len(L)):
-    for j in range(len(L[i])):
-        x = L[i][j]
-        if x > 0:
-            ans.append(x)
-return ans
-
-# return [x for y in L for x in y if x > 0]
+print(line.split(': '))
