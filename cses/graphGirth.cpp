@@ -6,29 +6,31 @@ using pii = pair<int, int>;
 
 int n, m;
 int ans = INT_MAX;
-vector<bool> seen;
 vector<vector<int>> graph;
 
 int bfs(int x) {
-    int res = 0;
+    int res = INT_MAX;
     int layer = 0;
+    vector<int> dist(n+1, -1);
     queue<pii> q;  // {u, prev}
     q.push({x, -1});
-    seen.assign(n+1, 0);
     while (!q.empty()) {
+        ++layer;
         int sz = q.size();
         for (int i = 0; i < sz; ++i) {
             auto p = q.front();
             q.pop();
             for (int v : graph[p.f]) {
                 if (v == p.s) continue;
-                if (seen[v]) continue;
-                if (v == x) return layer+1;
-                seen[v] = 1;
+                if (dist[v] != -1) {
+                    res = min(res, layer + dist[v]);
+                    continue;
+                }
+                if (v == x) res = min(res, layer);
+                dist[v] = layer;
                 q.push({v, p.f});
             }
         }
-        ++layer;
     }
     return res;
 }
@@ -45,8 +47,7 @@ int main() {
     for (int i = 1; i <= n; ++i)
         ans = min(ans, bfs(i));
 
-    cout << ans << endl;
-
-
+    if (ans == INT_MAX) cout << -1 << endl;
+    else cout << ans << endl;
 
 }
