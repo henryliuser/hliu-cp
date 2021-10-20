@@ -2,12 +2,14 @@
 using namespace std;
 
 int main() {
-
-    while (3) {
-        int x; cin >> x;
-        if (x == 42) break;
-        cout << x << endl;
+    vector<int> v = {0,1,2,3,4,5,6,7};
+    int lo = 0, hi = 7;
+    while (lo < hi) {
+        int mid = lo + ceil((hi-lo) / 2.0);
+        if (mid <= 2) lo = mid;
+        else hi = mid-1;
     }
+    cout << lo << endl;
 
 
 

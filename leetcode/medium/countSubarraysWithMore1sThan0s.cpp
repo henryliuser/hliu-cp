@@ -25,18 +25,16 @@ public:
         int ans = 0;
         int N = nums.size();
         vector<int> pre(N+1);
+        BIT bit(2*N+2);
+        bit.update(N, 1);
         for (int i = 1; i <= N; ++i) {
             int x = nums[i-1];
             pre[i] = pre[i-1] + (x ? 1 : -1);
-        }
-        BIT bit(2*N+2);
-        for (int i = 0; i <= N; ++i) {
             int q = bit.query(pre[i]+N-1);
             ans = (ans + q) % MOD;
             bit.update(pre[i]+N, 1);
         }
         return ans;
-
     }
 };
 
