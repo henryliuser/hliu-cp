@@ -6,7 +6,6 @@ using pii = pair<int, int>;
 #define s second
 
 int N, M, T;
-vector<bool> seen;
 vector<ll> dist, cnt;
 vector<int> cows, pred;
 vector<vector<pii>> graph;
@@ -20,7 +19,7 @@ ll dfs(int u, vector<vector<int>> &tree) {
 }
 
 void dijkstra() {
-    seen.resize(N+1);
+    vector<bool> seen(N+1);
     pred.assign(N+1, -1);
     dist.assign(N+1, LLONG_MAX);
     priority_queue<pii> pq;
