@@ -7,12 +7,12 @@ ll solve() {
     vector<int> A(n);
     for (int i = 0; i < n; ++i)
         cin >> A[i];
+    sort(begin(A), end(A));
+    int i = 0;
     ll curr = 0;
-    for (int i = 0; i < n; ++i) {
-        if (A[i] != 1) return curr + 1;
-        curr += A[i];
-    }
-    return curr + 1;
+    while (i < n && A[i] - curr < 2)
+        curr += A[i++];
+    return curr+1;
 }
 
 int main() {
