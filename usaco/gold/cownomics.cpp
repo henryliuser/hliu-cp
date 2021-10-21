@@ -11,11 +11,16 @@ unordered_map<char, int> mp({
     {'A', 1}, {'C', 2}, {'G', 3}, {'T', 4}
 });
 
-ull modPow(ull x, ull y, ull q) {
-    if (y == 0) return 1;
-    auto p = modPow(x, y/2, q);
-    if (y % 2 == 1) return (p*p*x) % q;
-    return (p*p) % q;
+ll modPow(ll a, ll b, ll m) {
+    a %= m;
+    ll res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a % m;
+        a = a * a % m;
+        b >>= 1;
+    }
+    return res;
 }
 
 void rabinKarp(string& s, int m, vector<unordered_set<ull>>& hashes)

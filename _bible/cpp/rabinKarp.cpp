@@ -1,17 +1,22 @@
-long long modPow(long long x, long long y, int m)
-{
-    if (y == 0) return 1;
-    auto p = modPow(x, y / 2, m);
-    return p * p * (y % 2 ? x : 1) % m;
+using ll = long long;
+
+ll modPow(ll a, ll b, ll m) {
+    a %= m;
+    ll res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a % m;
+        a = a * a % m;
+        b >>= 1;
+    }
+    return res;
 }
 
-unordered_set<long long> rabinKarp(
-    vector<int>& src,
-    int m, int b, long long q)
+unordered_set<ll> rabinKarp(vector<int>& src, int m, int b, ll q)
 {
-    long long t = 0, d = 1 << b;
-    long long h = modPow(2, b*m-b, q);
-    unordered_set<long long> hashes;
+    ll t = 0, d = 1 << b;
+    ll h = modPow(2, b*m-b, q);
+    unordered_set<ll> hashes;
     for (int i = 0; i < m; ++i) {
         t = (d * t + src[i]) % q;
     }
