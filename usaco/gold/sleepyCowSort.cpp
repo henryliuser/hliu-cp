@@ -8,7 +8,6 @@ struct BIT {
         for (++i; i <= N; i += i & (-i))
             bit[i] += val;
     }
-    int query(int L, int R) { return query(R) - query(L-1); }
     int query(int i) {
         int res = 0;
         for (++i; i > 0; i -= i & (-i))
@@ -26,8 +25,8 @@ int main() {
     for (int i = 0; i < n; ++i)
         cin >> A[i];
     int i = n-2;
-    while (i >= 0 && A[i] < A[i+1]) --i; ++i;
-    cout << i << endl;
+    while (i >= 0 && A[i] < A[i+1]) --i;
+    cout << ++i << endl;
     BIT ft(n+1);
     for (int j = i; j < n; ++j)
         ft.update(A[j], 1);
@@ -38,5 +37,4 @@ int main() {
         printf((j == i-1) ? "\n" : " ");
         ft.update(A[j], 1);
     }
-
 }
