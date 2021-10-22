@@ -1,3 +1,6 @@
+// problems like this one make me wonder
+// why im still in this major
+
 #include <bits/stdc++.h>
 using namespace std;
 using pii = pair<int, int>;
