@@ -2,11 +2,14 @@
 using namespace std;
 
 int main() {
-    vector<int> v = {0,1,2,3,4,5,6,7};
-    char a, b, c;
-    cin >> a >> b >> c;
-    printf("%d | %d | %d\n", a, b, c);
-
+    vector<string> v;
+    v.push_back("Hello");
+    string &x = v[0];
+    cout << x << endl;
+    v.push_back("World");
+    cout << x << endl;
+    cout << v[0] << endl;
+    cout << v[1] << endl;
 
 
 }
