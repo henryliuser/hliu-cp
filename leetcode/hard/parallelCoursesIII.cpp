@@ -17,18 +17,18 @@ public:
         }
         int ans = 0;
         int left = n;
-        priority_queue<pii> pq;
+        queue<pii> q;
         for (int i = 0; i < n; ++i)
             if (indeg[i] == 0) {
-                pq.push({time[i], i});
+                q.push({time[i], i});
                 ans = max(ans, time[i]);
                 --left;
             }
         if (!left) return ans;
 
-        while (!pq.empty()) {
-            pii p = pq.top();
-            pq.pop();
+        while (!q.empty()) {
+            pii p = q.front();
+            q.pop();
             for (int v : graph[p.s]) {
                 ++seen[v];
                 dp[v] = max(dp[v], p.f);
@@ -36,7 +36,7 @@ public:
                 --left;
                 ans = max(ans, dp[v] + time[v]);
                 if (!left) return ans;
-                pq.push({dp[v] + time[v], v});
+                q.push({dp[v] + time[v], v});
             }
         }
         return ans;
