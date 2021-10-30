@@ -4,17 +4,17 @@ using namespace std;
 int N;
 int curr = 0;
 stack<int> st;
-vector<int> id, low;
+vector<int> id, low, scc;
 vector<bool> onStack;
 vector<vector<int>> graph;
 
-void dfs(int u) {
+void tarjan(int u) {
     st.push(u);
     onStack[u] = 1;
     id[u] = low[u] = curr++;
     for (int v : graph[u]) {
         if (id[v] == -1) {  // if not visited
-            dfs(v, graph);
+            tarjan(v);
             low[u] = min(low[u], low[v]);
         }
         else if (onStack[v])  // genius part
@@ -30,12 +30,17 @@ void dfs(int u) {
     }
 }
 
-void tarjan() {
+void init() {
     N = graph.size();
+    scc.resize(N);
     id.assign(N, -1);
     low.assign(N, -1);
     onStack.assign(N, false);
+}
+
+int main() {
+    init();
     for (int i = 0; i < N; ++i)
         if (id[i] == -1)
-            dfs(i, graph);
+            tarjan(i);
 }
