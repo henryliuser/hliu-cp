@@ -1,29 +1,28 @@
-// wa on last case, no idea why rip
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
-using pii = pair<ll, ll>;
+using ll = unsigned long long;
 using tup = tuple<ll, ll, ll>;
+using pll = pair<ll, ll>;
 #define f first
 #define s second
 
 int N, M;
-vector<vector<pii>> graph[2];
+vector<vector<pll>> graph[2];
 
 void dijkstra(int src, int g, vector<ll> &dist) {
+    priority_queue<pll, vector<pll>, greater<pll>> pq;
     ll p, u;
-    priority_queue<pii> pq;
     dist[src] = 0;
     pq.push({0, src});
     while (!pq.empty()) {
         tie(p, u) = pq.top();
         pq.pop();
-        if (-p != dist[u]) continue;
-        for (pii &v : graph[g][u]) {
+        if (p != dist[u]) continue;
+        for (pll &v : graph[g][u]) {
             ll nc = v.s + dist[u];
             if (nc < dist[v.f]) {
                 dist[v.f] = nc;
-                pq.push({-nc, v.f});
+                pq.push({nc, v.f});
             }
         }
     }
@@ -47,7 +46,7 @@ int main() {
     ll ans = dist1[N];
     for (int i = 0; i < M; ++i) {
         tie(a,b,v) = edges[i];
-        ans = min(ans, dist1[a] + v/2ll + distN[b]);
+        ans = min(ans, dist1[a] + v/2ull + distN[b]);
     }
     cout << ans << endl;
 }

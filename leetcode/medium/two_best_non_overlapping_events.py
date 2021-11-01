@@ -1,11 +1,10 @@
 # super clean, no need for DP or BST.
 class Solution:
     def maxTwoEvents(self, events: List[List[int]]) -> int:
-        ans = m = 0  # m represents max value of finished event so far
-        N = len(events)
         proc = []
+        ans = m = 0  # m represents max value of finished event so far
         for s,e,v in events:
-            proc.append( (s, True, v) )  # time, is_start, val
+            proc.append( (s, True, v) )     # time, is_start, val
             proc.append( (e+1, False, v) )  # use e+1 (inclusive)
         proc.sort()  # sort by time
 
