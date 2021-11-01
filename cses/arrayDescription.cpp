@@ -1,3 +1,4 @@
+// dp[i][j] = # of ways to fill up to index i, if A[i] == j
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -35,7 +36,7 @@ int main() {
         ans += (dp[N][i] % MOD);
         ans %= MOD;
     }
-        
+
     cout << ans << endl;
 
 }
