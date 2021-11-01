@@ -1,9 +1,9 @@
 struct DSU {
     int count;
-    vector<int> parent, size; // Union by Size
+    vector<int> parent, size; // unite by Size
     DSU(int N) : count(N), parent(N, -1), size(N, 1) {}
-    bool Union(int a, int b) { // return on success
-        a = Find(a), b = Find(b);
+    bool unite(int a, int b) { // return on success
+        a = find(a), b = find(b);
         if (a == b) return false; // cycle (undirected)
         if (size[a] < size[b]) swap(a, b);
         parent[b] = a;
@@ -11,8 +11,8 @@ struct DSU {
         count--;
         return true;
     }
-    int Find(int v) {
+    int find(int v) {
         if (parent[v] == -1) return v;
-        return parent[v] = Find(parent[v]);
+        return parent[v] = find(parent[v]);
     }   // path compression
 };
