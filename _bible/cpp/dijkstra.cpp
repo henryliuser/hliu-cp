@@ -1,29 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+using pii = pair<int, int>;
+#define f first
+#define s second
+
 // set-up
 int N;
+vector<int> pred(N, -1);
 vector<int> dist(N, INT_MAX);
-vector<int> path(N, -1);
 
 // adjacency list
-vector<vector<pair<int, int>>> graph; // pair<target, weight>
+vector<vector<pii>> graph; // pair<target, weight>
 
-void dijkstra(int root, vector<int>& dist, vector<int>& path,
-              vector<vector<pair<int, int>>>& graph)
+void dijkstra(int src)
 {
-    dist[root] = 0;
-    vector<bool> seen(N, false);
-    for (int z = 0; z < N; z++) {
-        int v = -1;
-        for (int a = 0; a < N; a++) // find min unseen
-            if (!seen[a] && (v == -1 || dist[a] < dist[v]))
-                v = a;
-        if (dist[v] == INT_MAX) break;
-        seen[v] = true;
-        for (auto& edge : graph[v]) { // <target, weight>
-            int& target = dist[target] + edge.first;
-            int curr = dist[v] + edge.second;
-            if (curr < target) {
-                target = curr;
-                path[target] = v;
+    int p, u;
+    dist[src] = 0;
+    priority_queue<pii> pq;
+    pq.push({0, src});
+    while (!pq.empty()) {
+        tie(p, u) = pq.top();
+        pq.pop();
+        if (-p != dist[u]) continue;  // same as using seen array
+        for (pii &v : graph[u]) {
+            int nc = dist[u] + v.s;
+            if (nc < dist[v.f]) {
+                dist[v.f] = nc;
+                pred[v.f] = u;
+                pq.push({-nc, v.f});
             }
         }
     }
