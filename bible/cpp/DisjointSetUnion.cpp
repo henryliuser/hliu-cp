@@ -12,7 +12,7 @@ struct DSU {
         return true;
     }
     int find(int v) {
-        if (v == parent[v]) return v;
+        if (parent[v] == -1) return v;
         return parent[v] = find(parent[v]);
     }   // path compression
 };

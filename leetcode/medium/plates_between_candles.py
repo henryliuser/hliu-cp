@@ -14,12 +14,15 @@ class Solution:
         for L, R in queries:
             a = bisect_left(candles, L)
             b = bisect_left(candles, R)
+            print(a,b)
             if b == len(candles) or candles[b] > R:
                 b -= 1
-            if candles[a] >= R or a > b or a == b or candles[b] <= L:
+            if a == len(candles): a -= 1
+            if L == R or abs(L-R) <= 1 or candles[a] >= R or a > b or a == b or candles[b] <= L:
                 ans.append(0)
                 continue
             x, y = candles[a], candles[b]
             ans.append(pre[y] - pre[x])
-            
+
         return ans
+                

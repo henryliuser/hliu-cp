@@ -1,10 +1,8 @@
-int binarySearch(vector<int>& nums, int target) {
-    int L = 0, R = nums.size()-1; // or N
-    while (L < R) {
-        int M = L + (R - L) / 2; // prevent overflow;
-        if (nums[M] < target)      L = M+1;
-        else if (nums[M] > target) R = M-1;
-        else return M;
-    }
-    return -1;
+// find minimum value that passes check
+int lo = 0, hi = N;
+while (lo < hi) {
+    int mid = lo + (hi-lo) / 2;  // protect against int overflow, negative rounding
+    if (check(mid)) hi = mid;    // if it passes, don't exclude
+    else lo = mid + 1;           // if it fails, exclude it.
 }
+return lo;
