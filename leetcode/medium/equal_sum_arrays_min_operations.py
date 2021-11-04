@@ -1,3 +1,4 @@
+# super instructive PQ question.
 class Solution:
     def minOperations(self, nums1: List[int], nums2: List[int]) -> int:
         N, M = len(nums1), len(nums2)
@@ -18,6 +19,3 @@ class Solution:
             s1 -= heapreplace(who, 0)
             ans += 1
         return ans
-
-
-                
