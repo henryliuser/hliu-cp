@@ -6,7 +6,7 @@ const int INF = 1e9+1;
 int dp[501][501] = {};
 int main() {
     cin >> a >> b;
-    memset(dp, INF, sizeof dp);
+    memset(dp, INF, sizeof dp);  // so this is actually UB lol.
     for (int i = 1; i <= a; ++i) {
         for (int j = 1; j <= b; ++j) {
             int &v = dp[i][j];
