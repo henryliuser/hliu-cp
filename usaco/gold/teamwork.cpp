@@ -25,7 +25,6 @@ int main() {
 }
 
 
-
 // atrocious RMQ dp lmfao
 // #include <bits/stdc++.h>
 // using namespace std;
