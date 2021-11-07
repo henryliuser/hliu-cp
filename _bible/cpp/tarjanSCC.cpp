@@ -40,17 +40,7 @@ void init(int n) {
 }
 
 int main() {
-    cin >> N >> M;
-    init(N+1);
-    while (M--) {
-        int a, b; cin >> a >> b;
-        adj[a].push_back(b);
-    }
     for (int i = 1; i <= N; ++i)
         if (disc[i] == -1)
             tarjan(i);
-    printf("%d\n", C-1);
-    for (int i = 1; i <= N; ++i)
-        printf("%d ", scc[i]);
-    printf("\n");
 }
