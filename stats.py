@@ -9,7 +9,8 @@ counts = defaultdict(int)
 def dfs(pt):
     for x in pt.iterdir():
         s = str(x)
-        if x.is_dir() and s[-4:] != ".git":
+        if s.endswith("other") or s.endswith(".git"): continue
+        if x.is_dir():
             dfs(x)
             continue
         name, ext = os.path.splitext(os.path.basename(s))

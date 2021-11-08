@@ -1,48 +1,13 @@
-# s = ""
-#
-# while 3:
-#     s = input().split()
-#     try:
-#         int(s[0])
-#         s = s[1:]
-#     except: pass
-#     print(' '.join(s))
-# ans = 0
-# N = 5
-# def dfs(i, x):
-#     global ans
-#     if i == N-1:
-#         ans += 1
-#         return
-#     for j in [x-1, x, x+1]:
-#         if 0 < j <= 10:
-#             dfs(i+1, j)
-#
-# for i in range(1, 11):
-#     dfs(0, i)
-#
-# print(ans)
+a = 19 + 34 + 8 + 83 + 26 + 38 + 72.5 + 13 + 25.4 + 19 + 57.8 + 23 + 33.4 + 43 + 5 + 60.5
+b = 33 + 64 + 8 + 99 + 28 + 47 + 83.0 + 17 + 50.0 + 52 + 62.0 + 36 + 35.0 + 55 + 5 + 61.0
+# a += 250
+# b += 300
+hw = a/b
+mt1 = 98 / 105
+mt2 = 90 / 105
+lab = 11/12
+fin = 0.8
+P = [hw, mt1, mt2, lab, fin]
+W = [.45, .1, .1, .1, .25]
 
-g = {...}
-def getPrereqs(g, course):
-    prereqs = []
-    for k in g:
-        if course in g[k]:
-            prereqs.append(k)
-    return prereqs
-
-
-
-def findParents(t, name):
-    c = t['content']
-    L, R = t['left'], t['right']
-    if c == name:
-        parents = []
-        if L != None: parents.append(L['content'])
-        if R != None: parents.append(R['content'])
-        return parents
-    if L == None and R == None:
-        return None
-    fl = findParents(L, name)
-    if fl != None: return fl
-    return findParent(R, name)
+print(sum(P[i]*W[i] for i in range(5)))
