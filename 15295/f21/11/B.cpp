@@ -29,7 +29,7 @@ struct DSU {
     }
     bool get(int a) {
         if (src[a] == -1) return rel[a];
-        return rel[a] == get(src[a]);
+        return rel[a] == get(src[a]);  // can also compress here probably.
     }
 };
 
