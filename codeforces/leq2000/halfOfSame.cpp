@@ -1,26 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int gcd(int a, int b) {
-    while (b)
-        swap(b, a %= b);
-    return a;
-}
-
-vector<int> factorize(int n)
-{
-    int i;
-    vector<int> factors;
-    for (i = 1; i * i < n; i++) {
-        if (n % i == 0)
-            factors.push_back(i);
-    }
-    if (i - (n / i) == 1) --i;
-    for (; i >= 1; i--) {
-        if (n % i == 0)
-            factors.push_back(n/i);
-    }
-    return factors;
+set<int> factorize(int n) {
+    set<int> f;
+    for (int x = 1; x*x <= n; ++x)
+        if (n % x == 0) {
+            f.insert(n / x);
+            f.insert(x);
+        }
+    return f;
 }
 
 int solve() {
@@ -40,19 +28,18 @@ int solve() {
         for (int i = t+1; i < n; ++i) {
             int diff = A[i] - A[t];
             if (diff == 0) --req;
-            auto factors = factorize(diff);
-            for (int f : factors) {
+            for (int f : factorize(diff)) {
                 if (++cnt[f] >= req)
                     ans = max(ans, f);
             }
-
         }
     }
-
     return ans;
 }
 
 int main() {
+    cin.tie(0);
+    ios::sync_with_stdio(false);
     int T; cin >> T;
     while (T--)
         cout << solve() << "\n";
