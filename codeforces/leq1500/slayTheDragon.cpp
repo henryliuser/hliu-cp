@@ -26,19 +26,16 @@ ll solve(ll d, ll a) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cin >> N;
-    A.resize(N);
-    for (int i = 0; i < N; ++i) cin >> A[i];
-    cin >> M;
-    vector<ll> atk(M), def(M);
-    for (int i = 0; i < M; ++i) cin >> def[i] >> atk[i];
-
+    cin >> N; A.resize(N);
+    for (int i = 0; i < N; ++i)
+        cin >> A[i];
     sort(begin(A), end(A));
     for (int i = 0; i < N; ++i)
         sum += A[i];
 
+    cin >> M;
     for (int q = 0; q < M; ++q) {
-        ll d = def[q], a = atk[q];
+        ll d, a; cin >> d >> a;
         cout << solve(d,a) << "\n";
     }
 
