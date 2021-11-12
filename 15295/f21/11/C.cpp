@@ -16,6 +16,7 @@ struct DSU {
         a = find(a), b = find(b);
         if (a == b) return false;
         if (psz[a] > psz[b]) swap(a, b);
+        if (psz[a] == psz[b]) --psz[a];
         psz[b] = a;
         --count;
         return true;
@@ -49,10 +50,9 @@ int main() {
         int lo = 0, hi = K;
         while (lo < hi) {
             int mid = lo + (hi-lo) / 2;
-            if (uf[mid].same(u, v))
-                lo = mid+1;
-            else
-                hi = mid;
+            bool bad = uf[mid].same(u,v);
+            if (bad) lo = mid+1;
+            else hi = mid;
         }
         if (lo == K)
             ans[q] = 0;

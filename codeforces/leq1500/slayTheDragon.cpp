@@ -8,18 +8,13 @@ ll sum = 0;
 vector<ll> A;
 
 ll solve(ll d, ll a) {
-    ll send, keep;
     auto it = lower_bound(begin(A), end(A), d);
-    if (it == end(A) || it == begin(A)) {
-        if (it == end(A)) it = prev(it);
-        send = *it, keep = sum - *it;
-        return max(d-send, 0ll) + max(a-keep, 0ll);
-    }
-    ll o = *prev(it);
-    send = o, keep = sum - o;
-    ll L = max(d-send, 0ll) + max(a-keep, 0ll);
-    send = *it, keep = sum - *it;
-    ll R = max(d-send, 0ll) + max(a-keep, 0ll);
+    if (it == end(A)) it = prev(it);
+    ll send = *it, keep = sum-send;
+    ll L = max(0ll, d-send) + max(0ll, a-keep);
+    if (it == begin(A)) return L;
+    send = *prev(it), keep = sum-send;
+    ll R = max(0ll, d-send) + max(0ll, a-keep);
     return min(L, R);
 }
 
