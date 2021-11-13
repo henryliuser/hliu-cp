@@ -1,16 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
+using ll = long long;
 
 int main() {
-    long long ans = 0;
-    int N; long long X; cin >> N >> X;
-    vector<long long> pre(N+1);
-    map<long long, int> count;
+    ll ans = 0;
+    int N; ll X; cin >> N >> X;
+    vector<ll> pre(N+1);
+    map<ll, int> count;
     count[0]++;
     for (int z = 1; z <= N; ++z) {
         int x; cin >> x;
         pre[z] = x + pre[z-1];
-        long long diff = pre[z] - X;
+        ll diff = pre[z] - X;
         ans += count[diff];
         count[pre[z]]++;
     }
@@ -19,8 +20,8 @@ int main() {
 
 // int N;
 // int ans = 0;
-// long long X;
-// vector<long long> pre1, pre2;
+// ll X;
+// vector<ll> pre1, pre2;
 //
 // // TODO: return -1 if not there
 // // TODO: account for indices before z
@@ -32,7 +33,7 @@ int main() {
 //     }
 //     while (lo < hi) {
 //         int mid = lo + (hi-lo)/2;
-//         long long g = pre[mid] - pre[z-1];
+//         ll g = pre[mid] - pre[z-1];
 //         if (left) {
 //             if (g < X) lo = mid;
 //             else hi = mid+1;
