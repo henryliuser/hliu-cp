@@ -4,7 +4,6 @@ using namespace std;
 struct SegTree {
     int N;
     vector<int> T, &A;  // tree array, array reference
-    void build() { build(1, 0, N-1); }
     void build(int v, int tl, int tr) {
         // v: tree index, tl/tr: tree bounds
         if (tl == tr) T[v] = A[tl];
@@ -38,7 +37,7 @@ struct SegTree {
 
     }
     SegTree(int n, vector<int>& a)
-        : N{n}, A{a}, T{4*n} {  build(); }
+        : N(n), A(a), T(4*n) { build(1, 0, N-1); }
 };
 
 int main() {

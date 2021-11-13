@@ -1,5 +1,4 @@
 // good (harsh) intro to casework, i guess.
-
 #include <bits/stdc++.h>
 using namespace std;
 

@@ -4,13 +4,13 @@ using namespace std;
 struct BIT {
     int N;
     vector<int> bit;
-    BIT(int n) : N(n+1), bit(n+1) {}
+    BIT(int n) : N(n), bit(n+1) {}
     BIT(vector<int> &a) : BIT(a.size()) {
         for (int i = 0; i < N; ++i)
             update(i, a[i]);
     }
     void update(int i, int val) {
-        for (++i; i < N; i += i & -i)
+        for (++i; i <= N; i += i & -i)
             bit[i] += val;
     }
     int query(int i) {
