@@ -2,10 +2,14 @@
 using namespace std;
 using ll = long long;
 
-void read(char* buff, int length) {
-    // buff = (char*)realloc(buff, sizeof(char) * 5);
-    for (int i = 0; i < length; ++i)
-        buff[i] = 'z';
+void write(char *buff, int length) {
+    int ptr = 0;
+    char[4096] temp;
+    while (ptr < length) {
+        read4096(temp);
+        memcpy(temp, buff, 4096-length);
+        ptr += length;
+    }
 }
 
 bool verifyOrder(long timestamp)
@@ -16,13 +20,17 @@ bool verifyOrder(long timestamp)
     if (q.size() == LIM)
     {
         long first = q.front();
-        if (timestamp - first < RATE)
+        long  diff = timestamp - first;
+        if (diff < RATE)
+        {
             return false;
-        else q.pop();
+        }
     }
     q.push(timestamp);
     if (q.size() > LIM)
+    {
         q.pop();
+    }
     return true;
 }
 
