@@ -8,7 +8,8 @@ int lcm (int a, int b) {
     return a / gcd(a, b) * b;
 }
 
-// binary gcd 
+
+// binary gcd
 int gcd(int a, int b) {
     if (!a || !b)
         return a | b;

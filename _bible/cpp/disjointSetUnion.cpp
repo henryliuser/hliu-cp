@@ -25,7 +25,7 @@ struct DSU {    // cool memory optimization
         a = find(a), b = find(b);
         if (a == b) return false;
         if (psz[a] > psz[b]) swap(a, b);
-        if (psz[a] == psz[b]) --psz[a];
+        psz[a] += psz[b];
         psz[b] = a;
         --count;
         return true;
