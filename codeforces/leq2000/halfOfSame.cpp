@@ -28,10 +28,9 @@ int solve() {
         for (int i = t+1; i < n; ++i) {
             int diff = A[i] - A[t];
             if (diff == 0) --req;
-            for (int f : factorize(diff)) {
+            for (int f : factorize(diff))
                 if (++cnt[f] >= req)
                     ans = max(ans, f);
-            }
         }
     }
     return ans;
