@@ -1,3 +1,4 @@
+// ... idk
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -7,14 +8,15 @@ vector<int> solve() {
     string S; cin >> S;
     int i = 0, j = N-1;
     vector<int> v;
-    while (i < N && S[i++] == '0');
-    while (j + 1 && S[j--] == '1');
+    while (i < N && S[i] == '0') ++i;
+    while (j + 1 && S[j] == '1') --j;
     while (i < j) {
         v.push_back(1 + i++);
         v.push_back(1 + j--);
-        while (i < N && S[i++] == '0');
-        while (j + 1 && S[j--] == '1');
+        while (i < N && S[i] == '0') ++i;
+        while (j + 1 && S[j] == '1') --j;
     }
+    sort(rbegin(v), rend(v));
     return v;
 }
 
