@@ -1,6 +1,15 @@
+// https://codeforces.com/contest/1589/problem/D
+// WA rn
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
+
+int ask(int a, int b) {
+    printf("? %d %d\n");
+    fflush(stdout);
+    int x; cin >> x;
+    return x;
+}
 
 void solve() {
     int N; cin >> N;
@@ -8,8 +17,7 @@ void solve() {
     int lo = 1, hi = N;
     while (lo < hi) {
         int mid = ceil((lo+hi)/2.0);
-        cout << "? 1 " << mid << endl;
-        int x; cin >> x;
+        int x = ask(1, mid);
         if (x > 0) hi = mid - 1;
         else lo = mid;
     }
@@ -17,8 +25,7 @@ void solve() {
     lo = i+3, hi = N;
     while (lo < hi) {
         int mid = lo + (hi-lo) / 2;
-        cout << "? " << mid << " " << N << endl;
-        int x; cin >> x;
+        int x = ask(mid, N);
         if (x > 0) lo = mid + 1;
         else hi = mid;
     }
@@ -28,14 +35,12 @@ void solve() {
         int mid = lo + (hi-lo)/2;
         int left = (mid-i) * (mid-i-1) / 2;
         int right = (k-mid-2) * (k-mid-1) / 2;
-        cout << "? " << i << " " << mid-1 << endl;
-        int x; cin >> x;
+        int x = ask(i, mid-1);
         if (left < x) {
             hi = mid - 1;
             continue;
         }
-        cout << "? " << mid << " " << k << endl;
-        int y; cin >> y;
+        int y = ask(mid, k);
         if (right < y) {
             lo = mid + 1;
             continue;

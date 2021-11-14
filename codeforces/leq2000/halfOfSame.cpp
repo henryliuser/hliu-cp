@@ -15,8 +15,7 @@ int solve() {
     int ans = 0;
     int n; cin >> n;
     vector<int> A(n);
-    for (int i = 0; i < n; ++i)
-        cin >> A[i];
+    for (int &x : A) cin >> x;
     sort(begin(A), end(A));
     unordered_map<int, int> cnt;
     for (int i = 0; i < n; ++i)

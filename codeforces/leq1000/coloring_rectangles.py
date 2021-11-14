@@ -1,3 +1,4 @@
+# https://codeforces.com/contest/1589/problem/B
 import sys
 input = sys.stdin.readline
 intput = lambda : map(int, input().split())

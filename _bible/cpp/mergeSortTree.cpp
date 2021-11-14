@@ -15,12 +15,12 @@ struct MergeTree {
     }
     int query(int x, int L, int R) { return query(x, L, R, 1, 0, N-1); }
     int query(int x, int al, int ar, int v, int tl, int tr) {
-        if (al > ar) return 0;
-        if (al == tl && ar == tr)
-            return end(T[v]) - upper_bound(begin(T[v]), end(T[v]), x));
+        if (tr < al || ar < tl) return 0;
+        if (al <= tl && tr <= ar)
+            return end(T[v]) - upper_bound(begin(T[v]), end(T[v]), x);
         int mid = (tl + tr) / 2;
-        int ql = query(x, al, min(ar, mid), v*2, tl, mid);
-        int qr = query(x, max(mid+1, al), ar, v*2+1, mid+1, tr);
+        int ql = query(x, al, ar, v*2, tl, mid);
+        int qr = query(x, al, ar, v*2+1, mid+1, tr);
         return ql + qr;
     }
     MergeTree(int n, vector<int> &v)

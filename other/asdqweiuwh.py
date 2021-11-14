@@ -45,6 +45,7 @@ def twoSum(self, nums, target):
         if x in d:
             return [i, d[x]]
         d[n] = i
+    return [-1, -1] 
 
 # Two Sum, O(N^2)
 for i in range(len(L)):
