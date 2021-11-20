@@ -11,10 +11,10 @@ vector<vector<ll>> dist;
 int main() {
     cin >> N >> M >> Q;
     dist.assign(N+1, vector<ll>(N+1, INF));
-    for (int i = 1; i <= N; ++i) dist[i][i] = 0;
+    for (int i = 1; i <= N; ++i) dist[i][i] = 0;  // dist to self is 0
     while (M--) {
         cin >> u >> v >> c;
-        if (c < dist[u][v])
+        if (c < dist[u][v])          // initialize minimum direct dist
             dist[u][v] = dist[v][u] = c;
     }
     for (int k = 1; k <= N; ++k)
