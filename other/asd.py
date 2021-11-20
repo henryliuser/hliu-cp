@@ -21,11 +21,9 @@ def binarySearch(arr, x) -> bool:
     return -1
 
 if __name__ == "__main__":
-    arr = []
-    for x in range(1000000):
-        arr.append(random.randint(0, 100000))
-    searches = [random.randint(0, 100000) for _ in range(10)]
-    print(searches)
+    arr = [random.randint(0, 100000) for _ in range(1000000)]
+    arr = list(set(arr))
+    searches = [random.randint(0, 100000) for _ in range(1000)]
 
     print("Testing linear search: ")
     cnt, found1 = 0, []
@@ -35,7 +33,7 @@ if __name__ == "__main__":
         if i != -1: found1.append(i)
     end = time.time()
     print("Time:", end - start)
-    print(cnt, sorted(found1))
+    print(len(found1))
 
     print("\nTesting binary search: ")
     cnt, found2 = 0, []
@@ -49,4 +47,6 @@ if __name__ == "__main__":
     print("Sort Time:   ", mid - start)
     print("Search Time: ", end - mid)
     print("Total Time:  ", end - start)
-    print(cnt, sorted(found2))
+    print(len(found2))
+    assert found1 == found2
+    print(found1 == found2)
