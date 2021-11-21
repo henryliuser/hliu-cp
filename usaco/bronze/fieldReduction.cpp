@@ -61,27 +61,14 @@ void setIO() {
 	ios::sync_with_stdio(0);
 }
 
-vector<int> getPm(int pm) {  // permutation
-	vector<int> p;
-	while (pm) {
-		p.push_back(pm%4);
-		pm /= 4;
-	}
-	p.resize(3);
-	return p;
-}
-
 void eval(int pm, Group &A, Group &B, ll &ans) {
 	vector<pii> a, b;
-	auto p = getPm(pm);
-	for (int i = 0; i < 3; ++i) {
-		if (p[i] == 0) a.push_back( A.pop() );
-		if (p[i] == 1) a.push_back( A.pop(0) );
-		if (p[i] == 2) b.push_back( B.pop() );
-		if (p[i] == 3) b.push_back( B.pop(0) );
-	}
+	if (pm == 0) a.push_back( A.pop() );
+	if (pm == 1) a.push_back( A.pop(0) );
+	if (pm == 2) b.push_back( B.pop() );
+	if (pm == 3) b.push_back( B.pop(0) );
 	ans = min({ ans, A.area(), B.area() });
-	for (pii c : a) A.add(c);  // undo
+	for (pii c : a) A.add(c);
 	for (pii c : b) B.add(c);
 }
 
@@ -97,7 +84,7 @@ int main() {
 
 	ll ans = LLONG_MAX;
 	Group A(cows), B(invs);
-	for (int i = 0; i < 64; ++i)
+	for (int i = 0; i < 4; ++i)
 		eval(i, A, B, ans);
 
 	cout << ans << "\n";
