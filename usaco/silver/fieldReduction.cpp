@@ -61,7 +61,7 @@ void setIO() {
 	ios::sync_with_stdio(0);
 }
 
-deque<int> getPm(int pm) {  // troll permutation
+deque<int> getPm(int pm) {  // permutation
 	deque<int> p;
 	while (pm) {
 		p.push_back(pm%4);
