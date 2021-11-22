@@ -9,21 +9,21 @@ vector<tup> edges;
 
 struct DSU {
     int count;
-    vector<int> size, parent;
+    vector<int> psz;
     bool unite(int a, int b) {
         a = find(a), b = find(b);
         if (a == b) return false;
-        if (size[a] < size[b]) swap(a, b);
-        parent[b] = a;
-        size[a] += size[b];
+        if (psz[a] > psz[b]) swap(a, b);
+        psz[a] += psz[b];
+        psz[b] = a;
         --count;
         return true;
     }
     int find(int a) {
-        if (parent[a] == -1) return a;
-        return parent[a] = find(parent[a]);
+        if (psz[a] < 0) return a;
+        return psz[a] = find(psz[a]);
     }
-    DSU(int n) : count(n), size(n, 1), parent(n, -1) {}
+    DSU(int n) : count(n), psz(n, -1) {}
 };
 
 bool check(int g) {
