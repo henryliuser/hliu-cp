@@ -6,8 +6,8 @@ vector<int> cows;
 vector<int> dpR, dpL;
 
 int main() {
-    freopen("angry.in", "r", stdin);
-    freopen("angry.out", "w", stdout);
+    // freopen("angry.in", "r", stdin);
+    // freopen("angry.out", "w", stdout);
     cin >> N; cows.resize(N);
     dpL.assign(N, 0);
     dpR.assign(N, 0);
