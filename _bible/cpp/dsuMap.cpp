@@ -1,6 +1,6 @@
 struct DSU {
     int count = 0;
-    unordered_map<int, int> parent, size; // Union by Size
+    unordered_map<int, int> psz; // Union by Rank
     void Add(int a) {
         if (parent.count(a)) return;
         parent[a] = a;
