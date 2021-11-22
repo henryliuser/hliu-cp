@@ -9,7 +9,10 @@ def solve():
     M = N//2
     if a > M or b <= M:
         return [-1]
+    ans[0] = a
     for i in range(M):
+        x = N-i
+        if x ==
         ans.append(N-i)
     for i in range(M):
         ans.append(i+1)
