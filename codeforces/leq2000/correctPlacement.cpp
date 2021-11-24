@@ -1,3 +1,4 @@
+// https://codeforces.com/problemset/problem/1472/E
 #include <bits/stdc++.h>
 using namespace std;
 using tup = array<int, 3>;
