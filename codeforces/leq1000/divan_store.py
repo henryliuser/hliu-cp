@@ -6,7 +6,7 @@ def solve():
     ans = 0
     n, l, r, k = intput()
     A = list(intput())
-    B = sorted( [x for x in A if l <= x <= r] )
+    B = sorted( (x for x in A if l <= x <= r) )
     for x in B:
         if k >= x:
             ans += 1
