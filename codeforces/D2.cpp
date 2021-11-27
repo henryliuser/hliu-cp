@@ -1,10 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
 
-vector<ll> solve() {
+vector<int> solve() {
     int N; cin >> N;
-    vector<ll> dist(N, -1);
+    vector<int> dist(N, -1);
     vector<int> par(N), perm(N);
     for (int &x : par) { cin >> x; --x; }
     for (int &x : perm) { cin >> x; --x; }
@@ -12,9 +11,9 @@ vector<ll> solve() {
     for (int i = 0; i < N; ++i)
         if (par[i] == i) root = i;
 
-    ll mxd = 0;  // current max distance
+    int mxd = 0;  // current max distance
     dist[root] = 0;
-    vector<ll> ans(N);
+    vector<int> ans(N);
     if (perm[0] != root) return {-1};
     for (int i = 1; i < N; ++i) {
         int u = perm[i];
@@ -33,7 +32,7 @@ int main() {
     int T; cin >> T;
     while (T--) {
         auto s = solve();
-        for (ll x : s) cout << x << " ";
+        for (int x : s) cout << x << " ";
         cout << "\n";
     }
 

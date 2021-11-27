@@ -1,5 +1,4 @@
-// problems like this one make me wonder
-// why im still in this major
+// not my solution. don't understand this yet.
 
 #include <bits/stdc++.h>
 using namespace std;

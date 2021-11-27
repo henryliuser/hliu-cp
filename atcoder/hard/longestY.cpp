@@ -1,12 +1,11 @@
-// https://atcoder.jp/contests/abc229/tasks/abc229_f
+// https://atcoder.jp/contests/abc229/tasks/abc229_g
 // nice question.
 // let A = [indices of Y's]
-// let B[i] = A[i] - i for i in A  (adjacency trick)
-// let D[i] = sum of distances from 0 to i in B
+// let B[i] = A[i] - i for i in A  (adjacency trick)  <-- crucial reduction!
+// precompute psum of psum of dists to support queries in O(1)
 // binary search on the window size (answer)
-// run sliding window median on the sorted array B
-// use D to compute sums and calculate predicate result
-
+// run fixed-size sliding window median/cses_stick_lengths on sorted array B
+// https://cses.fi/problemset/task/1074
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -21,9 +20,9 @@ struct DistSum {
         int n = a.size();
         for (int i : {0,1}) d[i].assign(n,0), p[i].assign(n,0);
         for (int i = 1; i < n; ++i) {
-            d[0][i] = (a[i] - a[i-1]) + d[0][i-1];
+            d[0][i] = (a[i] - a[i-1]) + d[0][i-1];  // gap-prev (psum of gaps)
+            p[0][i] = d[0][i] + p[0][i-1];  // psum of psum of gaps
             d[1][n-i-1] = (a[n-i] - a[n-i-1]) + d[1][n-i];
-            p[0][i] = d[0][i] + p[0][i-1];
             p[1][n-i-1] = d[1][n-i-1] + p[1][n-i];
         }
     }
@@ -38,8 +37,8 @@ struct DistSum {
 
 bool check(ll g, DistSum &ds) {
     for (int i = 0; i < M-g+1; ++i) {
-        ll mid   = i + g/2;
-        ll left  = ds.query(mid, i);
+        ll mid   = i + g/2;               // median
+        ll left  = ds.query(mid, i);      // O(1)
         ll right = ds.query(mid, i+g-1);
         if (left + right <= K) return true;
     }

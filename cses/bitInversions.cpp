@@ -24,6 +24,7 @@ int main() {
         tup tmp = {i, 0, 0};
         auto it = groups.lower_bound(tmp);
         if ((*it)[0] != i) it = prev(it);
+        
         // check if bound, then split/join
     }
 
