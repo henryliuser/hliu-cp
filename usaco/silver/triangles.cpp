@@ -1,10 +1,33 @@
-// no idea what's wrong :(
-// WA on 7-10
+// okay fixed* nice question
+// precompute psum of psum of distances to answer dist sum queries in O(1)
+// iterate on each point and sum the distances in each direction, multiply
+
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 using pt = array<ll, 2>;
 static constexpr ll MOD = 1e9+7;
+
+struct DistSum {
+    vector<ll> d[2], p[2];  // 0 left->right, 1 right->left
+    void init(vector<ll> &a) {
+        int n = a.size();
+        for (int i : {0,1}) d[i].assign(n,0), p[i].assign(n,0);
+        for (int i = 1; i < n; ++i) {
+            d[0][i] = a[i] - a[i-1] + d[0][i-1];    // psum of dists
+            p[0][i] = (d[0][i] + p[0][i-1]) % MOD;  // psum of psum of dists
+            d[1][n-i-1] = a[n-i] - a[n-i-1] + d[1][n-i];
+            p[1][n-i-1] = (d[1][n-i-1] + p[1][n-i]) % MOD;
+        }
+    }
+    ll query(int src, int i) {
+        int q = (src > i);
+        ll diff = p[q][i] - p[q][src];
+        ll ogd = d[q][src];
+        ll len = abs(src-i);
+        return (diff - (ogd * len) % MOD) % MOD;
+    }
+};
 
 int x, y;
 int main() {
@@ -25,60 +48,27 @@ int main() {
     }
 
     // sort, compute distances, compute prefix sum of distances
+    unordered_map<int, DistSum> distX, distY;
     for (auto &p : xs) sort(begin(p.second), end(p.second));
     for (auto &p : ys) sort(begin(p.second), end(p.second));
-    unordered_map<int, vector<ll>> distX, distY, preX, preY;
-    for (auto &p : xs) {
-        y = p.first; auto &j = p.second;
-        int sz = j.size();
-        auto &v = distX[y], &q = preX[y];
-        v.resize(sz);  v[0] = 0;
-        for (int i = 1; i < sz; ++i) v[i] = j[i] - j[i-1];  // get dists
-        for (int i = 1; i < sz; ++i) v[i] += v[i-1];        // psum dists
-        q = v;
-        for (int i = 1; i < sz; ++i)  // psum of psum of dists
-            q[i] = (q[i]+q[i-1]) % MOD;
-    }
-    for (auto &p : ys) {
-        x = p.first; auto &j = p.second;
-        int sz = j.size();
-        auto &v = distY[x], &q = preY[x];
-        v.resize(sz);  v[0] = 0;
-        for (int i = 1; i < sz; ++i) v[i] = ys[x][i] - ys[x][i-1];
-        for (int i = 1; i < sz; ++i) v[i] += v[i-1];
-        q = v;
-        for (int i = 1; i < sz; ++i)
-            q[i] = (q[i]+q[i-1]) % MOD;
-    }
+    for (auto &p : xs) distX[p.first].init(p.second);
+    for (auto &p : ys) distY[p.first].init(p.second);
 
     // compute area sums
     for (pt &p : P) {
         x = p[0], y = p[1];
-        auto &hori = xs[y], &px = preX[y], &dx = distX[y];
-        auto &vert = ys[x], &py = preY[x], &dy = distY[x];
-        int idxX = lower_bound(begin(hori), end(hori), x) - begin(hori);
-        int idxY = lower_bound(begin(vert), end(vert), y) - begin(vert);
+        int N = xs[y].size();
+        int M = ys[x].size();
+        int idxX = lower_bound(begin(xs[y]), end(xs[y]), x) - begin(xs[y]);
+        int idxY = lower_bound(begin(ys[x]), end(ys[x]), y) - begin(ys[x]);
 
-        ll vlt = py[idxY];
-        ll vlen = py.size() - idxY - 1;
-        ll vtmp = py.back() - vlt;
-        ll vgt = vtmp - (dy[idxY] * vlen) % MOD;
+        ll hlt = distX[y].query(idxX, 0);
+        ll hgt = distX[y].query(idxX, N-1);
+        ll vlt = distY[x].query(idxY, 0);
+        ll vgt = distY[x].query(idxY, M-1);
         ll vsum = (vlt + vgt) % MOD;
-
-        ll hlt = px[idxX];
-        ll hlen = px.size() - idxX - 1;
-        ll htmp = px.back() - hlt;
-        ll hgt = htmp - (dx[idxX] * hlen) % MOD;
         ll hsum = (hlt + hgt) % MOD;
-
-        ans = (ans + (vsum*hsum)%MOD ) % MOD;
-        // ll sums[4]{};
-        // sums[0] = (hgt * vlt) % MOD;
-        // sums[1] = (hgt * vgt) % MOD;
-        // sums[2] = (hlt * vlt) % MOD;
-        // sums[3] = (hlt * vgt) % MOD;
-        // for (ll s : sums)
-        //     ans = (ans + s) % MOD;
+        ans = (ans + (vsum*hsum)%MOD) % MOD;
     }
 
     cout << ans << "\n";
