@@ -65,7 +65,7 @@ int main() {
     sort(begin(edges), end(edges));
     int lo = 0, hi = M;
     while (lo < hi) {
-        int mid = lo + ceil((hi-lo) / 2.0);
+        int mid = lo + (hi-lo+1) / 2;
         if (check(mid)) lo = mid;
         else hi = mid-1;
     }
