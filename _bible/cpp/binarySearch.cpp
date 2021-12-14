@@ -7,6 +7,7 @@ while (lo < hi) {
 }
 return lo;
 
+
 // find maximum value that passes check
 int lo = 0, hi = N;
 while (lo < hi) {
@@ -15,3 +16,15 @@ while (lo < hi) {
     else hi = mid - 1;
 }
 return lo;
+
+
+// find if exists
+int lo = 0, hi = N;
+while (lo <= hi) {
+    int mid = lo + (hi-lo) / 2;
+    int c = check(mid);
+    if (c == 0) hi = mid-1;
+    if (c == 1) return mid;  // found ans
+    if (c == 2) lo = mid+1;
+}
+return -1;  // never found

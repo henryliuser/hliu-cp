@@ -4,7 +4,8 @@
 // greedily grab until you need to start a new punch.
 // it doens't matter if you don't grab all the possible ones
 // with the current punch, because they will Definitely
-// be grabbed in later punches. That last realization is the hard part.
+// be grabbed in later punches. (in fact it seems like that might be WA)
+// That last realization is the hard part.
 #include <bits/stdc++.h>
 using namespace std;
 using lr = array<int, 2>;

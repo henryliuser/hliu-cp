@@ -4,6 +4,8 @@ intput = lambda : map(int, input().split())
 
 def solve():
     S = input()
+    if S in ["x", "xx", "oxx", "xxo"]:
+        return "Yes"
     i = S.find('o')
     T = "oxx"
     c = 0

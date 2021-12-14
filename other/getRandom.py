@@ -6,7 +6,7 @@ def get_random1(L):
         size = len(L)
         while size > 0:
             size -= 1
-            i = randint(0, size)
+            i = randint(0, size-1)
             C[i], C[size] = C[size], C[i]
             yield C[size]
 
