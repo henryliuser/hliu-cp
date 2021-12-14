@@ -61,11 +61,13 @@ struct SuffixArray {
 };
 
 int main() {
+    ll ans = 0;
     string s; cin >> s;
+    int N = s.size();
     SuffixArray sfx(s);
     sfx.buildLCP();
+    for (int i = 1; i <= N; ++i)
+        ans += (N-sfx.P[i]) - sfx.lcp[i];
 
-    for (int i : sfx.P) cout << i << " "; cout << "\n";
-    for (int i = 1; i < sfx.N; ++i)
-        cout << sfx.lcp[i] << " ";
+    cout << ans << "\n";
 }
