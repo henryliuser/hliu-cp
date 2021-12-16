@@ -17,7 +17,8 @@ void countSort(A &P, K &C) {
 }
 
 struct SuffixArray {
-    int N; string &S;
+    int N;
+    string &S;
     vector<int> P, C, lcp;
     template<typename FN>
     void assign(FN& g) {
@@ -60,11 +61,17 @@ struct SuffixArray {
 };
 
 int main() {
-    string s; cin >> s;
-    SuffixArray sfx(s);
+    array<int,2> ans = {0, -1};
+    string a, b;
+    cin >> a >> b;
+    string c = a + "#" + b;
+    SuffixArray sfx(c);
     sfx.buildLCP();
-
-    for (int i : sfx.P) cout << i << " "; cout << "\n";
-    for (int i = 1; i < sfx.N; ++i)
-        cout << sfx.lcp[i] << " ";
+    for (int i = 1; i < c.size(); ++i) {
+        bool x = (sfx.P[i] < a.size());
+        bool y = (sfx.P[i-1] < a.size());
+        if (x != y && sfx.lcp[i] > ans[0])
+            ans = {sfx.lcp[i], sfx.P[i]};
+    }
+    cout << c.substr(ans[1], ans[0]) << "\n";
 }
