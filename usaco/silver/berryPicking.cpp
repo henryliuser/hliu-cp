@@ -1,7 +1,7 @@
 // http://www.usaco.org/index.php?page=viewproblem2&cpid=990
 // incredibly instructive
 // use math to fix some condition
-// which makes verification much much easier.
+// which makes greedy verification much much easier.
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
