@@ -15,6 +15,14 @@ vector<int> sieve(int N) {
     return spf;
 }
 
+vector<ll> sumDiv(int N) {
+    vector<ll> s(N+1);
+    for (int i = 1; i <= N; ++i)
+        for (int j = i; j <= N; j += i)
+            s[j] += i;
+    return s;
+}
+
 vector<bool> sieveBool(int N) {
     vector<bool> is_prime(N+1, true);
     is_prime[0] = is_prime[1] = false;
