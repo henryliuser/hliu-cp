@@ -1,3 +1,6 @@
+// https://cses.fi/problemset/task/1161/
+// work in reverse, think about cost of merging
+// huffman encoding tree, greedy
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
