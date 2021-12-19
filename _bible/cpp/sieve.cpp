@@ -15,6 +15,7 @@ vector<int> sieve(int N) {
     return spf;
 }
 
+// runs in 1.7 ish seconds on 1e7
 vector<ll> sumDiv(int N) {
     vector<ll> s(N+1);
     for (int i = 1; i <= N; ++i)
