@@ -23,7 +23,7 @@ def solve():
         return True
 
     P = permutations(range(N))
-    ans = any(check(p) for p in P)
+    ans = any(map(check, P))
     return "Yes" if ans else "No"
 
 if __name__ == '__main__':
