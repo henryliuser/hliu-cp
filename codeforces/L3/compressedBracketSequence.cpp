@@ -7,6 +7,7 @@
 using namespace std;
 using ll = long long;
 
+// O(N^2). There is also monostack O(N)
 int main() {
     ll ans = 0;
     int n; cin >> n;

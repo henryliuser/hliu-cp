@@ -1,40 +1,15 @@
-===============
---seen before--
-===============
-hashmap as you go, array, points depending on index
-union find
-union find on 2d matrix, connected by row/column
-rabin karp
-polynomial rolling hash
-dijkstra's
-============================
---stuff i don't really get--
-============================
-bfs with priority queue
-eulerian path
-
 =================
 --need to learn--
 =================
-segment tree
-mono-queue / mono-stack
 trie
-floyd-warshall
 KMP
-bellman-ford
 suffix array
 suffix tree
 ukkonen's
-fenwick tree
-rmq
-mst
-kruskal
-prim's
+sparse table rmq
 manacher's
-sparse table
 tarjan's
 lowest common ancestor
-kosaraju's
 convex hull
 li-chao tree
 aho corasick
@@ -42,6 +17,7 @@ bipartite detection
 bipartite matching
 ford-fulkerson
 divide & conquer dp
+meet in the middle
 gaussian elimination
 determinant
 matrix chain multiplication
@@ -53,4 +29,3 @@ dominator tree
 --cool stuff--
 ==============
 eer tree - https://arxiv.org/pdf/1506.04862.pdf
-li-chao tree

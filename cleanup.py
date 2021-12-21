@@ -4,7 +4,7 @@ dir = "/".join(sys.argv[0].split('/')[:-1])
 p = Path(dir)
 
 safeExt = {".py", ".cpp", ".txt"}
-safeName = {".git", ".DS_Store"}
+safeName = {".git"}
 
 def dfs(pt):
     for x in pt.iterdir():

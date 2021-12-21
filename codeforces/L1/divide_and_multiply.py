@@ -18,7 +18,7 @@ def solve():
         ans = max(ans, sum(B))
 
     return ans
-
+ 
 if __name__ == '__main__':
     T, = intput()
     for _ in range(T):

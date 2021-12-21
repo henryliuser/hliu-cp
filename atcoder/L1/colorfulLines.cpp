@@ -1,3 +1,4 @@
+// https://atcoder.jp/contests/arc130/tasks/arc130_b
 // maintain row/col -> color -> line count record
 // on update, clear the t_i dict and adjust the corresponding
 

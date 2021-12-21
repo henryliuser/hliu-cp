@@ -30,5 +30,5 @@ if __name__ == '__main__':
         S[p] = x
         if S[i:j] == abc:
             count += 1
-        # print("".join(S))
+
         print(count)

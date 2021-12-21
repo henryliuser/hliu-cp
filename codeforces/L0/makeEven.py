@@ -1,6 +1,4 @@
 import sys
-# input = sys.stdin.readline
-# intput = lambda : map(int, input().split())
 
 def solve():
     s = input()
@@ -15,7 +13,7 @@ def solve():
         return 0
     if int(s[0]) % 2 == 0:
         return 1
-    
+
     return 2
 
 

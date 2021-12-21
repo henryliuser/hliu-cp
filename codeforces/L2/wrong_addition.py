@@ -1,3 +1,4 @@
+# https://codeforces.com/contest/1619/problem/C
 import sys
 from random import randint
 input = lambda : sys.stdin.readline().strip()

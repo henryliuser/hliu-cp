@@ -18,7 +18,6 @@ bool check(ll g) {
 ll solve() {
     cin >> N >> H; A.resize(N);
     for (ll &x : A) cin >> x;
-    // A.push_back(LLONG_MAX);  // dummy value
 
     ll lo = 1, hi = H;
     while (lo < hi) {
