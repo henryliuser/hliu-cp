@@ -10,9 +10,8 @@ class Solution:
             sfx[i] = max(sfx[i], sfx[i+1])
 
         for i,x in enumerate(nums1):
-            j = bisect_left( B, (x,-1) )
+            j = bisect_left( B, (x,-1) )21
             if j == M: continue
             ans = max(ans, sfx[j] - i)
 
         return ans
-            
