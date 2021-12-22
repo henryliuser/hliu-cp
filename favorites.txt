@@ -16,3 +16,4 @@ http://www.usaco.org/index.php?page=viewproblem2&cpid=1015
 http://www.usaco.org/index.php?page=viewproblem2&cpid=990
 
 https://atcoder.jp/contests/abc229/tasks/abc229_g
+https://atcoder.jp/contests/agc040/tasks/agc040_a

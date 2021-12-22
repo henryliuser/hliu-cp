@@ -10,7 +10,7 @@ public:
         }
         return ans;
 
-        // O(N log N) binary search in-contest solution lmfao
+        // O(N log N) binary search
         int ans = 0;
         int N = nums1.size(), M = nums2.size();
         for (int i = 0; i < N; i++) {

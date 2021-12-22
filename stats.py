@@ -4,7 +4,7 @@ from collections import defaultdict
 dir = "/".join(sys.argv[0].split('/')[:-1])
 p = Path(dir)
 
-ALL = False
+ALL = True
 counts = defaultdict(int)
 ignore = ["/atcoder/L0", "/codeforces/L0", "/leetcode/easy", "other"]
 yesext = [".cpp", ".py", ".hs"]
@@ -20,7 +20,6 @@ def dfs(pt):
             continue
         if not any(s.endswith(ex) for ex in yesext): continue
         if any(sl.find(b) != -1 for b in bad): continue
-        print(s)
         name, ext = os.path.splitext(os.path.basename(s))
         if not ext: continue
         counts[ext] += 1
