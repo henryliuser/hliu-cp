@@ -1,3 +1,4 @@
+# https://atcoder.jp/contests/abc230/tasks/abc230_b
 import sys
 input = lambda : sys.stdin.readline().strip()
 intput = lambda : map(int, input().split())
