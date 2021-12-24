@@ -1,3 +1,4 @@
+# easier with top sort
 class Solution:
     def largestPathValue(self, colors: str, edges) -> int:
         N = len(colors)
