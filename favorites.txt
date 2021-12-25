@@ -1,5 +1,4 @@
 https://leetcode.com/problems/odd-even-jump/
-https://leetcode.com/problems/partition-array-into-two-arrays-to-minimize-sum-difference/
 https://leetcode.com/problems/second-minimum-time-to-reach-destination/
 https://leetcode.com/problems/kth-smallest-product-of-two-sorted-arrays
 https://leetcode.com/problems/equal-sum-arrays-with-minimum-number-of-operations/
@@ -15,5 +14,11 @@ http://www.usaco.org/index.php?page=viewproblem2&cpid=993
 http://www.usaco.org/index.php?page=viewproblem2&cpid=1015
 http://www.usaco.org/index.php?page=viewproblem2&cpid=990
 
-https://atcoder.jp/contests/abc229/tasks/abc229_g
 https://atcoder.jp/contests/agc040/tasks/agc040_a
+
+hard:
+https://leetcode.com/problems/partition-array-into-two-arrays-to-minimize-sum-difference/
+
+https://codeforces.com/contest/830/problem/C
+
+https://atcoder.jp/contests/abc229/tasks/abc229_g
