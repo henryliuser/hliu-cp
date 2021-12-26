@@ -6,7 +6,7 @@ int N;
 string S;
 
 ll solve(char ch) {
-    int res = 0, curr = 0;
+    ll res = 0, curr = 0;
     unordered_map<int, vector<int>> mp;
     mp[0].push_back(0);
     for (int i = 1; i <= N; ++i) {

@@ -30,3 +30,6 @@ def sieve(N):
             for j in range(i*i, N+1, i):
                 primes[j] = False
     return [i for i,p in enumerate(primes) if p]
+
+p = sieve(1000)
+print(p[:100])
