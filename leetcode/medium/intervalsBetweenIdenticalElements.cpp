@@ -32,7 +32,7 @@ public:
         for (auto &p : mp) {
             int x = p.first;
             auto &v = p.second;
-            int M = mp[x].size();
+            int M = v.size();
 
             DistSum ds(v);
             for (int i = 0; i < M; ++i) {
