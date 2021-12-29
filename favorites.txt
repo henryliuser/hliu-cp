@@ -7,6 +7,7 @@ https://leetcode.com/problems/maximum-number-of-points-with-cost/
 https://codeforces.com/problemset/problem/1398/C
 https://codeforces.com/contest/1614/problem/C
 https://codeforces.com/contest/1609/problem/C
+https://codeforces.com/contest/1623/problem/C
 
 http://www.usaco.org/index.php?page=viewproblem2&cpid=741
 http://www.usaco.org/index.php?page=viewproblem2&cpid=1063

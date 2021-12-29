@@ -57,8 +57,8 @@ bool contained(pcl &a, pcl &b) {
 }
 
 void init() {
-     freopen("where.in", "r", stdin);
-     freopen("where.out", "w", stdout);
+    freopen("where.in", "r", stdin);
+    freopen("where.out", "w", stdout);
     cin.tie(0);
     ios::sync_with_stdio(0);
     cin >> N; grid.resize(N);

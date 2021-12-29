@@ -27,5 +27,5 @@ int main() {
 // 012345
 //  HHGHH
 // 012123
-// HHG pre[r] - pre[l] = r-l-1
+// HHG pre[r] - pre[l] = r-l-2
 // pre[r] - r = pre[l] - l + 1
