@@ -1,15 +1,10 @@
-// https://codeforces.com/contest/1610/problem/D
+/* https://codeforces.com/contest/1610/problem/D
+all seq with ANY odd's are good
+if the whole sum is odd, simply arrange around 0 to cancel out
+if the sum is even, but there exists an odd, there also must exist another odd
+for all even's, it's math:
 
-/*
-all subseq with ANY NUMBER** of odd are okay
-[2,7] -> (-3 + -4) + (-2 + -1 + 0 + 1 + 2 + 3 + 4)
-we can always cancel extra out,
-    if the sum of the lengths of consec sums is odd
 
-if all evens, then it's math >:(
-
-let dp[S][L][i] = (# subseqs % MOD) ending at i, whose (sum%2==S) and (len%2==L)
-return sum(dp[1]) + sum(dp[0][0])
 */
 
 #include <bits/stdc++.h>

@@ -1,7 +1,8 @@
 // https://atcoder.jp/contests/arc128/tasks/arc128_c
-// really instructive math problem.
-// do greedy suffix sum, find best sfx(j) / j;
-// then 2 cases
+// really instructive math-ish problem.
+// first consider wihthout M constraint.
+// do greedy weighted suffix sum, find best sfx(j) / j;
+// then 2 cases on M
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -40,13 +41,15 @@ double solve() {
         else {
             for (int j = 0; j < m; ++j)
                 B[bc--] = r;
-            return dot();
+            break;
         }
     }
     return dot();
 }
 
 int main() {
+    cin.tie(0);
+    ios::sync_with_stdio(0);
     cout << fixed << setprecision(10);
     cin >> N >> M >> S;
     A.resize(N); B.resize(N);
