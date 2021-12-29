@@ -1,3 +1,7 @@
+// https://atcoder.jp/contests/arc128/tasks/arc128_c
+// really instructive math problem.
+// do greedy suffix sum, find best sfx(j) / j;
+// then 2 cases
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -17,7 +21,7 @@ double solve() {
     int bc = N-1;
     for (int i = 0; i < N; ++i) {
         vector<double> sfx(N-i+1);
-        for (int j = 1; j < N-i; ++j)
+        for (int j = 1; j <= N-i; ++j)
             sfx[j] = sfx[j-1] + A[N-i-j];
 
         int m = 1;
@@ -26,16 +30,16 @@ double solve() {
             if (s > sfx[m] / m)
                 m = j;
         }
-        double r = S / m;
+        double r = 1.0*S / m;
         if (r > M) {
             for (int j = 0; j < m; ++j)
-                B[bc-- - j] = M;
+                B[bc--] = M;
             i += m-1;
             S -= m*M;
         }
         else {
             for (int j = 0; j < m; ++j)
-                B[bc--  -  j] = r;
+                B[bc--] = r;
             return dot();
         }
     }
@@ -43,6 +47,7 @@ double solve() {
 }
 
 int main() {
+    cout << fixed << setprecision(10);
     cin >> N >> M >> S;
     A.resize(N); B.resize(N);
     for (ll &x : A) cin >> x;
