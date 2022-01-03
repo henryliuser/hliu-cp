@@ -1,18 +1,31 @@
-import sys
-input = lambda : sys.stdin.readline().strip()
-intput = lambda : map(int, input().split())
+from random import randint as rng
+# N = rng(5, 23)
+# A = sorted( rng(0,10) for _ in range(N) )
+N = 5
+A = [1,1,1,1,1]
 
-def sm(s, n):
-    return sum(s+i for i in range(n))
+def f(x, g):
+    B = A[:]
+    B[0] -= x
+    for i in range(min(g-x, N-1)):
+        B[~i] = B[0]
+    # print(B)
+    return sum(B)
 
-def solve(x):
-    for i in range(-100, 100):
-        r = sm(i, 2)
-        for j in range(-100, 100):
-            c = sm(j, 6)
-            if r + c == x:
-                return i, j
+def check(g):
+    lo, hi = 0, g
+    while lo < hi:
+        mid = (lo+hi+1) // 2
+        a = f(mid, g)
+        b = f(mid+1, g) if mid+1 != g else a
+        if a == b: return a
+        if a < b: hi = mid-1
+        else: lo = mid
+    return f(lo, g)
 
-
-if __name__ == '__main__':
-    print(solve(28))
+print(A)
+for g in range(10):
+    b = check(g)
+    print(g, b)
+        # B = f(i,g)
+        # print(i, sum(B), B)
