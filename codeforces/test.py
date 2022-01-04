@@ -1,31 +1,41 @@
 from random import randint as rng
-# N = rng(5, 23)
-# A = sorted( rng(0,10) for _ in range(N) )
-N = 5
-A = [1,1,1,1,1]
 
-def f(x, g):
-    B = A[:]
-    B[0] -= x
-    for i in range(min(g-x, N-1)):
-        B[~i] = B[0]
-    # print(B)
-    return sum(B)
+def gen():
+    N = rng(3,15)
+    A = list(range(1,N+1))
+    c = N-1
+    P = []
+    for i in range(N):
+        j = rng(0,c)
+        x = A[j]
+        A[j], A[-1] = A[-1], A[j]
+        A.pop()
+        P += [x]
+        c -= 1
+    return N, P
 
-def check(g):
-    lo, hi = 0, g
-    while lo < hi:
-        mid = (lo+hi+1) // 2
-        a = f(mid, g)
-        b = f(mid+1, g) if mid+1 != g else a
-        if a == b: return a
-        if a < b: hi = mid-1
-        else: lo = mid
-    return f(lo, g)
+def sim(P, x):
+    cnt, res = 0, []
+    lo, hi = -1, 1e18
+    for i,z in enumerate(P):
+        if z > hi or z < lo: continue
+        res += ["HI"] if z > x else ["LO"]
+        if z > x: hi = min(hi, z)
+        else: lo = max(lo, z)
+    s = ''.join(res)
+    # print(s)
+    for i in range(len(s)-3):
+        if s[i:i+4] == "HILO":
+            cnt += 1
+    return cnt
 
-print(A)
-for g in range(10):
-    b = check(g)
-    print(g, b)
-        # B = f(i,g)
-        # print(i, sum(B), B)
+for x in range(0, 6):
+    print( sim([2,3,5,4,1], x) )
+
+# for t in range(10):
+#     N, P = gen()
+#     print('\n\n')
+#     print(N, *P)
+#     A = [sim(P,x) for x in range(N+1)]
+#     print(*A)
+#     print(*range(N+1))
