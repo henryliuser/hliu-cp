@@ -25,6 +25,5 @@ if __name__ == '__main__':
     uqd = sorted(s, reverse=True)
     for i in range(1, len(uqd)):
         l, r = uqd[i], uqd[i-1]
-        cnt = r-l
-        ans += cnt * (N // r)
+        ans += (r-l) * (N // r)
     print(ans)

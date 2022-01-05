@@ -9,6 +9,7 @@ https://codeforces.com/contest/1614/problem/C
 https://codeforces.com/contest/1609/problem/C
 https://codeforces.com/contest/1623/problem/C
 https://codeforces.com/contest/1621/problem/C
+https://codeforces.com/contest/1618/problem/E
 
 http://www.usaco.org/index.php?page=viewproblem2&cpid=741
 http://www.usaco.org/index.php?page=viewproblem2&cpid=1063
