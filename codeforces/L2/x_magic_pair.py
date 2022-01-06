@@ -1,5 +1,6 @@
 # https://codeforces.com/problemset/problem/1612/D
 # think of the tree, eliminate redundant computations
+# use Without Loss of Generality to simplify situation
 import sys
 input = lambda : sys.stdin.readline().strip()
 intput = lambda : map(int, input().split())
