@@ -8,9 +8,9 @@
 // maximize d such that " d * cs(d) <= K + sum(A) "
 // let C = K + sum(A)
 // fixed number of unique values of ceil(x/q): O(sqrt(x)) of them
-// compute all of the denominators of those unique values in O(N sqrt N)
-// then find all of the unique such denominators
-// these denominators form segments where ALL cs(q) for q in [L,R) ARE EQUAL!
+// compute the minimum representative denominators of those unique values
+// in O(N sqrt N). these denominators form segments
+// where ALL cs(q) for q in [L,R) ARE EQUAL!
 // then, on these segments, the k value obtained is monotonic
 // solution 1. (779 ms, AC)  take C / cs(q) = d, if q <= d < r, then it's good.
 // solution 2. (1622 ms, AC) binary search  over each [L,R) for max value
