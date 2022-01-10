@@ -17,7 +17,8 @@ void init() {
     ios::sync_with_stdio(0);
     memset(dp, -1, sizeof dp);
     memset(fact, 0, sizeof 0);
-    fact[0] = fact[1] = finv[0] = finv[1] = minv[0] = minv[1] = 1;
+    fact[0] = minv[0] = finv[0] = 1;
+    fact[1] = minv[1] = finv[1] = 1;
     for (int i = 2; i < MXN; ++i) {
         fact[i] = i * fact[i-1] % MOD;
         minv[i] = MOD-MOD/i*minv[MOD%i]%MOD;
