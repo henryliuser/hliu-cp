@@ -2,9 +2,14 @@
 using namespace std;
 using ll = long long;
 
+int gcd(int a, int b) {
+    while (b)
+        swap(a %= b, b);
+    return a;
+}
+
 int main() {
-    string s = "01234";
-    for (int i = 0; i < s.size()-1; ++i)
-        cout << s.substr(i, i+2) << '\n';
+    vector<int> A = {2,6,5,3};
+    cout << gcd(122, 427);
 
 }
