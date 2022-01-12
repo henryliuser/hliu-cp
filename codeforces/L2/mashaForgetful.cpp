@@ -17,8 +17,8 @@ void find(int j, string &s) {
     for (int i = 0; i < M-1; ++i) {
         t = s.substr(i, 3);
         st[t] = {i+1, i+3, j};
-        t = s.substr(i, 2);
-        st[t] = {i+1, i+2, j};
+        t = s.substr(i, 2);     // set this one Afterwards
+        st[t] = {i+1, i+2, j};  // to overwrite identical 3's
     }
 }
 
