@@ -16,7 +16,7 @@ void init() {
     cin.tie(0);
     ios::sync_with_stdio(0);
     memset(dp, -1, sizeof dp);
-    memset(fact, 0, sizeof 0);
+    memset(fact, 0, sizeof fact);
     fact[0] = minv[0] = finv[0] = 1;
     fact[1] = minv[1] = finv[1] = 1;
     for (int i = 2; i < MXN; ++i) {
