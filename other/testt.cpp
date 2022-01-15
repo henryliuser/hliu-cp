@@ -2,14 +2,10 @@
 using namespace std;
 using ll = long long;
 
-int gcd(int a, int b) {
-    while (b)
-        swap(a %= b, b);
-    return a;
-}
-
 int main() {
-    vector<int> A = {2,6,5,3};
-    cout << gcd(122, 427);
+    int N, C; cin >> N >> C;
+    vector<int> A(N), B(N-1);
+    for (int &x : A) cin >> x;
+    for (int &x : B) cin >> x;
 
 }
