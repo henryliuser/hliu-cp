@@ -3,6 +3,7 @@ https://leetcode.com/problems/second-minimum-time-to-reach-destination/
 https://leetcode.com/problems/kth-smallest-product-of-two-sorted-arrays
 https://leetcode.com/problems/equal-sum-arrays-with-minimum-number-of-operations/
 https://leetcode.com/problems/maximum-number-of-points-with-cost/
+https://leetcode.com/problems/maximum-subarray-min-product/
 
 https://codeforces.com/problemset/problem/1398/C
 https://codeforces.com/contest/1614/problem/C

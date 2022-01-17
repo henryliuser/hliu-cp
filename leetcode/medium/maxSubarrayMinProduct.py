@@ -1,3 +1,4 @@
+# https://leetcode.com/problems/maximum-subarray-min-product/
 class Solution:
     def maxSumMinProduct(self, nums: List[int]) -> int:
         N = len(nums)
@@ -7,8 +8,7 @@ class Solution:
         for i in range(1, N+1):
             pre[i] += pre[i-1]
 
-        def mono(L, rev):
-            st = []
+        def mono(L, rev, st=[]):
             r = range(N)
             if rev: r = reversed(r)
             for i in r:

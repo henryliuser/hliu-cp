@@ -5,8 +5,8 @@ intput = lambda : map(int, input().split())
 def solve():
     N, = intput()
     rank = [list(intput()) for _ in range(N)]
-    def beats(i, j):  # i beats itself
-        res = 0
+
+    def beats(i, j, res=0):  # i beats itself
         for k in range(5):
             res += (rank[i][k] <= rank[j][k])
         return res >= 3
