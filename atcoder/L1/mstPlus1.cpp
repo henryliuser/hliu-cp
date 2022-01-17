@@ -1,3 +1,6 @@
+// https://atcoder.jp/contests/abc235/tasks/abc235_e
+// answer queries offline, as you build the mst (kruskal's)
+// 2p on sorted edges/queries
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -27,6 +30,7 @@ struct DSU {
 int main() {
     int N, M, Q;
     cin >> N >> M >> Q;
+    vector<bool> ans(Q);
     vector<edge> E(M), qry(Q);
     for (edge &e : E) cin >> e[1] >> e[2] >> e[0];
     for (int i = 0; i < Q; ++i) {
@@ -35,9 +39,8 @@ int main() {
         e[3] = i;
     }
 
+    int i = 0;
     DSU uf(N+1);
-    int i = 0, j = 0;
-    vector<bool> ans(Q);
     sort(all(E)), sort(all(qry));
     for (int j = 0; j < Q; ++j) {
         while (i < M && E[i][0] < qry[j][0]) {
