@@ -20,7 +20,7 @@ ll dfs(int i, int t, ll s) {
     if (dp[i][t][s] != -1) return dp[i][t][s];
 
     ll res = 0;
-    ll k = (t<10) ? t : K[i]-'0';
+    ll k = (t<10) ? t : (K[i]-'0');
     // if t==10, use the actual digit
     for (int j = 0; j <= k; ++j) {
         int nt = 9;  // new digit restriction
