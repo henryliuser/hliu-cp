@@ -1,5 +1,7 @@
 // https://codeforces.com/contest/1625/problem/C
-// FFS DO NOT USE LLONG_MAX
+// FFS DO NOT USE LLONG_MAX.
+// dp[i][j] min time to reach sign i deleting j signs, TAKING sign i
+// iterate on i,j, k=previous taken. then the recurrence is obvious
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
