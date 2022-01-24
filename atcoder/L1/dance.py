@@ -1,3 +1,5 @@
+# https://atcoder.jp/contests/abc236/tasks/abc236_d
+# just backtrack. not sure how so few people solved it
 import sys
 from bisect import bisect_left
 input = lambda : sys.stdin.readline().strip()
