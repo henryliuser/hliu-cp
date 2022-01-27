@@ -6,6 +6,8 @@
 // ab ba
 // ab cba
 // abc ba
+// a cca
+// then reverse and check again
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
