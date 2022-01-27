@@ -1,7 +1,7 @@
+# https://codeforces.com/contest/1631/problem/B
+# can't change the last element, so you must make everything == to it
+# do it greedily in chunks
 import sys
-from random import randint as rng
-from collections import Counter, defaultdict
-from bisect import bisect_left, bisect_right
 input = lambda : sys.stdin.readline().strip()
 intput = lambda : map(int, input().split())
 

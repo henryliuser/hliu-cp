@@ -61,29 +61,30 @@ if __name__ == '__main__':
         s = input()
         print( solve(k,x,s) )
 
-from random import randint
-def random():
-    b = []
-    for i in range(randint(0,50)):
-        a = randint(0,1)
-        x = randint(0,20)
-        if a == 0:
-            b.append(x * '*')
-        else:
-            b.append(x * 'a')
-    return ''.join(b)
-
-
-def test(x, k, s):
-    A = set()
-    def dfs(i, curr):
-        if i >= len(s):
-            A.add(str(curr))
-            return
-        if s[i] == '*':
-            for j in range(k+1):
-                q = curr + 'b'*j
-                dfs(i+1, q)
-        else: dfs(i+1, curr + 'a')
-    dfs(0, "")
-    return sorted(A)[x-1]
+# investigation
+# from random import randint
+# def random():
+#     b = []
+#     for i in range(randint(0,50)):
+#         a = randint(0,1)
+#         x = randint(0,20)
+#         if a == 0:
+#             b.append(x * '*')
+#         else:
+#             b.append(x * 'a')
+#     return ''.join(b)
+#
+#
+# def test(x, k, s):
+#     A = set()
+#     def dfs(i, curr):
+#         if i >= len(s):
+#             A.add(str(curr))
+#             return
+#         if s[i] == '*':
+#             for j in range(k+1):
+#                 q = curr + 'b'*j
+#                 dfs(i+1, q)
+#         else: dfs(i+1, curr + 'a')
+#     dfs(0, "")
+#     return sorted(A)[x-1]
