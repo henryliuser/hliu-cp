@@ -7,10 +7,12 @@ intput = lambda : map(int, input().split())
 
 def solve():
     N, = intput()
-    A = [input() for _ in range(N)]
-    dp = []
-    for s in A:
-        if s == s[::-1]: return "YES"
+    A = list(intput())
+    B = list(intput())
+    for i in range(N):
+        if B[i] > A[i]:
+            A[i], B[i] = B[i], A[i]
+    return max(A) * max(B)
 
 
 if __name__ == '__main__':
