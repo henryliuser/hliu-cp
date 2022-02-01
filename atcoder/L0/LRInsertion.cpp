@@ -1,3 +1,8 @@
+// https://atcoder.jp/contests/abc237/tasks/abc237_d
+// meme solution
+#include <bits/stdc++.h>
+using namespace std;
+
 template<typename T>
 class DLL {
 public:
@@ -6,10 +11,9 @@ public:
         Node *prev, *next;
         Node(T v) : val(v) {}
     };
-    Node *head = nullptr;
-    Node *tail = nullptr;
-    unsigned int sz = 0;
-
+    DLL() {
+        head = tail = nullptr;
+    }
     Node* push_back(T x) {
         Node *v = new Node(x);
         if (sz == 0) {
@@ -33,18 +37,6 @@ public:
         }
         ++sz;
         return v;
-    }
-    T pop_back() {
-        if (sz == 0) throw -1;
-        Node *v = tail;
-        T x = v->val;
-        if (sz > 1) {
-            tail->prev->next = nullptr;
-            tail = tail->prev;
-        }
-        --sz;
-        delete v;
-        return x;
     }
     Node* insert(Node *v, T x, bool left) {
         // assume v is in the DLL
@@ -81,15 +73,22 @@ public:
         delete v;
         return x;
     }
-    T front() {
-        if (sz == 0) throw -1;
-        return head->val;
-    }
-    T back() {
-        if (sz == 0) throw -1;
-        return tail->val;
-    }
-    unsigned int size() {
-        return sz;
-    }
+    unsigned int sz = 0;
+    Node *head, *tail;
 };
+
+int main() {
+    cin.tie(0);
+    ios::sync_with_stdio(0);
+    int N; cin >> N;
+    string S; cin >> S;
+
+    DLL<int> ans;
+    auto last = ans.push_back(0);
+    for (int i = 0; i < N; ++i) {
+        bool left = (S[i] == 'L');
+        last = ans.insert(last, i+1, left);
+    }
+    while (ans.sz)
+        cout << ans.pop_front() << ' ';
+}
