@@ -21,7 +21,7 @@ inline void add(ll &x, ll y) { x=(x+y)%MOD; }
 inline ll mul(ll x, ll y) { return (x*y)%MOD; }
 
 ll dfs(int i, bool t, bool u, int m) {
-    // i: index  t: tight  u: can_use_0  m: mask
+    // i: index  t: tight  u: can_use_0  m: mask | (leading 0's don't count)
     // returns the COUNT of suitable numbers
     if (i == N && m == full) return 1;
     if (i >= N) return 0;
