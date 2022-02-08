@@ -20,6 +20,7 @@ http://www.usaco.org/index.php?page=viewproblem2&cpid=993
 http://www.usaco.org/index.php?page=viewproblem2&cpid=1015
 http://www.usaco.org/index.php?page=viewproblem2&cpid=990
 http://usaco.org/index.php?page=viewproblem2&cpid=1158
+http://usaco.org/index.php?page=viewproblem2&cpid=1185
 
 https://atcoder.jp/contests/agc040/tasks/agc040_a
 https://atcoder.jp/contests/abc234/tasks/abc234_f
