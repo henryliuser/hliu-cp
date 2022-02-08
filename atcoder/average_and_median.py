@@ -1,42 +1,49 @@
+# https://atcoder.jp/contests/abc236/tasks/abc236_e
+# super instructive question
+# use binary search:
+# MEAN: (a+b+c+ ...) / N
+# Check if possible mean g:
+# (a+b+c+ ...) / N >= g
+# (a+b+c+ ...) >= g*N
+# (a-g + b-g + c-g + ...) >= 0
+# now, dp to maximize it and check if greater than 0
+# by reframing the algebra, we can greedily compute
+# some maximal value instead of guesswork with sequence length
+# MEDIAN: same idea but just ensure (# >= g) is > (# < g)
 import sys
 input = lambda : sys.stdin.readline().strip()
 intput = lambda : map(int, input().split())
 
-def dfsA(i, cs, cn):  # average
-    if i >= N:
-        return 0,100
-    if dpA[i][0] != -1:
-        return dpA[i][1:]
+def greed(g, f):
+    dp = [0] * N
+    dp[-1] = max(0, f(N-1, g))
+    for i in range(N-2, -1, -1):
+        dp[i] = f(i,g) + dp[i+1]
+        if i+1 < N:
+            v = f(i+1, g)
+            d = 0 if i+2 >= N else dp[i+2]
+            dp[i] = max(dp[i], v+d)
+    return dp[0]
 
-    res = [0, 0, 0]
-    # take it
-    r1, r2 = dfsA(i+1, cs+A[i], cn+1)
-    r1 += A[i]
-    r2 += 1
-    nav = r1/r2
-    if nav > res[0]:
-
-
-    # don't take
-    if i+1 < N:
-        dfsA(i+2, cs+A[i+1], cn+1)
-    # else:
-    #     avg = max(avg, cs/cn)
-
-    dpA[i] = res
-    return res[1:]
+def bisect(p, lo, hi, eps, i=True):
+    res = -1
+    while hi-lo > eps:
+        mid = (lo+hi)/2
+        if i: mid = int(mid)
+        if p(mid): lo = res = mid
+        else: hi = mid
+    return res
 
 if __name__ == '__main__':
-    N,  = intput()
-    A   = list(intput())
-    avg = med = 0
-    dpA = [[-1,0,0] for _ in range(N)]  # [avg, sum, len]
-    dpM = []
+    N, = intput()
+    A  = list(intput())
 
-    dfsA(0, 0, 0)
+    mx = max(A)
+    favg = lambda i,x: A[i] - x
+    fmed = lambda i,x: 1 if A[i] >= x else -1
+    pavg = lambda g : greed(g, favg) >= 0
+    pmed = lambda g : greed(g, fmed) > 0
+    avg = bisect(pavg, 0, mx+1, 1e-5, False)
+    med = bisect(pmed, 0, mx+1,    1,  True)
     print(avg)
-    # res[1] += cs
-    # res[2] += cn
-    # res[0] = res[1] / res[2]
-
-    # for r in dpA: print(r)
+    print(med)
