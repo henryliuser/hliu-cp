@@ -11,7 +11,7 @@ int pre[1001];
 int dp[101][1001];
 // k-valid seq => can be reduced to all k's
 // dp[i][c] = # of k-vaild seqs in H[:i] where c = cur diff
-int add(int x, int y) { return ((x+=y)>Q) ? x-Q : x;  }
+int add(int x, int y) { return ((x+=y)>=Q) ? x-Q : x;  }
 
 int solve() {
     int N; cin >> N;

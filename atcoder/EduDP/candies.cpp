@@ -8,7 +8,7 @@ const ll Q = 1e9+7;
 int N, K;
 vector<int> A;
 ll dp[101][100001] = {};
-ll add(ll x, ll y) { return ((x+=y) > Q) ? x-Q : (x < 0) ? x+Q : x; }
+ll add(ll x, ll y) { return ((x+=y) >= Q) ? x-Q : (x < 0) ? x+Q : x; }
 
 int main() {
     cin.tie(0);
