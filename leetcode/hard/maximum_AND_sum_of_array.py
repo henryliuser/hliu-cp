@@ -4,8 +4,8 @@ class Solution:
     def maximumANDSum(self, nums: List[int], S: int) -> int:
         N = len(nums)
         # base-3 bitmask
-        dp = [[-1] * 3**S for _ in range(N)]
         p3 = [1, 3, 9, 27, 81, 243, 729, 2187, 6561, 19683, 59049]
+        dp = [[-1] * p3[S] for _ in range(N)]
 
         def qry(x, i):  # ternary bit at pos i from mask x
             return x % p3[i+1] // p3[i]
@@ -22,12 +22,11 @@ class Solution:
             for k in range(S):
                 b = qry(m, k)
                 if b == 2: continue
-                nm = upd(m, k, b+1)
-                x = nums[i] & (k+1)
+                nm = upd(m, k, b+1)  # new mask
+                x = nums[i] & (k+1)  # value if take
                 y = dfs(i+1, nm)
                 res = max(res, x+y)
             dp[i][m] = res
             return res
 
         return dfs(0, 0)
-        
