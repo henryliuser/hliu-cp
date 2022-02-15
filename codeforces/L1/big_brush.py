@@ -108,8 +108,7 @@ if __name__ == '__main__':
 
     for row in A:
         if any(x != 0 for x in row):
-            print(-1)
-            exit()
+            print(-1); exit()
 
     print(len(ans))
     print('\n'.join(ans[::-1]))
