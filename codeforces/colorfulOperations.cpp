@@ -5,18 +5,19 @@
 // O(1)
 // add(c,x) -> lazy[c] += x
 //
-// O(log N)  ..?
+// O(log N) amortized
+// every interval u walk over gets deleted
+// # of intervals can't ever increase by more than 2
+// total complexity therefore bounded by total insertions
 // update(l,r,c) ->
 //    for all intersecting intervals (i,j,k)
 //         split into new intervals logically
 //         seg.update( -lazy[k] , [section that's changing color] )
 //    seg.update( lazy[c], l, r );
 //
-// O(log N) ..?
+// O(log N)
 // query(i) -> find i's color c, then return `seg.query(i,i) + lazy[c]`
 //
-// # of intervals can't ever increase by more than 2
-// 
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
