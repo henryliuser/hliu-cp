@@ -2,6 +2,10 @@
 // use ordered set of monochrome intervals to keep track of colors
 // use range add, point query seg tree to maintain sums
 // maintain ll lazy[N+1] to track pending updates
+// by immediately subtracting lazy[c] on a color update,
+// you are accounting for the delta in lazy[c] when u query or update again
+// -lazy[c] @ t1 ... lazy[c] += 5 ... query(i) + lazy[c] @ t2
+//
 // O(1)
 // add(c,x) -> lazy[c] += x
 //

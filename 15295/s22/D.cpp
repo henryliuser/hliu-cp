@@ -6,10 +6,7 @@ using pi = array<int, 2>;
 int N, M;
 ll ans = 0;
 vector<vector<int>> adj;
-vector<int> seen[2];
 void bfs(int src) {
-    // seen[0].assign(N+1,0);
-    // seen[1].assign(N+1,0);
     vector<set<int>> in(N+1);
     queue<int> q;
     q.push(src);
@@ -24,8 +21,6 @@ void bfs(int src) {
                     in[v].insert(u);
                 }
                 if (depth > 0) continue;
-                // if (seen[1][v]) continue;
-                // seen[1][v] = 1;
                 q.push(v);
             }
         }
