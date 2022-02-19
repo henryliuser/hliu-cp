@@ -1,20 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
+using ll = long long;
 
 struct BIT {
     int N;
-    vector<int> bit;
+    vector<ll> bit;
     BIT(int n) : N(n), bit(n+1) {}
-    BIT(vector<int> &a) : BIT(a.size()) {
+    BIT(vector<ll> &a) : BIT(a.size()) {
         for (int i = 0; i < N; ++i)
             update(i, a[i]);
     }
-    void update(int i, int val) {
+    void update(int i, ll val) {
         for (++i; i <= N; i += i & -i)
             bit[i] += val;
     }
-    int query(int i) {
-        int res = 0;
+    ll query(int i) {
+        ll res = 0;
         for (++i; i > 0; i -= i & -i)
             res += bit[i];
         return res;
@@ -22,7 +23,7 @@ struct BIT {
 };
 
 int main() {
-    vector<int> A = {6,1,2,3,4,5,6};
+    vector<ll> A = {6,1,2,3,4,5,6};
     BIT bit(A);
     cout << bit.query(4) - bit.query(2) << endl;
     bit.update(4, 3);
