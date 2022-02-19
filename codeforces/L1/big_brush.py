@@ -111,4 +111,4 @@ if __name__ == '__main__':
             print(-1); exit()
 
     print(len(ans))
-    print('\n'.join(ans[::-1]))
+    print( '\n'.join(reversed(ans)) )

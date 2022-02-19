@@ -3,7 +3,10 @@
 // (just make it some huge prime number.)
 // Two crucial realizations:
 // 1. at most N bad subarrays
+//    reason: worst case is N subarrays of length 1, (can't intersect)
 // 2. for a fixed i, gcd(i..j) s.t. j >= i can never increase.
+// which leads us to 2 pointers approach but need to calculate gcd dynamically
+// so use segtree
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -38,7 +41,7 @@ struct SegTree {
         return gcd(ql, qr);
     }
     SegTree(int n, vector<int>& a)
-            : N(n), A(a), T(4*n) { build(1, 0, N-1); }
+        : N(n), A(a), T(4*n) { build(1, 0, N-1); }
 };
 
 int main() {
