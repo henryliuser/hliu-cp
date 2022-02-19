@@ -2,7 +2,7 @@
 from math import sqrt
 
 def sieve(N):
-    y == int(N**.5) + 1
+    y = int(N**.5) + 1
     spf = [0] * (N+1)
     spf[0] = spf[1] = -1
     for i in range(3, N+1, 2): spf[i] = i
