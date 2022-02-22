@@ -1,18 +1,12 @@
 // https://leetcode.com/problems/count-good-triplets-in-an-array/submissions/
 // easy bit
 using ll = long long;
-using pll = array<ll, 2>;
-#define all(x) (x).begin(), (x).end()
 class Solution {
 public:
     struct BIT {
         int N;
         vector<ll> bit;
         BIT(int n) : N(n), bit(n+1) {}
-        BIT(vector<ll> &a) : BIT(a.size()) {
-            for (int i = 0; i < N; ++i)
-                update(i, a[i]);
-        }
         void update(int i, ll val) {
             for (++i; i <= N; i += i & -i)
                 bit[i] += val;

@@ -63,21 +63,17 @@ def solve():
     ans = []
     N, = intput()
     A = list(intput())
-    # smax = [*range(N)]
     smax = [*range(N)]
     for i in range(N - 2, -1, -1):
         smax[i] = max(smax[i], smax[i + 1], key=lambda j: A[j])
-    #     smax[i] = max(smax[i], smax[i+1], key=lambda j:A[j])
 
     dp = [(-1, -1, float('inf'))] * N
     for i in range(1, N-1):
         dp[i] = (i, smax[i+1], A[i] - A[smax[i+1]])
-    # print(dp)
     for i in range(N - 2, -1, -1):
         j,k,x = dp[i + 1]
         if x < dp[i][2]:
             dp[i] = (j,k,x)
-    # print(dp)
 
     for i in range(N - 2):
         x = A[i]

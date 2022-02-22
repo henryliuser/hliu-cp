@@ -1,3 +1,9 @@
+// https://codeforces.com/problemset/problem/999/E
+// decompose into SCC's. Each scc is a node in the new graph
+// for all SCC's with in-degree 0, add an edge
+#include <bits/stdc++.h>
+using namespace std;
+
 struct Tarjan {
     int N;
     int T = 0, C = 1;
@@ -47,3 +53,32 @@ struct Tarjan {
                 dfs(i);
     }
 };
+
+int main() {
+    int N, M, s;
+    cin.tie(0);
+    ios::sync_with_stdio(0);
+    cin >> N >> M >> s;
+    vector<vector<int>> adj(N+1);
+    while (M--) {
+        int u, v; cin >> u >> v;
+        adj[u].push_back(v);
+    }
+    Tarjan scc(adj);
+
+    vector<int> indeg(N+1);
+    for (int u = 1; u <= N; ++u)
+        for (int v : adj[u])
+            if (scc[u] != scc[v])
+                ++indeg[ scc[v] ];
+
+    set<int> ans;
+    for (int u = 1; u <= N; ++u) {
+        int c = scc[u];
+        if (c == scc[s]) continue;
+        if (indeg[c] != 0) continue;
+        ans.insert(c);
+    }
+
+    cout << ans.size() << '\n';
+}
