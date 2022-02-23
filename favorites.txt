@@ -1,5 +1,4 @@
 https://leetcode.com/problems/odd-even-jump/
-https://leetcode.com/problems/second-minimum-time-to-reach-destination/
 https://leetcode.com/problems/kth-smallest-product-of-two-sorted-arrays
 https://leetcode.com/problems/equal-sum-arrays-with-minimum-number-of-operations/
 https://leetcode.com/problems/maximum-number-of-points-with-cost/
@@ -15,6 +14,7 @@ https://codeforces.com/contest/1613/problem/D
 https://codeforces.com/contest/1624/problem/E
 https://codeforces.com/problemset/problem/1630/B
 https://codeforces.com/contest/1635/problem/D
+https://codeforces.com/contest/1635/problem/E
 
 http://www.usaco.org/index.php?page=viewproblem2&cpid=741
 http://www.usaco.org/index.php?page=viewproblem2&cpid=1063

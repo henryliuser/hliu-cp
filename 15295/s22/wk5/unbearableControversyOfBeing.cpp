@@ -1,3 +1,5 @@
+// https://codeforces.com/problemset/problem/489/D
+// bfs from each node depth 2 and do some math
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;

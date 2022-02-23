@@ -1,3 +1,6 @@
+// https://codeforces.com/problemset/problem/430/C
+// greedy start from parent, keep track of odd/even ops,
+// if u need to fix current then do it and update ops.
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
