@@ -1,189 +1,146 @@
+// https://codeforces.com/problemset/problem/1641/C
+// pretty complicated to understand imo.
+// first of all, we can NEVER confirm healthy unless explicitly given
+// maintain a set of potentially sick
+// on a query 0 L R 0, remove [L,R] from the set
+// the total complexity of these removals is bounded by O(N log N)
+// maintain a point set, RMQ seg tree where each slot i keeps track of
+// some index j such that we've seen a query 0 i j 1
+// to answer type 1 query, if they aren't in the set then they're healthy
+// otherwise, on a point query at i:
+// let it = maybe.lower_bound(i)
+// let L = prev(it) -- *L = idx of the closest maybe to the left of i
+// let R = next(it) -- *R = idx of the closest maybe to the right of i
+// notice that the interval [L+1, R-1] must be all confirmed healthy, except i
+// i is confirmed sick IFF: rmq(L+1, i) < R
+//
+// DIAGRAM  |  O = healthy,   X = sick,   ? = maybe
+//
+//   L       i   R
+// 0 1 2 3 4 5 6 7  -- index
+// ? ? H H H ? H ?  -- status     -> point query on i returns "NO"
+// 8 8 6 8 8 8 8 8  -- seg tree
+//
+// basically, i is an ISOLATED ?. We can confirm it to be sick IFF
+// it is the only remaining ? in some Maybe range [A,B] where this range
+// BEGINS in [L+1, i] and ENDS before R. If those Maybe ranges stretch beyond
+// R, then we dont have enough information to confirm i.
+// reminder that L < A <= i, and q can never be < i, because otherwise
+// we've been given contradicting information. because the range [L+1, i-1]
+// is CONFIRMED to be healthy already by our definition, so q >= i
+// if q == i then we have the following case:
+// 0 2 5 1
+// 0 2 4 0
+// so i=5 is an isolated ? and is confirmed to be sick
+// if q > i && q < R we have
+// 0 2 7 1
+// 0 2 4 0
+// 0 6 7 0
+// so i=5 is again an isolated ? and confirmed to be sick
+// if q > R then we have:
+// 0 2 8 1
+// 0 2 4 0
+// 0 6 7 0
+// then i=5 is isolated, but on the range [2,8] we dont know if i=5 or i=8
+// or both 5 and 8 are sick.
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 using pi = array<int, 2>;
+#pragma GCC optimize ("O3")
+#pragma GCC target ("sse4")
 const int INF = 1e8;
 
-int N, Q;
-SegTree seg;
-set<pi> spec;
-int t, l, r, x;
 
 struct SegTree {
-    struct node{
-        ll val;
-        ll lzAdd;
-        ll lzSet;
-        node(){};
-    };
-    vector<node> tree;
-
-#define lc p<<1
-#define rc (p<<1)+1
-
-    inline void pushup(int p){
-        tree[p].val = tree[lc].val + tree[rc].val;
-        return;
-    }
-
-    void pushdown(int p, int l, int mid, int r){
-        //lazy: range set
-        if(tree[p].lzSet != 0){
-            tree[lc].lzSet = tree[rc].lzSet = tree[p].lzSet;
-            tree[lc].val = (mid-l+1) * tree[p].lzSet;
-            tree[rc].val = (r-mid) * tree[p].lzSet;
-            tree[lc].lzAdd = tree[rc].lzAdd = 0;
-            tree[p].lzSet = 0;
+    int N;
+    vector<int> T;
+    void build(int v, int tl, int tr) {
+        // v: tree index, tl/tr: tree bounds
+        if (tl == tr) T[v] = INF;
+        else {
+            int mid = (tl + tr) / 2;
+            build(v*2, tl, mid);
+            build(v*2+1, mid+1, tr);
+            T[v] = min(T[v*2], T[v*2+1]);  // adjust this
         }
-        else if(tree[p].lzAdd != 0){ //lazy: range add
-            if(tree[lc].lzSet == 0)tree[lc].lzAdd += tree[p].lzAdd;
-            else {
-                tree[lc].lzSet += tree[p].lzAdd;
-                tree[lc].lzAdd = 0;
-            }
-            if(tree[rc].lzSet == 0)tree[rc].lzAdd += tree[p].lzAdd;
-            else{
-                tree[rc].lzSet += tree[p].lzAdd;
-                tree[rc].lzAdd = 0;
-            }
-            tree[lc].val += (mid-l+1) * tree[p].lzAdd;
-            tree[rc].val += (r-mid) * tree[p].lzAdd;
-            tree[p].lzAdd = 0;
+    }
+    int query(int al, int ar) { return query(al, ar, 1, 0, N-1); }
+    int query(int al, int ar, int v, int tl, int tr) {
+        // al/ar: arr bounds
+        if (al > ar) return INF;
+        if (al == tl && ar == tr) return T[v];
+        int mid = (tl + tr) / 2;
+        int ql = query(al, min(ar, mid), v*2, tl, mid);
+        int qr = query(max(al, mid+1), ar, v*2+1, mid+1, tr);
+        return min(ql, qr);
+    }
+    void update(int i, int val) { update(i, val, 1, 0, N-1); }
+    void update(int i, int val, int v, int tl, int tr) {
+        // i: arr index, val: new value
+        if (tl == tr) T[v] = val;
+        else {
+            int mid = (tl + tr) / 2;
+            if (i <= mid) update(i, val, v*2, tl, mid);
+            else update(i, val, v*2+1, mid+1, tr);
+            T[v] = min(T[v*2], T[v*2+1]);  // adjust this
         }
-        return;
     }
-    void build(vector<int> &a) { build(1,1,N,a); }
-    void build(int p, int l, int r, vector<int> &a){
-        tree[p].lzAdd = tree[p].lzSet = 0;
-        if(l == r){
-            tree[p].val = a[l];
-            return;
-        }
-        int mid = (l+r)>>1;
-        build(lc,l,mid,a);
-        build(rc,mid+1,r,a);
-        pushup(p);
-        return;
-    }
-    void add(ll dx, int L, int R) { add(1,1,N,L,R,dx); }
-    void add(int p, int l, int r, int a, int b, ll val){
-        if (b < a) return;
-        if(a > r || b < l)return;
-        if(a <= l && r <= b){
-            tree[p].val += (r-l+1) * val;
-            if(tree[p].lzSet == 0)tree[p].lzAdd += val;
-            else tree[p].lzSet += val;
-            return;
-        }
-        int mid = (l+r)>>1;
-        pushdown(p,l,mid,r);
-        add(lc,l,mid,a,b,val);
-        add(rc,mid+1,r,a,b,val);
-        pushup(p);
-        return;
-    }
-    void set(ll x, int L, int R) { set(1,1,N,L,R,x); }
-    void set(int p, int l, int r, int a, int b, ll val){
-        if(a > r || b < l)return;
-        if(a <= l && r <= b){
-            tree[p].val = (r-l+1) * val;
-            tree[p].lzAdd = 0;
-            tree[p].lzSet = val;
-            return;
-        }
-        int mid = (l+r)>>1;
-        pushdown(p,l,mid,r);
-        set(lc,l,mid,a,b,val);
-        set(rc,mid+1,r,a,b,val);
-        pushup(p);
-        return;
-    }
-    ll query(int L, int R) { return query(1,1,N,L,R); }
-    ll query(int p, int l, int r, int a, int b){
-        if (b < a) return 0;
-        if(a > r || b < l)return 0;
-        if(a <= l && r <= b)return tree[p].val;
-        int mid = (l+r)>>1;
-        pushdown(p,l,mid,r);
-        return query(lc,l,mid,a,b) + query(rc,mid+1,r,a,b);
-    }
-    void init(vector<int> &a) {
-        tree.resize((N+1)<<2);
-        build(1,1,N,a);
+    void init(int n) {
+        N = n, T.resize(4*n);
+        build(1, 0, N-1);
     }
 };
 
-// auto it = ivals.upper_bound( {r,INF,-1} );
-// vector<iv> del, add;
-// while (1) {
-//     if (it == begin(ivals)) break;
-//     iv x = *(--it);
-//     if (x[1] < l) break;
-//     ll dv = lazy[x[2]];
-//     int L = max(l, x[0]), R = min(r, x[1]);
-//     if (x[0] < l)
-//         add.push_back( {x[0], l-1, x[2]} );
-//     if (x[1] > r)
-//         add.push_back( {r+1, x[1], x[2]} );
-//     seg.upd(dv, L, R);
-//     del.push_back(x);
-// }
-// for (iv &x : del) ivals.erase(x);
-// for (iv &x : add) ivals.insert(x);
-// ivals.insert( {l,r,c} );
-// seg.upd(-lazy[c], l, r);
-
-void upd(int l, int r, int x) {
-    auto it = spec.upper_bound( {r,INF} );
-    vector<pi> del, add;
-    while (1) {
-        if (it == begin(spec)) break;
-        pi p = *(--it);
-        if (p[1] < l) break;
-        if (x == 0) {
-            del.push_back(p);
-        }
-        if (x == 1) {
-            // // (l,r) contains p
-            // if (l <= p[0] && p[1] <= r) { }
-            // // p contains (l,r)
-            // if (p[0] <= l && r <= p[1]) {
-            //     del.push_back(p);
-            //     add.push_back( {l,r} );
-            //     seg.set(1, p[0], l-1);
-            //     seg.set()
-            // }
-        }
-
-    }
-}
+int N, Q;
+SegTree seg;
+set<int> maybe;
+int t, l, r, x;
 
 void upd() {
     cin >> l >> r >> x;
-    if (x == 1 && l == r) seg.set(2,l,r);
-    if (x == 0)
-        seg.set(1,l,r),
-        upd(l,r,x);
+    if (x == 1) {
+        int q = seg.query(l, l);
+        if (q <= r) return;
+        seg.update(l, r);
+    }
+    if (x == 0) {
+        vector<int> del;
+        auto it = maybe.lower_bound(l);
+        while (1) {
+            if (it == end(maybe)) break;
+            if (*it > r) break;
+            del.push_back(*it);
+            ++it;
+        }
+        for (int d : del) maybe.erase(d);
+    }
 }
 
-void qry() {
+string qry() {
     cin >> x;
-    int v = seg.query(x,x);
-    if (v == 1) cout << "NO\n";
-    if (v == 2) cout << "YES\n";
-    if (v == 3) cout << "N/A\n";
+    if (!maybe.count(x)) return "NO";
+    auto it = maybe.lower_bound(x);
+    int i = *it;
+    int L = -1, R = N+1;
+    if (it != begin(maybe))     L = *prev(it);
+    if (it != prev(end(maybe))) R = *next(it);
+    int q = seg.query(L+1, i);
+    if (q < R) return "YES";
+    return "N/A";
 }
 
 int main() {
-    int N, Q; cin >> N >> Q;
-    vector<int> A(N+1, 3);
-    seg.init(A);
+    cin.tie(0);
+    ios::sync_with_stdio(0);
+    cin >> N >> Q;
+    seg.init(N+5);
+    for (int i = 1; i <= N; ++i)
+        maybe.insert(i);
 
-    set<pi> spec;
     while (Q--) {
         cin >> t;
-        if (t == 0) qry();
-        if (t == 1) upd();
+        if (t == 0) upd();
+        if (t == 1) cout << qry() << '\n';
     }
-
 }

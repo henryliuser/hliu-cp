@@ -1,3 +1,22 @@
+# https://codeforces.com/contest/1641/problem/B
+# enormous observation required, but pretty cool
+# we want to arrange the original array A s.t. it becomes a tandem repeat
+# it turns out, you can reverse any prefix, length K, in K operations
+# abcdbdca -> rev(3) -> abc[abccba]dbdca -> new prefix of length 2k is tandem
+# so the part we're worried about now is abcabc[cbadbdca]
+# what we've effectively accomplished is reversing a length k prefix in A
+# and we just want to repeatedly do that until A itself becomes tandem
+# abcabc[cbadbdca] -> we want xxx...xx[abcdabcd]
+# (the section of x's is a tandem repeat.)
+# strategy: sort the characters in A with occurrences/2
+# abcdbdca -> abcd, then the tandem is just itself concatenated with itself
+# target: abcdabcd. we can move each final character in place in 2 rev's
+# abcdbdca -> rev(4) -> dcbabdca -> rev(8) -> acdbabcd
+# acdbabcd, 2nd half already sorted now.
+# -> rev(3) -> dcababcd -> rev(4) -> bacdabcd
+# -> rev(2) -> abcdabcd
+# rev(K) requires K operations so it runs in O(K)
+# total complexity O(N^2)
 import sys
 from random import randint as rng
 from collections import Counter, defaultdict
@@ -61,40 +80,18 @@ intput = lambda : map(int, input().split())
 
 def solve():
     N, = intput()
-    A = [*enumerate(intput())]
-    guard = Counter()
-    for (_,x) in A: guard[x] += 1
-    for cnt in guard.values():
-        if cnt % 2: return []
+    A = [*input()]
+    guard = Counter(A)
+    if any(c%2 for c in guard.values()): return []
 
-    # remove constructions
-    def dest(s=0, e=N):
-        st = []
-        gen = []
-        for i in range(s, e):
-            x = A[i]
-            if st and x == st[-1][1]:
-                st.pop()
-                gen += [(i, len(st), x)]
-            else:
-                st += [(i,x)]
-        return st, gen
+    def rev(k):  # reverse the prefix of length k
 
-    B, lg = dest()
-    M = len(B)
-    if M % 2: return []
-    L = [x for (i,x) in B[:M//2]]
-    R = [x for (i,x) in B[M//2:]]
-    if L != R: return []
 
-    j = B[M//2][0]
-    B, lg = dest(0, j)
-    C, rg = dest(j, N)
-
-    print(B)
-    print(C)
-    print(lg)
-    print(rg)
+    M = N//2
+    L, R = A[:M], A[M:]
+    for j in range(M-1, -1, -1):
+        ch = R[j]
+        if L[0] == ch:
 
 
 if __name__ == '__main__':
@@ -102,3 +99,4 @@ if __name__ == '__main__':
     for _ in range(T):
         s = solve()
         if not s: print(-1)
+        else:

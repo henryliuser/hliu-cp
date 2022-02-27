@@ -46,7 +46,7 @@ vector<int> topSort() {
                 q.push(v);
         q.pop();
     }
-    if (x != N) throw -1;  // im not 100% sure why this is needed...
+    if (x != N) throw -1;
     return ans;
 }
 

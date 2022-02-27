@@ -4,10 +4,10 @@ from collections import defaultdict
 dir = "/".join(sys.argv[0].split('/')[:-1])
 p = Path(dir)
 
-ALL = True
+ALL = False
 counts = defaultdict(int)
 ignore = ["/atcoder/L0", "/codeforces/L0", "/leetcode/easy", "other"]
-yesext = [".cpp", ".py", ".hs"]
+yesext = [".cpp", ".py", ".hs", ".ml"]
 bad = [".tle.", ".wa."]
 
 def dfs(pt):
