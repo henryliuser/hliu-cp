@@ -3,7 +3,7 @@ from pathlib import Path
 dir = "/".join(sys.argv[0].split('/')[:-1])
 p = Path(dir)
 
-safeExt = {".py", ".cpp", ".txt"}
+safeExt = {".py", ".cpp", ".txt", ".md", ".hs", ".ml"}
 safeName = {".git"}
 
 def dfs(pt):

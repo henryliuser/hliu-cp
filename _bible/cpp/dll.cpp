@@ -46,6 +46,16 @@ public:
         delete v;
         return x;
     }
+    void delete(Node *v) {
+        --sz;
+        Node *l = v->prev;
+        Node *r = v->next;
+        if (l && r) l->next = r, r->prev = l;
+        else if (l) tail = l, l->next = nullptr;
+        else if (r) head = r, r->prev = nullptr;
+        else tail = head = nullptr;
+        delete v;
+    }
     Node* insert(Node *v, T x, bool left) {
         // assume v is in the DLL
         if (sz == 0) throw -1;
