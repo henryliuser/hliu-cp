@@ -1,6 +1,8 @@
 // https://codeforces.com/contest/1633/problem/D
 // calculate min ops to reach B[i] then knapsack
 #include <bits/stdc++.h>
+#pragma GCC optimize ("O3")
+#pragma GCC target ("sse4")
 using namespace std;
 using ll = long long;
 

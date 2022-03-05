@@ -80,19 +80,50 @@ intput = lambda : map(int, input().split())
 
 def solve():
     N, = intput()
-    A = [*input()]
-    guard = Counter(A)
-    if any(c%2 for c in guard.values()): return []
+    A = [*intput()]
+    cnt = Counter(A)
+    guard = cnt.values()
+    if any(c%2 for c in guard): return []
 
+
+    B = []
+    S = sorted(A)
+    for i in range(0, N, 2):
+        B += [ S[i] ]
+    B = B+B
+
+    G = 0
+    ops = []
+    splits = []
     def rev(k):  # reverse the prefix of length k
+        nonlocal G, ops, splits
+        for i in range(k):
+            p = k+G+i
+            c = A[i]
+            ops += [ (p,c) ]
 
+        for i in range(k//2):
+            A[i], A[~i+k] = A[~i+k], A[i]
 
-    M = N//2
-    L, R = A[:M], A[M:]
-    for j in range(M-1, -1, -1):
-        ch = R[j]
-        if L[0] == ch:
+        sz = 2*k
+        G += sz
+        splits += [ (sz,) ]  # tuple for printing lol
 
+    for j in range(N-1, 0, -1):
+        if A[j] == B[j]: continue
+        if A[0] == B[j]:
+            rev(j+1)
+        else:
+            q = A.index(B[j])
+            rev(q+1)
+            rev(j+1)
+
+    q = len(ops)
+    # print(A)
+    splits += [(N,)]
+    d = len(splits)
+    ans = [(q,)] + ops + [(d,)] + splits
+    return ans
 
 if __name__ == '__main__':
     T, = intput()
@@ -100,3 +131,5 @@ if __name__ == '__main__':
         s = solve()
         if not s: print(-1)
         else:
+            for x in s:
+                print(*x)
