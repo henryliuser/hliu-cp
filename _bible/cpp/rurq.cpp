@@ -1,3 +1,47 @@
+template<class T> struct LazySeg {
+    int sz = 1;
+    vector<T> t, lz;
+    const T BASE = -INF;
+    T comb(T a, T b) { return max(a, b); }
+
+    void init(int n) {
+        while (sz < n) sz <<= 1;
+        t.assign(2*sz, 0), lz.assign(2*sz, 0);
+    }
+    void push(int v, int l, int r) {
+        t[v] += lz[v];
+        if (l != r)
+            lz[v * 2] += lz[v],
+            lz[v*2+1] += lz[v];
+        lz[v] = 0;
+    }
+    void update(int ql, int qr, T x) { update(ql, qr, x, 1, 0, sz-1); }
+    void update(int ql, int qr, T x, int v, int l, int r) {
+        push(v, l, r);
+        if (ql > r || qr < l) return;
+        if (ql <= l && qr >= r) {
+            lz[v] += x;
+            return void( push(v, l, r) );
+        }
+        int m = (l+r)/2;
+        update(ql, qr, x, v*2, l, m);
+        update(ql, qr, x, v*2+1, m+1, r);
+        t[v] = comb( t[v*2], t[v*2+1] );
+    }
+    T query(int ql, int qr) { return query(ql, qr, 1, 0, sz-1); }
+    T query(int ql, int qr, int v, int l, int r) {
+        push(v, l, r);
+        if (ql > r || qr < l) return BASE;
+        if (ql <= l && qr >= r) return t[v];
+        int m = (l+r)/2;
+        T zl = query(ql, qr, v*2, l, m);
+        T zr = query(ql, qr, v*2+1, m+1, r);
+        return comb(zl, zr);
+    }
+};
+
+
+
 struct SegTree {
 	struct node{
 		ll val;
