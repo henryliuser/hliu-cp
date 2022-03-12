@@ -43,6 +43,7 @@ https://codeforces.com/contest/830/problem/C
 https://codeforces.com/problemset/problem/1638/E
 https://codeforces.com/problemset/problem/1635/F
 https://codeforces.com/problemset/problem/1552/F
+https://codeforces.com/problemset/problem/1641/D
 
 https://atcoder.jp/contests/abc229/tasks/abc229_g
 https://atcoder.jp/contests/abc235/tasks/abc235_f
