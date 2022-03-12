@@ -1,5 +1,5 @@
-# https://codeforces.com/contest/1652/problem/C
-
+# https://codeforces.com/contest/1647/problem/C
+# paint it backwards so as to not overwrite your previous work
 import sys
 input  = lambda : sys.stdin.readline().strip()
 intput = lambda : map(int, input().split())

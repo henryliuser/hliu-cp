@@ -13,7 +13,11 @@ const int MXN = 2e5+5;
 map<int, int> pts[MXN];
 int dirs[4][2] = { {0,1}, {1,0}, {-1,0}, {-1,0} };
 
-ll solve() {
+int mdist(int a, int b, int c, int d) {
+    return abs(c-a) + abs(d-b);
+}
+
+void solve() {
     int N; cin >> N;
     vector<pi> A(N);
     for (int x,y, i=0; i < N; ++i) {
