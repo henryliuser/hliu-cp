@@ -1,32 +1,20 @@
-// https://atcoder.jp/contests/abc242/tasks/abc242_g
-// just use mo's and maintain the stuff using umap/freq
-#include <bits/stdc++.h>
-#pragma GCC optimize ("O3")
-#pragma GCC target ("sse4")
-using namespace std;
-const int MXN = 1e5+2;
-
-#define all(x) (x).begin(), (x).end()
-
 struct Mo {
     using ll = long long;
-    static const int B = 316;
+    // static const int B = 316;
     static const int K = 21;    // hilbert order power, 2^K
 
     int L=1, R=0;
-    int cnt[MXN] = {};
     vector<int> &A;
-    int cur = 0;
+    // int cnt[MXN] = {};
+    // int cur;
     inline void del(int i) {
-        if (cnt[ A[i] ]-- % 2 == 0)
-            --cur;
+
     }
     inline void add(int i) {
-        if (++cnt[ A[i] ] % 2 == 0)
-            ++cur;
+
     }
     inline const int get() {
-        return cur;
+
     }
     static ll hilbert(int x, int y, int pow, int rotate) {
         if (pow == 0) return 0;
@@ -61,26 +49,5 @@ struct Mo {
             ans[q.i] = get();
         }
     }
-    Mo(vector<int> &a) : A(a) {}
+    Mo(vector<int> &a) : A(a) { }
 };
-
-int main() {
-    int N; cin >> N;
-    vector<int> A(N+1);
-    for (int i = 1; i <= N; ++i)
-        cin >> A[i];
-
-    Mo mo(A);
-    int Q; cin >> Q;
-    vector<Mo::Query> qry;
-    for (int l,r, i=0; i < Q; ++i) {
-        cin >> l >> r;
-        Mo::Query q(l,r,i);
-        qry.push_back(q);
-    }
-    sort( all(qry) );
-    vector<int> ans(Q);
-    mo.process(qry, ans);
-    for (int x : ans)
-        cout << x << '\n';
-}
