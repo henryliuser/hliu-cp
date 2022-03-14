@@ -1,4 +1,3 @@
-// stop bagholding, < 20 days.
 #include <bits/stdc++.h>
 #pragma GCC optimize ("O3")
 #pragma GCC target ("sse4")
