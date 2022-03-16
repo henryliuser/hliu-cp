@@ -8,7 +8,6 @@ using pl = array<ll, 2>;
 const ll inf = 1e18;
 #define all(x) (x).begin(), (x).end()
 
-set<ll> sa, sb;
 ll close(set<ll> &t, ll x) {
     auto it = t.lower_bound(x);
     if (it == end(t)) --it;
@@ -21,16 +20,11 @@ ll close(set<ll> &t, ll x) {
 ll solve() {
     int N; cin >> N;
     vector<ll> A(N), B(N);
-    sa.clear();
-    sb.clear();
-    for (ll &x : A) {
-        cin >> x;
-        sa.insert(x);
-    }
-    for (ll &x : B) {
-        cin >> x;
-        sb.insert(x);
-    }
+    for (ll &x : A) cin >> x;
+    for (ll &x : B) cin >> x;
+    set<ll> sa( all(A) );
+    set<ll> sb( all(B) );
+    
     ll a = A[0], b = A[N-1];
     ll c = B[0], d = B[N-1];
 

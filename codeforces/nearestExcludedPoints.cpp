@@ -11,11 +11,7 @@ const int MXN = 2e5+5;
 #define Y second
 
 map<int, int> pts[MXN];
-int dirs[4][2] = { {0,1}, {1,0}, {-1,0}, {-1,0} };
-
-int mdist(int a, int b, int c, int d) {
-    return abs(c-a) + abs(d-b);
-}
+int dirs[4][2] = { {0,1}, {1,0}, {0,-1}, {-1,0} };
 
 void solve() {
     int N; cin >> N;
@@ -58,7 +54,6 @@ void solve() {
 
     for (auto [x,y] : ans)
         cout << x << " " << y << '\n';
-
 }
 
 int main() {
