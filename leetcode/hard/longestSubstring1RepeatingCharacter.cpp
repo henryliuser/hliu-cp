@@ -1,33 +1,33 @@
-// https://leetcode.com/contest/weekly-contest-285/problems/longest-substring-of-one-repeating-character/
-#include <bits/stdc++.h>
-#pragma GCC optimize ("O3")
-#pragma GCC target ("sse4")
-using namespace std;
-using ll = long long;
-using ti = array<int, 3>;
-
+// https://leetcode.com/problems/longest-substring-of-one-repeating-character/
 class Solution {
 public:
+    using iv = array<int, 3>;
+    // each interval will track [L, R, char]
 
-    set<ti> ivals;
-    map<int,int> lens;
+    set<iv> ivals;  // intervals
+    map<int,int> lens;  // length frequencies
 
     void cnt(int l) {
+        // cnt(x)  adds a length x
+        // cnt(-x) removes a length x
         int m = (l<0) ? -1 : 1;
         l = abs(l);
         if ( (lens[l] += m) <= 0 )
             lens.erase(l);
     }
-    void add(ti t) {
+    void add(iv t) {  // add new interval
         ivals.insert(t);
         cnt(t[1] - t[0] + 1);
     }
-    void del(ti t) {
+    void del(iv t) {  // erase existing interval
         ivals.erase(t);
-        cnt(-(t[1]-t[0]+1));
+        cnt( -(t[1]-t[0]+1) );
     }
 
-    inline set<ti>::iterator split(int i, ti m, char ch) {
+    inline set<iv>::iterator split(int i, iv m, char ch) {
+        // split the interval containing index i
+        // into (up to 3) new intervals
+        // return the iterator to the new interval containing i
         del(m);
         if (m[0] < i)
             add( {m[0], i-1, m[2]} );
@@ -35,34 +35,30 @@ public:
             add( {i+1, m[1], m[2]} );
         cnt(1);
         auto res = ivals.insert( {i, i, ch} );
-        return res.first;
+        return res.first;   // returns the iterator of the inserted interval
     }
 
     template<class IT>
-    void merge(IT it) {
+    void merge(IT it) {  // merge `it` with neighboring intervals
         auto m = *it;
         auto l = *prev(it);
         auto r = *next(it);
 
-        char a = l[2], b = m[2], c = r[2];
-        if (a == b && b == c) {
-            del(l), del(m), del(r);
-            add( {l[0], r[1], a} );
-            return;
-        }
-        if (a == b) {
-            del(l), del(m);
-            add( {l[0], m[1], a} );
-            return;
-        }
-        if (b == c) {
-            del(m), del(r);
-            add( {m[0], r[1], b} );
-            return;
-        }
+        del(m);
+        int nl = m[0], nr = m[1];  // bounds of new interval
+
+        if (l[2] == m[2])  // merge with left
+            del(l),
+            nl = l[0];
+
+        if (m[2] == r[2])  // merge with right
+            del(r),
+            nr = r[1];
+
+        add( {nl, nr, m[2]} );
     }
 
-    void upd(int i, char ch) {
+    void upd(int i, char ch) {  // process a query
         auto it = ivals.lower_bound( {i,i,0} );
         if (it == end(ivals)) --it;
         auto m = *it;
@@ -70,31 +66,31 @@ public:
         if (!ok) m = *(--it);
         if (ch == m[2]) return;
 
+        // here, m is the interval that contains i
         it = split(i, m, ch);
         merge(it);
     }
 
     vector<int> longestRepeating(string S, string qc, vector<int>& qi) {
         int N = S.size();
-        int M = qc.size();
-        vector<int> ans(M);
-        S = "?" + S + "?";
+        int Q = qc.size();
+        S = "?" + S + "?";  // add some dummy characters to eliminate edge cases
 
         int st = 1;
         char prev = S[1];
-        ivals.insert( {0,  0,  0} );
-        ivals.insert( {N+1,N+1,0} );
+        add( {0,  0,  0} );  // some dummy intervals to eliminate edge cases
+        add( {N+1,N+1,0} );  // significantly easier implementation this way
         for (int i = 2; i <= N+1; ++i) {
             if (S[i] == prev) continue;
-            ivals.insert( {st, i-1, prev} );
-            ++lens[i-st];
+            add( {st, i-1, prev} );
             prev = S[i];
             st = i;
         }
 
-        for (int i = 0; i < M; ++i) {
+        vector<int> ans(Q);
+        for (int i = 0; i < Q; ++i) {
             upd( qi[i]+1, qc[i] );
-            ans[i] = lens.rbegin()->first;
+            ans[i] = lens.rbegin()->first;  // take the max length
         }
         return ans;
     }
