@@ -40,9 +40,9 @@ public:
 
     template<class IT>
     void merge(IT it) {  // merge `it` with neighboring intervals
-        auto m = *it;
-        auto l = *prev(it);
-        auto r = *next(it);
+        iv m = *it;
+        iv l = *prev(it);
+        iv r = *next(it);
 
         del(m);
         int nl = m[0], nr = m[1];  // bounds of new interval
@@ -60,10 +60,8 @@ public:
 
     void upd(int i, char ch) {  // process a query
         auto it = ivals.lower_bound( {i,i,0} );
-        if (it == end(ivals)) --it;
-        auto m = *it;
-        bool ok = (m[0] <= i && i <= m[1]);
-        if (!ok) m = *(--it);
+        iv m = *it;
+        if (m[0] > i) m = *(--it);  // take previous
         if (ch == m[2]) return;
 
         // here, m is the interval that contains i
