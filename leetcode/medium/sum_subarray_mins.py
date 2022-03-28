@@ -1,3 +1,5 @@
+# https://leetcode.com/problems/sum-of-subarray-minimums/
+# dp solution. refer to .cpp for stack solution
 class Solution:
     def sumSubarrayMins(self, arr: List[int]) -> int:
         MOD = int(1e9+7)
