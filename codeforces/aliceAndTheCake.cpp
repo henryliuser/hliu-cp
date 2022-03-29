@@ -1,3 +1,5 @@
+// https://codeforces.com/problemset/status?my=on
+// just greedy
 #include <bits/stdc++.h>
 #pragma GCC optimize ("O3")
 #pragma GCC target ("sse4")
