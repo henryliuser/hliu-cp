@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-using ll = long long;
-
 struct BIT {
     int N;
     vector<ll> bit;
@@ -21,12 +17,3 @@ struct BIT {
         return res;
     }
 };
-
-int main() {
-    vector<ll> A = {6,1,2,3,4,5,6};
-    BIT bit(A);
-    cout << bit.query(4) - bit.query(2) << endl;
-    bit.update(4, 3);
-    cout << bit.query(6) - bit.query(3) << endl;
-    cout << bit.query(-1) << endl;
-}

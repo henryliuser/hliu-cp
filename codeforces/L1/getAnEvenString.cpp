@@ -25,9 +25,9 @@ ll solve() {
         mp[c] = i;
     }
     if (V.size() == 0) return N;
-    sort(begin(V), end(V), [](const auto &a, const auto &b) {
-        return a.second < b.second;
-    });
+    // sort(begin(V), end(V), [](const auto &a, const auto &b) {
+    //     return a.second < b.second;
+    // });
     int del = N-2;
     int last = V[0].second;
     for (int i = 1; i < V.size(); ++i) {

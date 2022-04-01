@@ -5,6 +5,8 @@
 import sys
 from bisect import *
 from collections import *
+input = lambda: sys.stdin.readline().rstrip("\r\n")
+intput = lambda : map(int, input().split())
 enum   = enumerate
 dfd    = defaultdict
 
