@@ -8,11 +8,12 @@ safeExt = {
     ".ml", ".code-snippets", ".json"
 }
 safeName = {".git"}
+dirIgnore = {".git", ".vscode"}
 
 def dfs(pt):
     for x in pt.iterdir():
         s = str(x)
-        if x.is_dir() and s[-4:] != ".git":
+        if x.is_dir() and s[-4:] not in dirIgnore:
             dfs(x)
             continue
         name, ext = os.path.splitext(os.path.basename(s))

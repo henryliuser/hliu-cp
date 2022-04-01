@@ -7,7 +7,7 @@ p = Path(dir)
 ALL = True
 lineCount = 0
 counts = defaultdict(int)
-ignore = ["/atcoder/L0", "/codeforces/L0", "/leetcode/easy", "other"]
+ignore = ["/atcoder/L0", "/codeforces/L0", "/leetcode/easy", "other", ".git", ".vscode"]
 yesext = [".cpp", ".py", ".hs", ".ml"]
 bad = [".tle.", ".wa."]
 
