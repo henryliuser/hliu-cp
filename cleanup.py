@@ -5,7 +5,7 @@ p = Path(dir)
 
 safeExt = {
     ".py", ".cpp", ".txt", ".md", ".hs",
-    ".ml", ".code-snippets", ".json"
+    ".ml", ".code-snippets", ".json",
 }
 safeName = {".git"}
 dirIgnore = {".git", ".vscode"}
