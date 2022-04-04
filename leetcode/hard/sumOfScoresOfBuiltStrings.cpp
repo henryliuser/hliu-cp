@@ -64,6 +64,7 @@ int PolyHash::mxPow = 0;
 int PolyHash::base((int)1e9+7);
 std::vector<int> PolyHash::pow1{1};
 std::vector<ull> PolyHash::pow2{1};
+// PolyHash::base = PolyHash::gen_base(256, PolyHash::mod);
 
 
 class Solution {

@@ -1,6 +1,9 @@
 # https://codingcompetitions.withgoogle.com/codejam/round/0000000000876ff1/0000000000a45ef7
-# nice problem
+# nice problem. first note it's a tree.
 # propagate the minimum path in subtree upwards, and just add the rest to ans
+# build the potential paths from the bottom up
+# interpret each node as a "junction", which needs to decide which of
+# the incoming paths from underneath get to pass first (pick the minimum)
 """
 1
 11
