@@ -1,3 +1,11 @@
+// https://atcoder.jp/contests/abc245/tasks/abc245_f
+// just scc then dfs
+#include <bits/stdc++.h>
+#pragma GCC optimize ("O3")
+#pragma GCC target ("sse4")
+using namespace std;
+using ll = long long;
+
 struct Tarjan {
     int N;
     int T = 0, C = 0;
@@ -38,3 +46,40 @@ struct Tarjan {
                 dfs(i);
     }
 };
+
+short dp[1<<18];
+vector<int> sz;
+vector<vector<int>> adj;
+
+bool dfs(int u, Tarjan &scc) {
+    short &r = dp[u];
+    if (sz[ scc[u] ] > 1) return 1;
+    if (r != -1) return r;
+    for (int v : adj[u])
+        if (dfs(v,scc))
+            return r = 1;  // true
+    return r = 0;  // false
+}
+
+int main() {
+    memset(dp, -1, sizeof dp);
+    cin.tie(0)->sync_with_stdio(0);
+
+    int N, M;
+    cin >> N >> M;
+    adj.resize(N+1);
+    for (int u,v, i=0; i < M; ++i) {
+        cin >> u >> v;
+        adj[u].push_back(v);
+    }
+    Tarjan scc(adj);
+    sz.resize(scc.C+1);
+    for (int u = 1; u <= N; ++u)
+        ++sz[ scc[u] ];
+
+    int ans = 0;
+    for (int u = 1; u <= N; ++u)
+        ans += dfs(u, scc);
+
+    cout << ans << '\n';
+}
