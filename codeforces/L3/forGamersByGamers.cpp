@@ -1,6 +1,6 @@
 // https://codeforces.com/contest/1657/problem/D
 // unit i, monster j
-// (hj / x*di) < (hi / dj)
+// (hj / x*di) < (hi / dj) -- win condition
 // hj*dj < x*di*hi
 // find the best x*di*hi for each c, in C log C (loop on c, x)
 // let dp = prefix max of best
