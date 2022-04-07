@@ -122,26 +122,26 @@ struct MaxFlow {
 
         ll totalflow = 0;
         ll totalcost = 0;
-        while (true) {
-        dijkstra(source, sink);
-        if (dist[sink] == LLONG_MAX) break;
-        // update potentials
-        for (int i = 0; i < numnodes; i++)
-            if (dist[i] != LLONG_MAX)
-                phi[i] += dist[i];
+        while (1) {
+            dijkstra(source, sink);
+            if (dist[sink] == LLONG_MAX) break;
+            // update potentials
+            for (int i = 0; i < numnodes; i++)
+                if (dist[i] != LLONG_MAX)
+                    phi[i] += dist[i];
 
-        // determine amount of flow to push
-        ll minf = LLONG_MAX;
-        for (int u = sink; u != source; u = current[u])
-            minf = min(minf, parentedge[u]->cap - parentedge[u]->flow);
+            // determine amount of flow to push
+            ll minf = LLONG_MAX;
+            for (int u = sink; u != source; u = current[u])
+                minf = min(minf, parentedge[u]->cap - parentedge[u]->flow);
 
-        // push flow
-        for (int u = sink; u != source; u = current[u]) {
-            parentedge[u]->flow += minf;
-            parentedge[u]->rev->flow -= minf;
-            totalcost += parentedge[u]->cost * minf;
-        }
-        totalflow += minf;
+            // push flow
+            for (int u = sink; u != source; u = current[u]) {
+                parentedge[u]->flow += minf;
+                parentedge[u]->rev->flow -= minf;
+                totalcost += parentedge[u]->cost * minf;
+            }
+            totalflow += minf;
         }
 
         return make_pair(totalflow, totalcost);
@@ -181,12 +181,11 @@ struct MaxFlow {
                     dist[v] = newdist;
                     current[v] = u;
                     parentedge[v] = e;
-                    q.push(make_pair(-newdist, v));
+                    q.push( {-newdist, v} );
                 }
             }
         }
     }
-
 };
 
 int main() {
