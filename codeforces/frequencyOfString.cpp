@@ -1,103 +1,126 @@
+// https://codeforces.com/contest/963/problem/D
+// suffix array, lower/upper bound
+// since unique queries, number of occurrences
+// across all queries bounded by O(|S| log |S|)
+// suffix array construction is |S| log |S|
+// for a total complexity of |S| log |S| + Q(|m_i| log |S|) + |S| log |S|
+// or simply: O( |S| log |S| + Q(|m_i| log |S|) )
 #include <bits/stdc++.h>
 #pragma GCC optimize ("O3")
 #pragma GCC target ("sse4")
 using namespace std;
-using ull = long long;
+using pi = pair<int, int>;
+#define all(x) (x).begin(), (x).end()
+#define dbg(x) "[" << #x << " = " << (x) << "]"
+#define show(A) cout << #A << " = {"; for (auto x : (A)) cout << x << " "; cout << "}\n"
+#define f first
+#define s second
 
 int N;
 string S, D;
 
-struct PolyHash {
-    // -------- Static variables --------
-    static const int mod = (int)1e9+123; // prime mod of polynomial hashing
-    static std::vector<int> pow1;        // powers of base modulo mod
-    static std::vector<ull> pow2;        // powers of base modulo 2^64
-    static int base;                     // base (point of hashing)
-    static int mxPow;
-
-    // --------- Static functons --------
-    static inline int diff(int a, int b) {
-        // Diff between `a` and `b` modulo mod (0 <= a < mod, 0 <= b < mod)
-        return (a -= b) < 0 ? a + mod : a;
-    }
-
-    // Generate random base in (before, after) open interval:
-    static int gen_base(const int before, const int after) {
-        auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-        std::mt19937 mt_rand(seed);
-        int base = std::uniform_int_distribution<int>(before+1, after)(mt_rand);
-        return base % 2 == 0 ? base-1 : base;
-    }
-
-    // -------------- Variables of class -------------
-    std::vector<int> pref1; // Hash on prefix modulo mod
-    std::vector<ull> pref2; // Hash on prefix modulo 2^64
-
-    // Cunstructor from string:
-    PolyHash(const std::string& s)
-            : pref1(s.size()+1u, 0)
-            , pref2(s.size()+1u, 0)
-    {
-        mxPow = max(mxPow, (int)s.size());
-        assert(base < mod);
-        const int n = s.size(); // Firstly calculated needed power of base:
-        while ((int)pow1.size() <= n) {
-            pow1.push_back(1LL * pow1.back() * base % mod);
-            pow2.push_back(pow2.back() * base);
+struct SuffixArray {
+    int N; string &S;
+    vector<int> P, C, lcp;
+    inline short cmp(int i, string &q) {
+        for (int j = 0; j < q.size(); ++j) {
+            if (S[j+i] < q[j]) return 0;
+            if (S[j+i] > q[j]) return 2;
         }
-        for (int i = 0; i < n; ++i) { // Fill arrays with polynomial hashes on prefix
-            assert(base > s[i]);
-            pref1[i+1] = (pref1[i] + 1LL * s[i] * pow1[i]) % mod;
-            pref2[i+1] = pref2[i] + s[i] * pow2[i];
+        return 1;
+    }
+    inline int bisect(string &q, int gt) {
+        int l = 1, r = N;
+        while (l < r) {
+            int m = (l+r)/2;
+            if (cmp(P[m], q) > gt) r = m;
+            else l = m+1;
+        }
+        return l;
+    }
+    template<typename A, typename K>
+    inline void countSort(A &P, K &C) {
+        int N = P.size();
+        vector<int> res(N), cnt(N), pos(N);
+        for(int x : C) ++cnt[x];
+        for(int i = 1; i < N; ++i)
+            pos[i] = pos[i-1] + cnt[i-1];
+        for(int x : P) res[pos[C[x]]++] = x;
+        swap(P, res);
+    }
+    template<typename FN>
+    inline void assign(FN& g) {
+        vector<int> res(N);
+        for (int i = 1; i < N; ++i) {
+            int diff = ( g(i) != g(i-1) );
+            res[P[i]] = res[P[i-1]] + diff;
+        }
+        swap(C, res);
+    }
+    SuffixArray(string &s) : N(s.size()+1), S(s), P(N), C(N) {
+        S += "$";
+        vector<pi> A(N);
+        for (int i = 0; i < N; ++i) A[i] = {S[i], i};
+        sort(begin(A), end(A));
+        for (int i = 0; i < N; ++i) P[i] = A[i].s;
+        auto g = [&](int i) { return A[i].f; };
+        assign(g);
+        for (int k = 0; (1<<k) < N; ++k) {
+            for (int i = 0; i < N; ++i)
+                P[i] = (P[i] - (1<<k) + N) % N;
+            countSort(P, C);
+            auto h = [&](int i) {
+                pi p = {C[P[i]], C[(P[i] + (1<<k)) % N]};
+                return p;
+            };
+            assign(h);
         }
     }
-
-    // Polynomial hash of subsequence [pos, pos+len)
-    // If mxPow != 0, value automatically multiply on base in needed power. Finally base ^ mxPow
-    inline std::pair<int, ull> operator()(const int pos, const int len) const {
-        int hash1 = pref1[pos+len] - pref1[pos];
-        ull hash2 = pref2[pos+len] - pref2[pos];
-        if (hash1 < 0) hash1 += mod;
-        if (mxPow != 0) {
-            hash1 = 1LL * hash1 * pow1[mxPow-(pos+len-1)] % mod;
-            hash2 *= pow2[mxPow-(pos+len-1)];
+    void buildLCP() {
+        int k = 0;
+        lcp.assign(N, 0);
+        for (int i = 0; i < N-1; ++i) {
+            int j = P[C[i]-1];
+            while (S[i+k] == S[j+k]) ++k;
+            lcp[C[i]] = k;
+            k = max(k-1, 0);
         }
-        return {hash1, hash2};
     }
 };
-int PolyHash::mxPow = 0;
-int PolyHash::base((int)1e9+7);
-std::vector<int> PolyHash::pow1{1};
-std::vector<ull> PolyHash::pow2{1};
 
-int M;
+int M, P;
 
-void check(int g, PolyHash &a, PolyHash &b) {
-    int occ = 0;
-    for (int i = 0; i <= M-g; ++i) {
-        if (a(i,g) == b(i,g)) {}
+inline int solve(int k, SuffixArray &sfx) {
+    if (P > M) return -1;
+
+    int ub = sfx.bisect(D, 1);  // upper_bound
+    int lb = sfx.bisect(D, 0);  // lower_bound
+    vector<int> occ;
+    for (int j = lb; j < ub; ++j)
+        occ.push_back(sfx.P[j]);
+    sort( all(occ) );
+
+    int ans = 1e9+5;
+    int O = occ.size();
+    if (O < k) return -1;
+    for (int i = k-1; i < O; ++i) {
+        int a = occ[i-k+1];
+        int b = occ[i] + P;
+        ans = min(ans, b-a);
     }
+    return ans;
 }
 
 int main() {
     cin.tie(0)->sync_with_stdio(0);
-    PolyHash::base = PolyHash::gen_base(256, PolyHash::mod);
 
     cin >> S >> N;
-    PolyHash h(S);
     M = S.size();
+    SuffixArray sfx(S);
     for (int k, i=0; i < N; ++i) {
         cin >> k >> D;
-        PolyHash g(D);
-        int lo = 0, hi = z;
-        while (lo < hi) {
-            int m = (lo + hi) / 2;
-            if (check(m, g, h)) hi = m;
-            else lo = m+1;
-        }
-        if (!lo) lo = -1;
-        cout << lo << '\n';
+        P = D.size();
+        cout << solve(k, sfx) << '\n';
     }
-
 
 }

@@ -5,22 +5,37 @@ using pi = pair<int, int>;
 #define f first
 #define s second
 
-template<typename A, typename K>
-void countSort(A &P, K &C) {
-    int N = P.size();
-    vector<int> res(N), cnt(N), pos(N);
-    for(int x : C) ++cnt[x];
-    for(int i = 1; i < N; ++i)
-        pos[i] = pos[i-1] + cnt[i-1];
-    for(int x : P) res[pos[C[x]]++] = x;
-    swap(P, res);
-}
-
 struct SuffixArray {
     int N; string &S;
     vector<int> P, C, lcp;
+    inline short cmp(int i, string &q) {
+        for (int j = 0; j < q.size(); ++j) {
+            if (S[j+i] < q[j]) return 0;
+            if (S[j+i] > q[j]) return 2;
+        }
+        return 1;
+    }
+    inline int bisect(string &q, int gt) {
+        int l = 1, r = N;
+        while (l < r) {
+            int m = (l+r)/2;
+            if (cmp(P[m], q) > gt) r = m;
+            else l = m+1;
+        }
+        return l;
+    }
+    template<typename A, typename K>
+    inline void countSort(A &P, K &C) {
+        int N = P.size();
+        vector<int> res(N), cnt(N), pos(N);
+        for(int x : C) ++cnt[x];
+        for(int i = 1; i < N; ++i)
+            pos[i] = pos[i-1] + cnt[i-1];
+        for(int x : P) res[pos[C[x]]++] = x;
+        swap(P, res);
+    }
     template<typename FN>
-    void assign(FN& g) {
+    inline void assign(FN& g) {
         vector<int> res(N);
         for (int i = 1; i < N; ++i) {
             int diff = ( g(i) != g(i-1) );
