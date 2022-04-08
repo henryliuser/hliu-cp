@@ -13,7 +13,7 @@ dirIgnore = {".git", ".vscode"}
 def dfs(pt):
     for x in pt.iterdir():
         s = str(x)
-        if x.is_dir() and s[-4:] not in dirIgnore:
+        if x.is_dir() and not any(s.endswith(y) for y in dirIgnore):
             dfs(x)
             continue
         name, ext = os.path.splitext(os.path.basename(s))
