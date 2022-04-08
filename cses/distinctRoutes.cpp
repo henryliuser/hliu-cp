@@ -1,9 +1,14 @@
+// https://cses.fi/problemset/task/1711/
+// new adj with all edges that have flow
+// then greedily dfs?
 #include <bits/stdc++.h>
 #pragma GCC optimize ("O3")
 #pragma GCC target ("sse4")
 using namespace std;
 using ll = long long;
+using pi = array<int, 2>;
 
+// begin ACL
 namespace internal {
     template <class T> struct queue {
         std::vector<T> payload;
@@ -154,17 +159,48 @@ private:
     std::vector<std::pair<int, int>> pos;
     std::vector<std::vector<_edge>> g;
 };
+// end ACL
+
+int N, M;
+vector<pi> del;
+set<int> adj[505];
+vector<int> p(1,1);
+
+void dfs(int u, vector<int> &path) {
+    for (int v : adj[u]) {
+        path.push_back(v);
+        del.push_back( {u,v} );
+        if (v == N) {
+            cout << path.size() << '\n';
+            for (int x: path)
+                cout << x << " ";
+            cout << '\n';
+            throw -1;
+        }
+        dfs(v, path);
+    }
+}
 
 int main() {
     cin.tie(0)->sync_with_stdio(0);
 
-    int N, M;
     cin >> N >> M;
-
-    MaxFlow mf(N+1);
+    MaxFlow<int> mf(N+1);
     for (int u,v, i=0; i < M; ++i) {
         cin >> u >> v;
         mf.add_edge(u, v, 1);
     }
-    cout << mf.flow(1, N) << '\n';
+    int paths = mf.flow(1, N);
+    cout << paths << '\n';
+    for (auto e : mf.edges())
+        if (e.flow)
+            adj[e.from].insert(e.to);
+
+    while (paths--) {
+        try { dfs(1, p); }
+        catch (...) {}
+        for (pi e : del)
+            adj[e[0]].erase(e[1]);
+        p.resize(1);
+    }
 }
