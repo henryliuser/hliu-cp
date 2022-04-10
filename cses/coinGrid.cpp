@@ -1,3 +1,13 @@
+// https://cses.fi/problemset/task/1709
+// s --1-> rows --inf-> cols --1-> t
+// extract the min cut
+#include <bits/stdc++.h>
+#pragma GCC optimize ("O3")
+#pragma GCC target ("sse4")
+using namespace std;
+using ll = long long;
+
+// begin ACL
 namespace internal {
     template <class T> struct queue {
         std::vector<T> payload;
@@ -145,3 +155,39 @@ private:
     std::vector<std::pair<int, int>> pos;
     std::vector<std::vector<_edge>> g;
 };
+// end ACL
+
+int main() {
+    const int INF = 1e9+5;
+    cin.tie(0)->sync_with_stdio(0);
+
+    int N; cin >> N;
+    vector<string> grid(N);
+    for (auto &s : grid) cin >> s;
+
+    int  SRC = 2*N;
+    int SINK = 2*N+1;
+    MaxFlow<int> mf(2*N+2);
+    vector<int> row(N), col(N);
+    for (int i = 0; i < N; ++i)
+        for (int j = 0; j < N; ++j)
+            if (grid[i][j] == 'o')
+                mf.add_edge(i, j+N, INF);
+
+    for (int i = 0; i < N; ++i)
+        mf.add_edge(SRC, i, 1);
+
+    for (int i = 0; i < N; ++i)
+        mf.add_edge(i+N, SINK, 1);
+
+    cout << mf.flow(SRC, SINK) << '\n';
+    vector<bool> reach = mf.min_cut(SRC);
+    for (auto e : mf.edges()) {
+        if (!e.flow) continue;
+        if (e.from != SRC && e.to != SINK) continue;
+        if (e.from == SRC && !reach[e.to])  // src reachable, row not
+            cout << "1 " << e.to+1 << '\n';
+        if (e.to == SINK && reach[e.from])  // col reachable, sink not
+            cout << "2 " << e.from+1-N << '\n';
+    }
+}
