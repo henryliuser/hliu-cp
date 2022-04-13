@@ -15,19 +15,16 @@ ll solve() {
 
     int j = 0;
     ll ans = 0;
-    deque<int> xs, ys;
-    multiset<int> cur;
+    int lx = -1, ly = -1;
     for (int i = 0; i < N; ++i) {
-        cur.insert(A[i]);
-        if (A[i] == X) xs.push_back(i);
-        if (A[i] == Y) ys.push_back(i);
+        if (A[i] == X) lx = i;
+        if (A[i] == Y) ly = i;
         if (A[i] < Y || A[i] > X) {
             j = i+1;
-            cur.clear();
-            xs.clear(), ys.clear();
+            lx = ly = -1;
         }
-        if ( !cur.empty() && *cur.begin() == Y && *cur.rbegin() == X ) {
-            int k = min( xs.back(), ys.back() );
+        if (lx != -1 && ly != -1) {
+            int k = min(lx, ly);
             ans += k - j + 1;
         }
     }
