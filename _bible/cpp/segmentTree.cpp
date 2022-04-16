@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 struct SegTree {
     int N;
     vector<ll> T, &A;  // tree array, array reference
@@ -38,21 +35,3 @@ struct SegTree {
     SegTree(int n, vector<int>& a)
         : N(n), A(a), T(4*n) { build(1, 0, N-1); }
 };
-
-int main() {
-    // int n = 10;
-    // vector<int> nums = {0,1,2,3,4,5,6,7,8,9};
-    // SegTree seg{n, nums};
-    // seg.update(5, 100);
-    // cout << seg.query(3, 9) << endl;
-
-    int n = 2;
-    vector<int> nums = {9, -8};
-    SegTree seg2{n, nums};
-    seg2.update(0,3);
-    cout << seg2.query(1,1) << seg2.query(0,1) << endl;
-    seg2.update(1,-3);
-    cout << seg2.query(0,1);
-
-
-}

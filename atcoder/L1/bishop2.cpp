@@ -7,7 +7,6 @@ using namespace std;
 const int INF = 1e9+5;
 using state = array<int, 4>;  // {depth, r, c, [0:SE, 1:NE, 2:NW, 3:SW]}
 
-
 int dist[1501][1501][5];
 int dirs[4][2] = { {1,1}, {1,-1}, {-1,-1}, {-1,1} };
 
