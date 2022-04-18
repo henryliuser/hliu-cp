@@ -1,3 +1,10 @@
+#include <bits/stdc++.h>
+#pragma GCC optimize ("O3")
+#pragma GCC target ("sse4")
+using namespace std;
+using ll = long long;
+const ll BIG = 1e15;
+
 namespace internal {
 
     template <class E> struct csr {
@@ -222,3 +229,54 @@ private:
         return result;
     }
 };
+
+int A[51][51];
+char ans[51][51];
+
+int main() {
+    cin.tie(0)->sync_with_stdio(0);
+
+    int N, K;
+    cin >> N >> K;
+    int S = 2*N, T = 2*N+1;
+
+    for (int i = 0; i < N; ++i)
+        for (int j = 0; j < N; ++j)
+            cin >> A[i][j];
+
+    MinCostFlow<int,ll> mcf[2];
+    for (int z : {0,1}) {
+        mcf[z]._n = 2*N+2;
+        for (int i = 0; i < N; ++i) {
+            mcf[z].add_edge(S, i, K, 0);
+            mcf[z].add_edge(i+N, T, K, 0);
+            for (int j=0; j < N; ++j)
+                mcf[z].add_edge(i, j+N, 1, BIG-A[i][j]);
+        }
+    }
+
+    ll x = 0, y = 0;
+    array<ll,3> best = {0,0,0};
+    for ( auto [f,c] : mcf[0].slope(S,T) ) {
+        if (!f) continue;
+        ll m = (c-y) / (f-x);
+        while (x < f) {
+            y += m;
+            ll q = (++x) * BIG;
+            if (q-y > best[0])
+                best = {q-y, x};
+        }
+    }
+    auto [f,c] = mcf[1].flow(S, T, best[1]);
+    cout << BIG * f - c << '\n';
+    for (auto e : mcf[1].edges()) {
+        int i = e.from, j = e.to;
+        if (i == S || j == T) continue;
+        ans[i][j-N] = (e.flow) ? 'X' : '.';
+    }
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < N; ++j)
+            cout << ans[i][j];
+        cout << '\n';
+    }
+}

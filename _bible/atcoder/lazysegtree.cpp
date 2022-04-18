@@ -1,19 +1,19 @@
 template <class S,
-          S (*op)(S, S),
-          S (*e)(),
-          class F,
-          S (*mapping)(F, S),
-          F (*composition)(F, F),
-          F (*id)()>
+        S (*op)(S, S),
+        S (*e)(),
+        class F,
+        S (*mapping)(F, S),
+        F (*composition)(F, F),
+        F (*id)()>
 struct LazySegTree {
-  public:
+public:
     int ceil_pow2(int n) {
         int x = 0;
         while ((1U << x) < (unsigned int)(n)) x++;
         return x;
     }
-    LazySegTree() : lazy_segtree(0) {}
-    explicit LazySegTree(int n) : lazy_segtree(std::vector<S>(n, e())) {}
+    LazySegTree() : LazySegTree(0) {}
+    explicit LazySegTree(int n) : LazySegTree(std::vector<S>(n, e())) {}
     explicit LazySegTree(const std::vector<S>& v) : _n(int(v.size())) {
         log = ceil_pow2(_n);
         size = 1 << log;
@@ -160,7 +160,7 @@ struct LazySegTree {
         return 0;
     }
 
-  private:
+private:
     int _n, size, log;
     std::vector<S> d;
     std::vector<F> lz;
@@ -176,3 +176,13 @@ struct LazySegTree {
         lz[k] = id();
     }
 };
+
+// lazy seg definition
+struct S { int sum=0, mn=0; };
+struct F { int dx; };
+S op(S l, S r)         { return S{ l.sum + r.sum, min(l.mn, r.mn) };  }
+S e()                  { return S{ 0, INF };                          }
+S mapping(F l, S r)    { return S{ r.sum + l.dx, r.mn + l.dx };       }
+F compose(F l, F r)    { return F{ l.dx + r.dx };                     }
+F id()                 { return F{ 0 };                               }
+using LazySeg = LazySegTree<S, op, e, F, mapping, compose, id>;

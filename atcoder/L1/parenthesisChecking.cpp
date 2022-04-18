@@ -186,20 +186,22 @@ private:
         lz[k] = id();
     }
 };
+
+// lazy seg definition
+struct S { int sum=0, mn=0; };
+struct F { int dx; };
+S op(S l, S r)         { return S{ l.sum + r.sum, min(l.mn, r.mn) };  }
+S e()                  { return S{ 0, INF };                          }
+S mapping(F l, S r)    { return S{ r.sum + l.dx, r.mn + l.dx };       }
+F compose(F l, F r)    { return F{ l.dx + r.dx };                     }
+F id()                 { return F{ 0 };                               }
+using LazySeg = LazySegTree<S, op, e, F, mapping, compose, id>;
 // end ACL
 
 #define answer(x) {   \
 cout << (x) << '\n';  \
 continue; }           \
 
-// segment monoid definition
-struct S { int sum=0, mn=0; };
-struct F { int dx; };
-S op(S l, S r)         { return S{ l.sum + r.sum, min(l.mn, r.mn) };  }
-S e()                  { return S{ 0, INF };                          }
-S mapping(F l, S r)    { return S{ r.sum+l.dx, r.mn+l.dx };           }
-F compose(F l, F r)    { return F{ l.dx + r.dx };                     }
-F id()                 { return F{ 0 };                               }
 
 int main() {
     cin.tie(0)->sync_with_stdio(0);
@@ -215,7 +217,7 @@ int main() {
         pre[i].sum = pre[i].mn = A[i] + pre[i-1].sum;
     }
 
-    LazySegTree<S, op, e, F, mapping, compose, id> seg(pre);
+    LazySeg seg(pre);
     for (int t,l,r, i=0; i < Q; ++i) {
         cin >> t >> l >> r;
         if (t == 1) {
