@@ -1,10 +1,6 @@
-#include <bits/stdc++.h>
-using namespace std;
-using ll = long long;
-
 struct DistSum {
-    vector<ll> d[2], p[2];  // 0 left->right, 1 right->left
-    DistSum(vector<ll> &a) {
+    vector<ll> d[2], p[2];    // 0 left->right, 1 right->left
+    DistSum(vector<ll> &a) {  // a : sorted positions
         int n = a.size();
         for (int i : {0,1}) d[i].assign(n,0), p[i].assign(n,0);
         for (int i = 1; i < n; ++i) {
@@ -14,7 +10,7 @@ struct DistSum {
             p[1][n-i-1] = d[1][n-i-1] + p[1][n-i];
         }
     }
-    ll query(int src, int i) {
+    inline ll operator() (int src, int i) {  // sum of dists from src to i
         int q = (src > i);
         ll diff = p[q][i] - p[q][src];
         ll cut = d[q][src];
@@ -22,14 +18,3 @@ struct DistSum {
         return diff - cut * len;
     }
 };
-
-int main() {
-    int n = 5;
-    vector<ll> v = {0,0,3,4,5};
-    DistSum ds(n, v);
-    cout << ds.dist(0, 4) << "\n";
-    cout << ds.dist(2, 0) << "\n";
-    cout << ds.dist(2, 3) << "\n";
-    cout << ds.dist(5, 4) << "\n";
-    cout << ds.dist(3, 1) << "\n";
-}
