@@ -1,3 +1,14 @@
+// https://cses.fi/problemset/task/1190/
+// in a segment, store max prefix sum, max suffix sum, max ans, and total sum
+// merge segments logically
+#include <bits/stdc++.h>
+#pragma GCC optimize ("O3")
+#pragma GCC target ("sse4")
+using namespace std;
+using ll = long long;
+const ll INF = 5e17+5;
+#define all(x) begin(x), end(x)
+
 template <class S, S (*op)(S, S), S (*e)()> struct segtree {
 public:
     int ceil_pow2(int n) {
@@ -100,7 +111,7 @@ public:
         return 0;
     }
 
-  private:
+private:
     int _n, size, log;
     std::vector<S> d;
 
@@ -108,7 +119,33 @@ public:
 };
 
 // monoid definition
-struct S { int n; ll s; }
-S op(S l, S r) { return S{ l.n+r.n, l.s+r.s }; }
-S e()          { return S{ 0,0 }; }
+struct S { ll sum; ll pre; ll suf; ll ans; };
+S op(S l, S r) {
+    // max( {contained in l, contained in r, union} );
+    l.ans = max( {l.ans, r.ans, l.suf + r.pre} );
+    l.pre = max( l.pre, l.sum+r.pre );
+    l.suf = max( r.suf, r.sum+l.suf );
+    l.sum += r.sum;
+    return l;
+}
+S e() { return S{ 0,0,0,0 }; }
 using SegTree = segtree<S, op, e>;
+
+int main() {
+    cin.tie(0)->sync_with_stdio(0);
+
+    int N, Q;
+    cin >> N >> Q;
+    vector<S> A(N);
+    for (S &x : A) {
+        cin >> x.sum;
+        x.pre = x.ans = x.suf = x.sum;
+    }
+    SegTree seg(A);
+    for (int k,x, q=0; q < Q; ++q) {
+        cin >> k >> x;
+        seg.set(k-1, S{x,x,x,x});
+        S res = seg.all_prod();
+        cout << max(0ll, res.ans) << '\n';
+    }
+}

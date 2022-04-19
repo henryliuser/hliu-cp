@@ -1,13 +1,20 @@
-template <class S, S (*op)(S, S), S (*e)()> struct segtree {
+#include <bits/stdc++.h>
+#pragma GCC optimize ("O3")
+#pragma GCC target ("sse4")
+using namespace std;
+using ll = long long;
+const ll INF = 1e18+5;
+
+template <class S, S (*op)(S, S), S (*e)()> struct SegTree {
 public:
     int ceil_pow2(int n) {
         int x = 0;
         while ((1U << x) < (unsigned int)(n)) x++;
         return x;
     }
-    segtree() : segtree(0) {}
-    explicit segtree(int n) : segtree(std::vector<S>(n, e())) {}
-    explicit segtree(const std::vector<S>& v) : _n(int(v.size())) {
+    SegTree() : SegTree(0) {}
+    explicit SegTree(int n) : SegTree(std::vector<S>(n, e())) {}
+    explicit SegTree(const std::vector<S>& v) : _n(int(v.size())) {
         log = ceil_pow2(_n);
         size = 1 << log;
         d = std::vector<S>(2 * size, e());
@@ -100,7 +107,7 @@ public:
         return 0;
     }
 
-  private:
+private:
     int _n, size, log;
     std::vector<S> d;
 
@@ -108,7 +115,41 @@ public:
 };
 
 // monoid definition
-struct S { int n; ll s; }
-S op(S l, S r) { return S{ l.n+r.n, l.s+r.s }; }
-S e()          { return S{ 0,0 }; }
-using SegTree = segtree<S, op, e>;
+using S = long long;
+S op(S l, S r) { return min(l, r); }
+S e()          { return INF; }
+using STree = SegTree<S, op, e>;
+
+
+
+int main() {
+    cin.tie(0)->sync_with_stdio(0);
+
+    int N, Q;
+    cin >> N >> Q;
+    vector<ll> A(N);
+
+    STree segLR(N), segRL(N);
+    for (ll &x : A) cin >> x;
+    for (int i = 0; i < N; ++i) {
+        int j = N-i-1;
+        segLR.set(i, A[i] + i);
+        segRL.set(j, A[j] + i);
+    }
+
+    for (int t,k,x, q=0; q < Q; ++q) {
+        cin >> t >> k;
+        int i = k-1;
+        int j = N-i-1;
+        if (t == 1) {
+            cin >> x;
+            segLR.set(i, x+i);
+            segRL.set(i, x+j);
+        }
+        if (t == 2) {
+            ll a = (i >= 1ll) ? segRL.prod(0, i) : INF;
+            ll b = (i <= N-2) ? segLR.prod(i, N) : INF;
+            cout << min(a-j, b-i) << '\n';
+        }
+    }
+}
