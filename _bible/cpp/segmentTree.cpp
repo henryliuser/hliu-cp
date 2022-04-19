@@ -1,5 +1,6 @@
 struct SegTree {
     int N;
+    const ll BASE = 1e9+5;
     vector<ll> T, &A;  // tree array, array reference
     void build(int v, int tl, int tr) {
         // v: tree index, tl/tr: tree bounds
@@ -14,7 +15,7 @@ struct SegTree {
     ll query(int al, int ar) { return query(al, ar, 1, 0, N-1); }
     ll query(int al, int ar, int v, int tl, int tr) {
         // al/ar: arr bounds
-        if (al > ar) return 0;
+        if (al > ar) return BASE;
         if (al == tl && ar == tr) return T[v];
         int mid = (tl + tr) / 2;
         ll ql = query(al, min(ar, mid), v*2, tl, mid);
@@ -32,6 +33,6 @@ struct SegTree {
             T[v] = min(T[v*2], T[v*2+1]);  // adjust
         }
     }
-    SegTree(int n, vector<int>& a)
+    SegTree(int n, vector<ll>& a)
         : N(n), A(a), T(4*n) { build(1, 0, N-1); }
 };
