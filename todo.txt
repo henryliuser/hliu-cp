@@ -1,29 +1,77 @@
 =================
---need to learn--
+--stuff-to-read--
 =================
-trie
-KMP
-suffix array
-suffix tree
-ukkonen's
-sparse table rmq
-manacher's
-tarjan's
-lowest common ancestor
-convex hull
-li-chao tree
-aho corasick
-bipartite detection
-bipartite matching
-ford-fulkerson
-divide & conquer dp
-meet in the middle
-gaussian elimination
-determinant
-matrix chain multiplication
-heavy light decomposition
-k-th order statistic
-dominator tree
+all - https://codeforces.com/blog/entry/91363
+
+Centroid Decomposition
+    - https://medium.com/carpanese/an-illustrated-introduction-to-centroid-decomposition-8c1989d53308
+    - https://robert1003.github.io/2020/01/16/centroid-decomposition.html#a-hrefhttpwcipegcomproblemioi1112ioi11---racea
+    - https://codeforces.com/blog/entry/52492 (problems)
+
+Heavy Light Decomposition
+    - https://codeforces.com/blog/entry/81317
+
+Segment Tree DP - https://codeforces.com/blog/entry/101210
+
+Treap
+Splay Tree - https://codeforces.com/blog/entry/79524
+Link/Cut Tree
+    - maintain subtree info - https://codeforces.com/blog/entry/67637
+    - lazy prop - https://codeforces.com/blog/entry/80145
+
+Segment Tree Beats - https://codeforces.com/blog/entry/90460
+
+Divide & Conquer Intuition
+
+Convex Hull (also max dot)
+Convex Hull Trick
+Li-Chao Tree
+
+Convolution
+Fast-Fourier Transform
+
+Games on Graphs/Trees
+Sprague-Grundy
+
+Wavelet Tree - https://codeforces.com/blog/entry/52854
+
+Invariants & Monovariants - https://codeforces.com/blog/entry/57216
+
+Generating Functions
+    - https://codeforces.com/blog/entry/77468
+    - https://www2.math.upenn.edu/~wilf/gfologyLinked2.pdf
+
+Persistent Data Structures
+    - https://codeforces.com/blog/entry/79669
+    -
+
+Simulated Annealing
+    - https://codeforces.com/blog/entry/94437
+
+How to make randomized solutions harder to hack
+    - https://codeforces.com/blog/entry/61675
+
+Aho Corasick
+    -
+
+Sparse Segment Tree
+Manacher’s / EerTree
+Gaussian Elimination
+Gauss & Determinant
+Convex Hull
+
+std::complex - https://codeforces.com/blog/entry/22175
+Li-Chao Tree
+
+LP Simplex
+Euler Tour Tree - https://codeforces.com/blog/entry/102087
+Range Add Arithmetic Progression
+Range Greedy Subtract
+
+DFS Tree - https://codeforces.com/blog/entry/68138
+
+
+Merging Queries Trick - https://codeforces.com/blog/entry/100666
 
 ==============
 --cool stuff--
