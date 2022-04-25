@@ -7,7 +7,7 @@ safeExt = {
     ".py", ".cpp", ".txt", ".md", ".hs",
     ".ml", ".code-snippets", ".json",
 }
-safeName = {".git"}
+safeName = {".git, .vscode"}
 dirIgnore = {".git", ".vscode"}
 
 def dfs(pt):
@@ -17,7 +17,8 @@ def dfs(pt):
             dfs(x)
             continue
         name, ext = os.path.splitext(os.path.basename(s))
-        if name in safeName or ext in safeExt: continue
+        if ext in safeExt: continue
+        if any(name.endswith(n) for n in safeName): continue
         print(f"rm: {s}")
         try: os.remove(s)
         except: print("Failed ^^\n")

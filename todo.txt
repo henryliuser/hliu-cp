@@ -23,6 +23,7 @@ Segment Tree Beats - https://codeforces.com/blog/entry/90460
 
 Divide & Conquer Intuition
 
+std::complex - https://codeforces.com/blog/entry/22175
 Convex Hull (also max dot)
 Convex Hull Trick
 Li-Chao Tree
@@ -55,16 +56,22 @@ Aho Corasick
     -
 
 Sparse Segment Tree
+
 Manacher’s / EerTree
+    - manacher's - https://codeforces.com/blog/entry/12143
+    - eertree    - https://arxiv.org/pdf/1506.04862.pdf
+
 Gaussian Elimination
 Gauss & Determinant
-Convex Hull
 
-std::complex - https://codeforces.com/blog/entry/22175
-Li-Chao Tree
 
 LP Simplex
+Network Simplex
+    - Min Cost Circulation Template - https://atcoder.jp/contests/arc137/submissions/31138427
+
+
 Euler Tour Tree - https://codeforces.com/blog/entry/102087
+
 Range Add Arithmetic Progression
 Range Greedy Subtract
 
@@ -72,8 +79,3 @@ DFS Tree - https://codeforces.com/blog/entry/68138
 
 
 Merging Queries Trick - https://codeforces.com/blog/entry/100666
-
-==============
---cool stuff--
-==============
-eer tree - https://arxiv.org/pdf/1506.04862.pdf

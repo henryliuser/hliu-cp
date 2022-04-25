@@ -1,21 +1,20 @@
-// Consider the grid-graph:
-// all edges between adjacent squares
+// Consider the grid-graph: all edges between adjacent squares
 // A. the goal is to maximize the # of dichrome adjacencies.
 // B. eqvuialently, we can minimize the # of monochrome adjacencies.
 //
-// 	   what we're capable of: minimizing the # of dichrome adjacencies.
-// 	   elaboration: The minimum cut of a flow graph divides the nodes into
-// 	   2 colors, source and sink. It also gives us the minimum number of edges
-//     that we need to sever in order to split the nodes into the 2 components.
-//     therefore the min-cut is the minimum # of dichrome adjacencies.
-// 	   for a node u with predetermined color, we add edges with INF weight
-//     from [src (black) to u], or from [u to sink (white)]. This way,
-// 	   we ensure that those edges won't be cut and those
-// 	   nodes then MUST be a part of their predetermined components.
+// what we're capable of: minimizing the # of dichrome adjacencies.
+// elaboration: The minimum cut of a flow graph divides the nodes into
+// 2 colors, source and sink. It also gives us the minimum number of edges
+// that we need to sever in order to split the nodes into the 2 components.
+// therefore the min-cut is the minimum # of dichrome adjacencies.
+// for a node u with predetermined color, we add edges with INF weight
+// from [src (black) to u], or from [u to sink (white)]. This way,
+// we ensure that those edges won't be cut and those
+// nodes then MUST be a part of their predetermined components.
 //
 // we want to exploit min-cut to give us the max # of dichrome adjacencies.
 // an equivalent goal is minimizing the # of monochrome adjacencies.
-// if we flip the graph on a checkerboard pattern (if i+j is odd, flip)
+// if we flip the grid colors on a checkerboard pattern (if i+j is odd, flip)
 // 2 properties are enforced:
 //    1. previously monochrome edges become dichrome (and vice versa)
 //    2. in the resulting graph, as a consequence of (1),
