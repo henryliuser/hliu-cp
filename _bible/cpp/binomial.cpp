@@ -1,4 +1,4 @@
-struct Binomial {
+struct Binomial {  // define MXN and modulus Q
     ll fact[MXN], finv[MXN], minv[MXN];
     Binomial() {
         fact[0] = minv[0] = finv[0] = 1;
@@ -9,7 +9,7 @@ struct Binomial {
             finv[i] = finv[i-1] * minv[i] % Q;
         }
     }
-    inline ll operator() (int n, int r) {
+    inline ll operator() (int n, int r) {  // nCr(n, r) % Q
         ll v = fact[n] * finv[r] % Q;
         return v * finv[n-r] % Q;
     }

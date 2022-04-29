@@ -34,15 +34,14 @@ struct MergeTree {
 };
 
 int main() {
-    cin.tie(0);
-    ios::sync_with_stdio(false);
+    cin.tie(0)->sync_with_stdio(0);
+
     int N, Q; cin >> N >> Q;
     vector<int> A(N);
     for (int i = 0; i < N; ++i)
         cin >> A[i];
 
-    unordered_map<int, int> mp;
-    mp.reserve(MXN);
+    unordered_map<int, int> mp(MXN);
     for (int i = N-1; i >= 0; --i) {
         nxt[i] = INT_MAX;
         if (mp.count(A[i]))
