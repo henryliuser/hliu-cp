@@ -1,4 +1,4 @@
-template <class S, class Q, class R, S (*op)(const S&, const S&)>
+template <class S, S (*op)(const S&, const S&)>
 struct segtree {
     int _n, size, log;
     std::vector<S> d;
@@ -12,13 +12,19 @@ struct segtree {
         for (int i = size - 1; i >= 1; i--)
             update(i);
     }
-    R prod(Q q, int l, int r) const {
+    int prod(int x, int l, int r) const {
         assert(0 <= l && l <= r && r <= _n);
-        R sml = 0, smr = 0;
+        int sml = 0, smr = 0;
         l += size, r += size;
         while (l < r) {
-            if (l&1) sml += q(d[l++]);
-            if (r&1) smr += q(d[--r]);
+            if (l & 1) {
+                auto &s = d[l++];
+                sml += end(s) - lower_bound(all(s), x);
+            }
+            if (r & 1) {
+                auto &s = d[--r];
+                sml += end(s) - lower_bound(all(s), x);
+            }
             l >>= 1, r >>= 1;
         }
         return sml + smr;
@@ -33,11 +39,4 @@ S op(const S &l, const S &r) {
     merge(all(l), all(r), begin(res));
     return res;
 }
-using R = int;  // query result type
-struct Q {      // query type
-    int x;      // query value
-    inline int operator() (const S& s) {
-        return end(s) - lower_bound(all(s), x);
-    }
-};
-using MergeTree = segtree<S, Q, R, op>;
+using MergeTree = segtree<S, op>;
