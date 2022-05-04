@@ -23,7 +23,7 @@ struct segtree {
             }
             if (r & 1) {
                 auto &s = d[--r];
-                sml += end(s) - lower_bound(all(s), x);
+                smr += end(s) - lower_bound(all(s), x);
             }
             l >>= 1, r >>= 1;
         }
