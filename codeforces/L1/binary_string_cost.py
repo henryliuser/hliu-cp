@@ -1,5 +1,12 @@
 # https://codeforces.com/contest/1680/problem/C
 # binary search + 2p, pretty educational
+# binary search on the best cost with 0's being the limiting factor,
+# then repeat with 1's and take the minimum.
+# cost: max(remaining 0's, removed 1's)
+# limiting factor is x: suppose the max of the 2 values is given by x
+# check(guess): consider all possible subarrays where val(x) <= guess
+# if the best answer we achieved in those subarrays is <= mid, guess lower
+# else, guess higher
 import sys
 input = lambda: sys.stdin.readline().strip()
 intput = lambda: map(int, input().split())
@@ -12,7 +19,7 @@ def solve():
     for x in S:
         cnt[v(x)] += 1
 
-    def bisearch(l, r, p):
+    def bisect(l, r, p):
         while l < r:
             m = (l+r) // 2
             q = p(m)
@@ -36,8 +43,8 @@ def solve():
 
     cmp0 = lambda c: c
     cmp1 = lambda c: cnt[1] - c
-    a = bisearch( 0, cnt[0], twoPtrs(0, cmp0) )
-    b = bisearch( 0, cnt[1], twoPtrs(1, cmp1) )
+    a = bisect( 0, cnt[0], twoPtrs(0, cmp0) )
+    b = bisect( 0, cnt[1], twoPtrs(1, cmp1) )
     return min(a, b)
 
 if __name__ == '__main__':
