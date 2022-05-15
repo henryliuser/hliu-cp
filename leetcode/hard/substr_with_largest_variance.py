@@ -1,4 +1,11 @@
 # https://leetcode.com/contest/biweekly-contest-78/problems/substring-with-largest-variance/
+# loop on pairs of characters (c1,c2). clump the groups together into alternating chunks of c1 and c2
+# ignoring any other characters besides the pair
+# aazzabbttttaababb -> (a,b) -> aaabbaababb -> [3, 2, 2, 1, 1, 2]
+# negate every other count, then consider the prefix sum:
+# -> [3, -2, 2, -1, 1, -2] -> [0, 3, 1, 3, 2, 3, 1]
+# run kadane's to find the largest absolute value subarray sum of the prefix sum
+# take the best answer
 class Solution:
     def largestVariance(self, s: str) -> int:
         ans = 0
