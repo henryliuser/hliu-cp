@@ -34,15 +34,15 @@ def solve():
             ans = float('inf')
             for j in range(N):
                 cur[v( S[j] )] += 1
-                while i < j and cmp(cur[c]) > m:
+                while i < j and cmp(cur[c], m):
                     cur[v( S[i] )] -= 1
                     i += 1
                 ans = min(ans, max(cnt[1]-cur[1], cur[0]))
             return ans
         return tp
 
-    cmp0 = lambda c: c
-    cmp1 = lambda c: cnt[1] - c
+    cmp0 = lambda c,m: c > m
+    cmp1 = lambda c,m: c > cnt[1] - m
     a = bisect( 0, cnt[0], twoPtrs(0, cmp0) )
     b = bisect( 0, cnt[1], twoPtrs(1, cmp1) )
     return min(a, b)
