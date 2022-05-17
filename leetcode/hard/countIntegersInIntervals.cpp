@@ -1,61 +1,36 @@
-// https://leetcode.com/contest/weekly-contest-293/problems/count-integers-in-intervals/
-// just implementation
-using ll = long long;
-class CountIntervals {
-public:
-    using iv = pair<ll,ll>;
-    ll cnt = 0;
-    set<iv> ivals;
-    CountIntervals() {
+// https://leetcode.com/problems/count-integers-in-intervals/
+// my editorial:
+// https://leetcode.com/problems/count-integers-in-intervals/discuss/2045859/Very-Clean-C%2B%2B-std%3A%3Aset
+using iv = pair<int,int>;
+using IT = set<iv>::iterator;
 
-    }
-    template <class IT>
-    pair<IT,bool> mergeLeft(IT it) {
+struct CountIntervals {
+    int cnt = 0;  // track the current count
+    set<iv> ivals = { {-1,-1}, {INT_MAX,INT_MAX} };  // dummy values for edges
+
+    template <class F>
+    pair<IT,bool> merge(IT it, F dir) {         // -> {resulting IT, keep going?}
         auto [L,R] = *it;
-        if (it == begin(ivals)) return {it,1};
-        auto left = prev(it);
-        auto [x,y] = *left;
-        if (x <= L && L <= y) {
+        auto cmp = dir(it, 1);                  // dir is prev() or next()
+        auto [x,y] = *cmp;
+		bool intersectL = (L <= x && x <= R);
+		bool intersectR = (x <= L && L <= y);
+        if (intersectL || intersectR) {         // if `cmp` overlaps with `it`
+            cnt -= y-x+1;                       // remove contribution from cmp
+            ivals.erase(cmp);                   // erase both
             ivals.erase(it);
-            iv q = { x, max(R, y) };
-            cnt -= y-x+1;
-            ivals.erase(left);
-            return {ivals.insert(q).first,0};
+            iv q = { min(x, L), max(y, R) };    // merge into new, big interval
+            return ivals.insert(q);             // insert merged interval
         }
-        return {it,1};
-    }
-    template <class IT>
-    pair<IT,bool> mergeRight(IT it) {
-        auto [L,R] = *it;
-        if (it == prev(end(ivals))) return {it,1};
-        auto right = next(it);
-        auto [x,y] = *right;
-        if (L <= x && x <= R) {
-            ivals.erase(it);
-            iv q = { L, max(R, y) };
-            cnt -= y-x+1;
-            ivals.erase(right);
-            return {ivals.insert(q).first,0};
-        }
-        return {it,1};
+        return {it, false};  // otherwise, return it and indicate stop merging
     }
     void add(int L, int R) {
-        auto [it, p] = ivals.insert( {L,R} );
-        if (!p) return;
-        while (1) {
-            auto [itr, stop] = mergeLeft(it);
-            it = itr;
-            if (stop) break;
-        }
-        while (1) {
-            auto [itr, stop] = mergeRight(it);
-            it = itr;
-            if (stop) break;
-        }
-        cnt += (it->second - it->first + 1);
+        auto [it, go] = ivals.insert( {L,R} );
+        if (!go) return;
+        do {  tie(it,go) = merge(it, prev<IT>);  } while (go);  // merge left
+        do {  tie(it,go) = merge(it, next<IT>);  } while (go);  // merge right
+        tie(L, R) = *it;
+        cnt += R-L+1;
     }
-
-    int count() {
-        return cnt;
-    }
+    int count() { return cnt; }
 };
