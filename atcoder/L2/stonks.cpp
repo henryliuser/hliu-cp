@@ -1,4 +1,11 @@
 // https://atcoder.jp/contests/abc250/tasks/abc250_g
+// very instructive: start in a minimal state, such that
+// all operations push the answer in the same direction.
+// instead of starting at none and deciding between sell and buy
+// which seems pretty arbitrary, start everything at buy
+// and gradually improve the answer, observing the limitations
+// and effects on the prefix sum.
+//
 // let p[i] = {-1: sell, 0: none, 1: buy}, and p = [1] * N initially
 // let `pre` be a lazy segment tree representing the dynamic prefix sum of p
 // the prefix sum of p may never be negative (because u can't sell if u don't have any)
