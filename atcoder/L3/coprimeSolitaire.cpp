@@ -80,13 +80,13 @@ struct TwoSAT {
     TwoSAT() : _n(0), scc(0) {}
     explicit TwoSAT(int n) : _n(n), _answer(n), scc(2 * n) {}
 
-    void add_clause(int i, bool f, int j, bool g) {
+    inline void add_clause(int i, bool f, int j, bool g) {
         assert(0 <= i && i < _n);
         assert(0 <= j && j < _n);
         scc.add_edge(2 * i + (f ? 0 : 1), 2 * j + (g ? 1 : 0));
         scc.add_edge(2 * j + (g ? 0 : 1), 2 * i + (f ? 1 : 0));
     }
-    bool satisfiable() {
+    inline bool satisfiable() {
         auto id = scc.scc_ids().second;
         for (int i = 0; i < _n; i++) {
             if (id[2 * i] == id[2 * i + 1]) return false;
@@ -114,23 +114,23 @@ struct Encoding {
         for (int i = 0; i < n; ++i)
             take(i);
     }
-    void take(int k) {
+    inline void take(int k) {
         if (aux[k]) return;
         aux[k] = true;
         ++vars;
     }
-    void add(int i, bool f, int j, bool g) {
+    inline void add(int i, bool f, int j, bool g) {
         if (N <= i && i < 2*N) f ^= 1, i -= N;
         if (N <= j && j < 2*N) g ^= 1, j -= N;
         ts->add_clause(i,f,j,g);
         take(i), take(j);
     }
-    int mex() {
+    inline int mex() {
         while (aux[z] && z < aux.size()) ++z;
         take(z);
         return z;
     }
-    bool satisfiable() const { return ts->satisfiable(); }
+    inline bool satisfiable() const { return ts->satisfiable(); }
     ~Encoding() { delete ts; }
 };
 

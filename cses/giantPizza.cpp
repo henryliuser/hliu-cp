@@ -1,3 +1,11 @@
+// https://cses.fi/problemset/task/1684/
+#include <bits/stdc++.h>
+#pragma GCC optimize ("O3")
+#pragma GCC target ("sse4")
+using namespace std;
+using ll = long long;
+
+// begin ACL
 struct TwoSAT {
     // BEGIN INTERNAL
     struct scc_graph {
@@ -69,13 +77,13 @@ struct TwoSAT {
     TwoSAT() : _n(0), scc(0) {}
     explicit TwoSAT(int n) : _n(n), _answer(n), scc(2 * n) {}
 
-    inline void add_clause(int i, bool f, int j, bool g) {
+    void add_clause(int i, bool f, int j, bool g) {
         assert(0 <= i && i < _n);
         assert(0 <= j && j < _n);
         scc.add_edge(2 * i + (f ? 0 : 1), 2 * j + (g ? 1 : 0));
         scc.add_edge(2 * j + (g ? 0 : 1), 2 * i + (f ? 1 : 0));
     }
-    inline bool satisfiable() {
+    bool satisfiable() {
         auto id = scc.scc_ids().second;
         for (int i = 0; i < _n; i++) {
             if (id[2 * i] == id[2 * i + 1]) return false;
@@ -89,3 +97,25 @@ private:
     std::vector<bool> _answer;
     scc_graph scc;
 };
+// end ACL
+
+string a, b;
+int N, M, x, y;
+
+int main() {
+    cin.tie(0)->sync_with_stdio(0);
+
+    cin >> N >> M;
+    TwoSAT ts(M);
+    for (int i = 0; i < N; ++i) {
+        cin >> a >> x >> b >> y;
+        bool f = (a == "+");
+        bool g = (b == "+");
+        ts.add_clause(x-1, f, y-1, g);
+    }
+    bool ok = ts.satisfiable();
+    auto ans = ts.answer();
+    if (!ok) cout << "IMPOSSIBLE\n";
+    else for (bool b : ans)
+        cout << (b ? '+' : '-') << ' ';
+}

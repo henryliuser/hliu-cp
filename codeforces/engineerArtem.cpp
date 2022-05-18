@@ -1,3 +1,11 @@
+// https://codeforces.com/contest/1438/problem/C
+// textbook 2-sat
+#include <bits/stdc++.h>
+#pragma GCC optimize ("O3")
+#pragma GCC target ("sse4")
+using namespace std;
+using ll = long long;
+
 struct TwoSAT {
     // BEGIN INTERNAL
     struct scc_graph {
@@ -89,3 +97,57 @@ private:
     std::vector<bool> _answer;
     scc_graph scc;
 };
+
+int N, M;
+inline int idx(int i, int j) {
+    return i * (M+1) + j;
+}
+
+int A[102][102];
+int dirs[2][2] = {{-1,0}, {0,-1}};
+void solve() {
+    cin >> N >> M;
+    TwoSAT ts((N+1)*(M+1));  // X[i,j] true if (i,j) incremented
+    for (int i = 1; i <= N; ++i)
+        for (int j = 1; j <= M; ++j) {
+            int &x = A[i][j];
+            cin >> x;
+            int a = idx(i,j);
+            for (auto &d : dirs) {
+                int r = i + d[0];
+                int c = j + d[1];
+                int y = A[r][c];
+                int b = idx(r,c);
+                if (x == y) {
+                    // x xor y
+                    ts.add_clause(a,1,b,1);
+                    ts.add_clause(a,0,b,0);
+                }
+                else if (x+1 == y) {
+                    ts.add_clause(a,0,b,1);
+                }
+                else if (y+1 == x) {
+                    ts.add_clause(b,0,a,1);
+                }
+            }
+        }
+    ts.satisfiable();
+    auto ans = ts.answer();
+    for (int k = 0; k < (N+1)*(M+1); ++k) {
+        int i = k / (M+1);
+        int j = k % (M+1);
+        A[i][j] += ans[k];
+    }
+    for (int i = 1; i <= N; ++i){
+        for (int j = 1; j <= M; ++j)
+            cout << A[i][j] << ' ';
+        cout << '\n';
+    }
+}
+
+int main() {
+    memset(A, -1, sizeof A);
+    cin.tie(0)->sync_with_stdio(0);
+    int T; cin >> T;
+    while (T--) solve();
+}
