@@ -43,6 +43,10 @@ class Solution:
 
 
 # O(N) monostack + double dp + prefix sum + prefix sum of prefix sum
+#
+# my editorial:
+# https://leetcode.com/problems/sum-of-total-strength-of-wizards/discuss/2067907/Bad-but-cool-and-educational-DP-solution
+#
 # Not a good solution, but it's cool and it's the first one i came up with.
 # this one solves it from the angle of:
 # what's the cost (sum of strength) of all the subarrays that end at i?
@@ -50,28 +54,28 @@ class Solution:
 #
 # ple[i] = index of previous lesser element than the one at A[i]
 #
-# dp1[i] = sum( suffixMin( A[0...i] ) )
+# dpM[i] = sum( suffixMin( A[0...i] ) )
 #        = sum of the running min going backwards from A[i] to A[0]
 # ex: A = [1,3,2,5,4]
-# dp1[3] = sum( suffixMin = [1,2,2,5] ) = 1+2+2+5 = 10
-# dp1[1] = sum( suffixMin = [1,3] ) = 1+3 = 4
+# dpM[3] = sum( suffixMin = [1,2,2,5] ) = 1+2+2+5 = 10
+# dpM[1] = sum( suffixMin = [1,3] ) = 1+3 = 4
 #
-# query(i, j) -> sum of all the subarrays with:
-#      RIGHT bound == i,
-#       LEFT bound >= j
+# query(L, R) -> sum of all the subarrays with:
+#      RIGHT bound == R
+#      L <= LEFT bound <= R
 # ex: A = [1,3,2,5,4]
 # query(1, 3) = (3+2+5) + (2+5) + (5)
 #
-# dp2[i] = cost of all subarrays ending at i
-# dp2[i] = RIGHT + LEFT
+# dpC[i] = cost of all subarrays ending at i
+# dpC[i] = X + Y
 #     j = ple[i]
-#     RIGHT: cost of subarrays ending at i where i is the minimum
-#     RIGHT = A[i] * query(i, j+1)
+#     X: cost of subarrays ending at i where i is the minimum
+#     X = A[i] * query(i, j+1)
 #
-#      LEFT: cost of subarrays ending at i where i is NOT the minimum
-#      LEFT = dp2[j] + dp1[j] * sum(A[j+1 ... i])
+#     Y: cost of subarrays ending at i where i is NOT the minimum
+#     Y = dpC[j] + dpM[j] * sum(A[j+1 ... i])
 #
-# ans = sum(dp2)
+# ans = sum(dpC)
 class Solution:
     def totalStrength(self, A: List[int]) -> int:
         N = len(A)
@@ -88,34 +92,33 @@ class Solution:
         # preprocessing
         ps = [0] * (N+1)   # suffix sum
         ds = [0] * (N+1)   # suffix sum of suffix sum
-        dp1 = [0] * (N+1)  # dp1[i] = sum( suffixMin of A[0..i] )
+        dpM = [0] * (N+1)  # dpM[i] = sum( suffixMin of A[0..i] )
         for z in range(N):
             i, j = ~z-1, ~z
             ps[i] = A[j] + ps[j]
             ds[i] = ps[i] + ds[j]
             k = ple[z]
-            dp1[z] = A[z] * (z-k)
-            if k != -1: dp1[z] += dp1[k]
+            dpM[z] = A[z] * (z-k)
+            if k != -1: dpM[z] += dpM[k]
 
-        def query(i, j):  # -> sum( sum(A[i..k] for k in range(j, i) )
-            if i < j: return 0
-            diff = ds[j] - ds[i+1]
-            chop = ps[i+1]
-            size = i-j+1
+        def query(L, R):  # -> sum( sum(A[k..R]) for k in [L..R] )
+            if R < L: return 0
+            diff = ds[L] - ds[R+1]
+            chop = ps[R+1]
+            size = R-L+1
             return diff - chop * size
 
         ans = 0
-        dp2 = [0] * (N+1)
+        dpC = [0] * (N+1)
         for i in range(N):
-            j = ple[i] + 1
-            x = A[i] * query(i, j) % Q
-            if j == 0: y = 0
+            j = ple[i]
+            x = A[i] * query(j+1, i) % Q
+            if j == -1: y = 0
             else:
-                m = dp1[j-1]
-                s = ps[j] - ps[i+1]
-                y = (dp2[j-1] + m*s % Q) % Q
-            dp2[i] = (x + y) % Q
-            ans = (ans + dp2[i]) % Q
+                s = ps[j+1] - ps[i+1]
+                y = (dpC[j] + dpM[j] * s) % Q
+            dpC[i] = (x + y) % Q
+            ans = (ans + dpC[i]) % Q
 
         return ans
 

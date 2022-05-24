@@ -57,6 +57,8 @@ Aho Corasick
 
 Sparse Segment Tree
 
+Bit Tries (CF 2 Arrays)
+
 Manacher’s / EerTree
     - manacher's - https://codeforces.com/blog/entry/12143
     - eertree    - https://arxiv.org/pdf/1506.04862.pdf
