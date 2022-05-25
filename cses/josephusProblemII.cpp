@@ -1,8 +1,10 @@
+// https://cses.fi/problemset/task/2163
+// binary search a BIT, until u find the element
+// that's K "remaining" away
 #include <bits/stdc++.h>
 #pragma GCC optimize ("O3")
 #pragma GCC target ("sse4")
 using namespace std;
-using ll = long long;
 
 struct BIT {
     int N;
@@ -29,10 +31,10 @@ int main() {
 
     int N, K;
     cin >> N >> K;
-    BIT ft(N, 1);
+    BIT ft(N);
     int cur = 0;
     for (int x, q, i=0; i < N; ++i) {
-        int t = K % (N-i);
+        int t = K % (N-i) + 1;
         int l = 0, r = N;
         while (l < r) {
             int m = (l+r) >> 1;
@@ -42,7 +44,6 @@ int main() {
             if (x >= t) r = m, q = v;
             else l = m+1;
         }
-        // assert A[q] == 1
         cur = q;
         ft.update(q, -1);
         cout << q+1 << ' ';
