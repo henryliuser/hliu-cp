@@ -1,5 +1,5 @@
 // in-place coordinate compression
-int compress(vector<int> &A, bool minus) {
+int compress(vector<int> &A) {
     int uq = 0;
     map<int,int> cmprs;
     for (int x : A) cmprs[x];
