@@ -1,5 +1,6 @@
 // https://cses.fi/problemset/task/1077
-// binary search a BIT
+// binary search a BIT for the median
+// mergeSortTree with prefix sums at each node to compute the costs
 #include <bits/stdc++.h>
 #pragma GCC optimize ("O3")
 #pragma GCC target ("sse4")
@@ -20,27 +21,6 @@ struct BIT {
         for (++i; i > 0; i -= i & -i)
             res += bit[i];
         return res;
-    }
-};
-
-template <class T>
-struct Compress {
-    int sz;
-    vector<T> uq;
-    Compress(vector<T> &A) { add(A); go(); }
-    void add(vector<T> &A) {
-        uq.reserve( uq.size() + A.size() );
-        uq.insert( end(uq), all(A) );
-    }
-    int go() {
-        sort( all(uq) );
-        auto fin = unique( all(uq) );
-        uq.resize( fin-begin(uq) );
-        return sz = uq.size();
-    }
-    inline  T  operator[](int i) { return uq[i]; }
-    inline int operator()(int x) {
-        return lower_bound( all(uq), x ) - begin(uq);
     }
 };
 
@@ -86,6 +66,26 @@ struct MergeTree {
         : N(n), A(v), T(4ul*n), P(4ul*n) { build(1, 0, N-1); }
 };
 
+template <class T>
+struct Compress {
+    int sz;
+    vector<T> uq;
+    Compress(vector<T> &A) { add(A); go(); }
+    void add(vector<T> &A) {
+        uq.reserve( uq.size() + A.size() );
+        uq.insert( end(uq), all(A) );
+    }
+    int go() {
+        sort( all(uq) );
+        auto fin = unique( all(uq) );
+        uq.resize( fin-begin(uq) );
+        return sz = uq.size();
+    }
+    inline  T  operator[](int i) { return uq[i]; }
+    inline int operator()(int x) {
+        return lower_bound( all(uq), x ) - begin(uq);
+    }
+};
 
 int main() {
     cin.tie(0)->sync_with_stdio(0);
@@ -109,10 +109,10 @@ int main() {
         }
         return cc[l];
     };
-    for (int i = 0; i < K; ++i) {
-        int x = A[i];
-        ft.update( cc(x), 1 );
-    }
+
+    for (int i = 0; i < K; ++i)
+        ft.update( cc(A[i]), 1 );
+
     ll m = median();
     cout << seg.query(m, 0, K-1) << ' ';
     for (int i = K; i < N; ++i) {
