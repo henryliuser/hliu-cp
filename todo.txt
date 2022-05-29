@@ -8,6 +8,9 @@ Centroid Decomposition
     - https://robert1003.github.io/2020/01/16/centroid-decomposition.html#a-hrefhttpwcipegcomproblemioi1112ioi11---racea
     - https://codeforces.com/blog/entry/52492 (problems)
 
+Exchange arguments greedy
+last 200 div 2 greedy/DP
+
 Heavy Light Decomposition
     - https://codeforces.com/blog/entry/81317
 
@@ -30,6 +33,8 @@ Li-Chao Tree
 
 Convolution
 Fast-Fourier Transform
+
+Matrix Exponentiation
 
 Games on Graphs/Trees
 Sprague-Grundy

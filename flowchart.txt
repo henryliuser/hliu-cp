@@ -10,74 +10,102 @@ INTERSECTION OF ARITHMETIC SEQUENCES
     gcd, if under mod Q you can always add any amount of Q
     - consider connected components as they change over time
         - ABC: ring mst
+
 TERNARY CHOICE (ABC 250-G Stonks)
 	-1, 0, 1 at each i
 	set everything to base case, so that all decisions
 	push answer in the same direction
+
 PERMUTATIONS:
 	graph of cycles
+
 DP PATTERNS:
 	SIMULATE PROCESS WITH STATE - rembocoder
 	best up to prefix i
 		if binary, T/NT, iterate/bisect on previous taken j or use SegTree to speed up
+
 ADD SUBSETS AT A TIME
 	- loop on submasks
 	- for (int z = (m-1)&m; z > 0; z = (z-1)&m)   // won’t check z=0
+
 POWERS OF 2
 	- think binary number
+
 MINIMIZE PAIR PROPERTY
 	- sort and run (part from middle) 2 pointers?
 		- two arrays dna cf
+
 BITWISE INVARIANTS
 	(a | b)    >= a,b
 	(a & b)  <= a,b
+
 MATH FORMULA IN PROBLEM
 	- simplify it first lmao.
+
 COMPRESS USELESS INFO INTO best[len]
 	- leetcode tires, increasing subarray sums d2c :(
+
 MEET IN THE MIDDLE
 	- N <= 40  —>  hashing / binary search / 2 pointers**
+
 NUMBER TRANSFORMATIONS:
 	- 2^i, 2x, sums of powers of 2 …
 	- interpret as binary number first.
 	- “div2d infinite set”
 		- 2x+1 == x + “1”
 		- 4x == x + “00”
+
 FINDING PRODUCTS:
 	- THINK GCD, factorization, modulo
+
 BACKWARDS
 	- when it seems too hard forwards lol — backspace
+
 CASEWORK
 	-  NEVER rule this out:  duel, temperature, dom. char
+
 ARRAYS
 	 -  pre/sfx (sum,min,max) / sort / hash / 2p / bs+greedy / dp+bs / stack
+
 MAKE SORTED
 	-  LIS / union find on index / dp (incr/decr)
+
 MATCHING
-	- LCS / RDE LIS on index pairs
+	- LCS / Russian Doll Envelopes LIS on index pairs
+
 OP ALL SUBSETS
 	-  each element appears in half of the subsets
+
 PAIR SUBSEQUENCES
 	- enumerate all pairs then run Russian Doll Envelopes LIS on the indices
+
 SHORTEST PATH / FEWEST MOVES
 	- BFS / dijkstra / greedy / start&end
+
 DIRECTED GRAPH
 	- top sort if no cycles
+
 QUERIES
 	- pre/sfx / go in reverse / sort offline
 	- solve the question for the whole array in O(N) first
 	- monostack?? reduce pair search space to O(N)
 	- sweep line, process queries in increasing r
+        - 2d geo, is it hard sweeping one way? try sweeping the other
 	- 2 pointers
+
 PERMUTATIONS
 	  - base case then apply transformations, work backwards
+
 BRACKET BALANCE
 	- greedy forwards, greedy backwards.
 	- never negative balance.
+
 ODD / EVEN CASE
 	- reduce odd to 1 operation + evens
+
 SPLIT INTO SEGMENTS
 	- 2’s and 3’s
+
 MAXIMIZE PROPERTY OF SUBSET (DEPENDENT ON LENGTH)
 	- binary search on the answer, greedy DP to check
 	- (a+b+c…) / N >= g
@@ -85,6 +113,7 @@ MAXIMIZE PROPERTY OF SUBSET (DEPENDENT ON LENGTH)
 	- ==> a-g + b-g + c-g …  >= 0
 	- for median, set each value to (1 if A[i] >= g else -1)
 
+====================================================
 
 Pre-Submission Check
 
