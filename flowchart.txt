@@ -6,6 +6,10 @@ Write or draw it. Look for patterns.
 
 ————————————————————————
 
+MAX / MIN of all subarrays, vs. something --
+    stop missing this obvious shit lol
+    monostack left and right
+
 INTERSECTION OF ARITHMETIC SEQUENCES
     gcd, if under mod Q you can always add any amount of Q
     - consider connected components as they change over time
