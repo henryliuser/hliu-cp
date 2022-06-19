@@ -12,18 +12,17 @@ struct BIT {
     vector<ll> bit;
     BIT(int n) : N(n), bit(n+1) {}
     void update(int i, ll val) {
-        for (++i; i <= N; i += i & -i)
+        for (++i; i <= N; i = i & -i)
             bit[i] += val;
     }
-    ll query(int i) {
-        ll res = 0;
-        for (++i; i > 0; i -= i & -i)
+    ll query(int i, ll res=0) {
+        for (++i; i > 0; i ^= i & -i)
             res += bit[i];
         return res;
     }
 };
 
-
+const int MXX = 1e6+5;
 // works for K-tuples in O(KN log N)
 // for triplets we can just call it N log N
 ll disjointIntervals(vector<pi> &A) {
@@ -31,7 +30,7 @@ ll disjointIntervals(vector<pi> &A) {
     int N = A.size();
 
     ll ans = 0;
-    BIT dp1(N), dp2(N);  // assume all values L and R are <= N
+    BIT dp1(MXX), dp2(MXX)  // assume all values in [0,1e6]
     // otherwise, coordinate compress or use MergeSortTree
     for (int i = 0; i < N; ++i) {
         auto [L,R] = A[i];
