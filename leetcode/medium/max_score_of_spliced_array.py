@@ -8,9 +8,9 @@ class Solution:
             dx = [ B[i]-A[i] for i in range(N) ]
 
             cur = mn = 0
-            for i in range(N):
+            for x in dx:
                 mn = min(mn, cur)
-                cur += dx[i]
+                cur += x
                 ans = max(ans, s+cur-mn)
             A,B = B,A
 

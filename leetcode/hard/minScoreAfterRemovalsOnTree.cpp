@@ -48,9 +48,8 @@ public:
                 int c = comp[u];
                 res[c] ^= dp[v];
                 res[2] ^= dp[v];
-                int mx = *max_element( all(res) );
-                int mn = *min_element( all(res) );
-                ans = min(ans, mx-mn);
+                sort( all(res) );
+                ans = min(ans, res[2] - res[0]);
             }
         }
         return ans;
