@@ -1,6 +1,17 @@
 # https://leetcode.com/contest/weekly-contest-301/submissions/detail/743088687/
 
-# 2 pointers
+# functional
+# editorial: https://leetcode.com/problems/move-pieces-to-obtain-a-string/discuss/2261792/5-Lines-Very-Elegant-Functional-Solution-(Python)
+class Solution:
+    def canChange(self, A: str, B: str) -> bool:
+        P = lambda c    :  c != '_'
+        I = lambda s,x  :  [i for i,c in enumerate(s) if c==x]
+        G = lambda d,p  :  all( p(x,y) for x,y in zip( I(A,d), I(B,d) ) )
+        S = lambda      :  [*filter(P,A)] == [*filter(P,B)]
+        return S() and G('L', ge) and G('R', le)
+
+
+# 2 pointers, imperative
 class Solution:
     def canChange(self, start: str, target: str) -> bool:
         i = 0
@@ -22,15 +33,16 @@ class Solution:
         return True
 
 
-# functional
+
+# bad way
 class Solution:
-    def canChange(self, start: str, target: str) -> bool:
+    def canChange(self, A: str, B: str) -> bool:
         p = lambda c : c != '_'
-        ans = [*filter(p, start)] == [*filter(p, target)]
-        where = lambda A,x : [i for i,c in enumerate(A) if c==x]
+        ans = [*filter(p, A)] == [*filter(p, B)]
+        where = lambda s,x : [i for i,c in enumerate(s) if c==x]
 
         for d,p in zip( "LR", [lt,gt] ):
-            occS = where( start,  d )
-            occT = where( target, d )
-            ans &= not any( p(*z) for z in zip(occS, occT) )
+            occS = where(A, d)
+            occT = where(B, d)
+            ans &= not any( p(x,y) for x,y in zip(occS, occT) )
         return ans
