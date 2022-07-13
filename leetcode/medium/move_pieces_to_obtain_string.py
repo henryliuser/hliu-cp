@@ -13,24 +13,25 @@ class Solution:
 
 # 2 pointers, imperative
 class Solution:
-    def canChange(self, start: str, target: str) -> bool:
-        i = 0
-        N = len(start)
+    def canChange(self, A: str, B: str) -> bool:
+        j = 0
+        N = len(A)
+        for i in range(N):
+            if B[i] == '_': continue
+            while j < N and A[j] == '_': j += 1
+            if j >= N:       return False
+            if A[j] != B[i]: return False
+            if A[j] == 'L' and i > j: return False
+            if A[j] == 'R' and i < j: return False
+            j += 1
 
-        for j in range(N):
-            if target[j] == '_': continue
-            while i < N and start[i] == '_': i += 1
-            if i >= N: return False
-            ch = target[j]
-            if start[i] != target[j]: return False
-            if ch == 'R' and i > j: return False
-            if ch == 'L' and i < j: return False
-            i += 1
-
-        for x in range(i, N):
-            if start[x] != '_': return False
+        for j in range(j, N):
+            if A[j] != '_':
+                return False
 
         return True
+
+
 
 
 
