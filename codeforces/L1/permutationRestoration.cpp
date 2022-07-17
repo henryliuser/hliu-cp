@@ -2,9 +2,7 @@
 // PQ and do interval scheduling ish thing
 #include <bits/stdc++.h>
 using namespace std;
-
 using pi = pair<int,int>;
-#define all(x) begin(x), end(x)
 
 template <class P>
 int bisect(int l, int r, P pred) {
@@ -28,7 +26,6 @@ void solve() {
     for (int i = 0; i < N; ++i) {
         int lb = bisect( 1, N,   lower(i+1, B[i]) );
         int ub = bisect( 1, N+1, upper(i+1, B[i]) ) - 1;
-
         axis[lb].emplace_back(-ub, i);
     }
 
