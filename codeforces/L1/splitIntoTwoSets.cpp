@@ -110,7 +110,7 @@ string solve() {
 	}
 	HL::TwoSAT ts(N);
 	for (auto &p : occ) {
-        if (p.size() <= 1) continue;
+        if (p.size() < 2) continue;
         if (p.size() > 2) return "NO";
         ts.add_clause(p[0], 1, p[1], 1);
         ts.add_clause(p[0], 0, p[1], 0);
